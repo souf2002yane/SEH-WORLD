@@ -1,0 +1,130 @@
+# 🎮 WIB SITE - Play, Fun & Challenges!
+
+> Your daily dose of fun! Games, challenges, stories & more - all in one place.
+> Made with ❤️ by **Soufiane El Haddaoui**
+
+![HTML](https://img.shields.io/badge/HTML-96.7%25-orange)
+![CSS](https://img.shields.io/badge/CSS-3.3%25-blue)
+![Games](https://img.shields.io/badge/Games-6-green)
+![Status](https://img.shields.io/badge/Status-Online-brightgreen)
+
+---
+
+## 🌐 ▶️ PLAY NOW - LIVE WEBSITE
+
+### 👉 **[https://souf2002yane.github.io/SEH-WORLD/](https://souf2002yane.github.io/SEH-WORLD/)**
+
+Click the link and start playing! No download, no login, just fun! 🎉
+
+---
+
+## 🎮 GAMES INSIDE - 6 EPIC GAMES!
+
+| Game | Players | Description |
+| :--- | :--- | :--- |
+| 🎉 **Challenge Party** | 4 Players | Random challenges, test your luck! |
+| ❌⭕ **Tic Tac Toe** | 2 Players | The classic XO game, who is smarter? |
+| ✊✋✌️ **Rock Paper Scissors** | You Vs Computer | Can you beat the computer? |
+| ♟️ **Checkers** | 2 Players | Classic board game, become a King 👑 |
+| 🧠 **Memory Game** | 1 Player | Find all matching pairs, test your memory! |
+| ❓ **Quiz - Questions** | 1 Player | Are you smart? Answer 5 questions! |
+
+---
+
+## ✨ WHAT ELSE IS IN THE SITE?
+
+- 🏠 **MENU** - Clean and easy navigation
+- 👤 **INFO PERSONAL** - Know more about me
+- 📞 **CONTACT** - Press *CONTACT ME* on the ABOUT page to write to me
+- 🎮 **GAME** - 6 games in one place
+- 📚 **STORIES** - Read cool stories
+
+---
+
+## 📱 WORKS ON ALL DEVICES
+
+- ✅ Mobile Phone
+- ✅ Tablet
+- ✅ Computer / PC
+- ✅ No App Needed - Just open in browser!
+
+---
+
+## 🛠️ BUILT WITH
+
+- **HTML** - Structure
+- **CSS** - Design & Style
+- **JavaScript** - Games Logic
+- **GitHub Pages** - Hosting - Free & Fast!
+
+---
+
+## 🚀 HOW TO PLAY?
+
+1. Open the link: **[SEH World](https://souf2002yane.github.io/SEH-WORLD/)**
+2. Click on **🎮 GAME** in the menu
+3. Choose your favorite game
+4. Enjoy! 😍
+
+---
+
+## 🔥 WHY YOU WILL LOVE IT?
+
+> - 100% FREE
+> - No Ads
+> - No Download
+> - Works anywhere: open the link in your browser (an internet connection is needed) and start playing!
+> - New Games Every Week!
+
+---
+
+## 👤 ABOUT THE CREATOR
+
+**Hi, I'm Soufiane El Haddaoui!** 👋
+
+I love creating fun websites and games. This is my first big project and I'm very proud of it.
+More games and features are coming soon, stay tuned!
+
+**Follow my journey and play my games!**
+
+---
+
+## 📩 CONTACT ME
+
+Got an idea for a new game? Found a bug? Want to say Hi?
+
+Open the **ABOUT** page and press **CONTACT ME**, or write to **souf2002yane@gmail.com**!
+
+---
+
+## ⭐ SUPPORT ME!
+
+If you like my website, please:
+
+1. ⭐ **Star this repository** on GitHub - It means a lot to me!
+2. 🔗 **Share the link** with your friends
+3. 🎮 **Play and have fun!**
+
+---
+
+## 🔒 PRIVACY & LEGAL
+
+- [Privacy Policy](https://souf2002yane.github.io/SEH-WORLD/PRIVACY.html) (Moroccan law 09-08 / CNDP)
+- [Terms of Use - CGU](https://souf2002yane.github.io/SEH-WORLD/CGU.html)
+- Profiles are stored only in the visitor's own browser (localStorage). No backend, no API keys in the code.
+
+---
+
+## ⚙️ SETUP NOTES (for the owner)
+
+1. **HTTPS**: GitHub repo → *Settings → Pages → Enforce HTTPS* (this is the real 301 redirect; the pages also contain a JavaScript fallback).
+2. **Cloudflare Turnstile**: create a widget, then put the *public* site key in `seh-extra.js` (`turnstileSiteKey`). Never put the secret key in the website. Without a backend the check cannot be verified server-side, see the comment at the top of `seh-extra.js`.
+3. **Plausible**: add `souf2002yane.github.io` as a site in your Plausible account. The script only loads for visitors who accept the cookie banner.
+4. **Images**: keep every image under 200 KB (run `python3 tools/compress_images.py IMAGES`).
+
+---
+
+<p align="center">
+  <b>🎮 WIB SITE - Made with ❤️ in Morocco 🇲🇦</b><br>
+  <b>© 2026 Soufiane El Haddaoui - All Rights Reserved</b>
+</p>

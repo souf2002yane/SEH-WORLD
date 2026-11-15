@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior:smooth">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>if(location.protocol==="http:"&&location.hostname!=="localhost"&&location.hostname!=="127.0.0.1"){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
+<title>About Soufyane El Haddaoui – Developer Portfolio | SEH World</title>
+<meta name="description" content="About Soufyane El Haddaoui: developer from Morocco, creator of SEH World. Discover games, stories, skills in HTML, CSS and JavaScript.">
+<meta name="author" content="Soufyane El Haddaoui">
+<link rel="canonical" href="https://souf2002yane.github.io/SEH-WORLD/ABOUT.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SEH World">
+<meta property="og:title" content="About Soufyane El Haddaoui – Developer Portfolio | SEH World">
+<meta property="og:description" content="About Soufyane El Haddaoui: developer passionate about HTML, CSS and JavaScript. See skills, projects and how to contact me.">
+<meta property="og:image" content="https://souf2002yane.github.io/SEH-WORLD/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SEH World - Games, Stories and Personal Website">
+<meta property="og:url" content="https://souf2002yane.github.io/SEH-WORLD/ABOUT.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About Soufyane El Haddaoui – Developer Portfolio | SEH World">
+<meta name="twitter:description" content="About Soufyane El Haddaoui: developer passionate about HTML, CSS and JavaScript. See skills, projects and how to contact me.">
+<meta name="twitter:image" content="https://souf2002yane.github.io/SEH-WORLD/og-image.png">
+</head>
+
+<body class="about-page">
+
+<!-- MENU BUTTON -->
+<button class="menu-btn" onclick="toggleMenu2()">
+☰
+</button>
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+    <div class="logo">SEH</div>
+    <nav>
+        <a href="index.html" onclick="closeMenu()">🏠 MENU</a>
+        <a href="#about" onclick="closeMenu()">👤 ABOUT ME</a>
+        <a href="#skills" onclick="closeMenu()">💻 SKILLS</a>
+        <a href="#projects" onclick="closeMenu()">🚀 PROJECTS</a>
+        <a href="CONTACT.html" onclick="closeMenu()">📞 CONTACT</a>
+    </nav>
+</aside>
+<!-- MAIN -->
+<main>
+    <!-- HOME -->
+    <div class="hero" id="home">
+        <h1>SOUFYANE EL HADDAOUI</h1>
+        <p>
+            Welcome To My Digital World
+            <br>
+            Developer | Technology | Creativity
+        </p>
+        <a href="#about" class="btn">
+            EXPLORE MORE
+        </a>
+    </div>
+    <!-- ABOUT -->
+    <section id="about">
+        <h2>ABOUT ME</h2>
+        <div class="card">
+            <h3>WHO AM I?</h3>
+            <p>
+                Welcome to my personal website. My name is Soufyane El Haddaoui, a developer from Morocco, and this is my digital space where I share my projects, skills and creativity.
+            </p>
+            <p>
+                I created SEH World to share what I love: fun interactive games, original stories, and useful web tools like my smart calculator. My goal is simple: to create simple, fast and enjoyable websites for everyone, using only HTML, CSS and JavaScript.
+            </p>
+            <p>
+                This website is my portfolio and my playground at the same time. Here you will find my games, my stories, and all my new ideas. Thank you for visiting SEH World, I hope you enjoy your time here.
+            </p>
+        </div>
+    </section>
+    <!-- SKILLS -->
+    <section id="skills">
+        <h2>MY SKILLS</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>HTML</h3>
+                <p>Modern Web Structure</p>
+            </div>
+            <div class="card">
+                <h3>CSS</h3>
+                <p>Creative Web Design</p>
+            </div>
+            <div class="card">
+                <h3>JAVASCRIPT</h3>
+                <p>Interactive Experiences</p>
+            </div>
+        </div>
+    </section>
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2>MY PROJECTS</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>MY WEBSITE</h3>
+                <p>Personal Portfolio - SEH World</p>
+            </div>
+            <div class="card">
+                <h3>CALCULATOR</h3>
+                <p>Smart Calculator</p>
+            </div>
+            <div class="card">
+                <h3>GAMES</h3>
+                <p>Fun Interactive Games</p>
+            </div>
+            <div class="card">
+                <h3>STORIES</h3>
+                <p>Original Stories to Read</p>
+            </div>
+        </div>
+    </section>
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>CONTACT ME</h2>
+        <p>Thank you for visiting my website! If you have a question, a suggestion or a business inquiry, feel free to contact me.</p>
+        <p style="margin:15px 0;">Email: souf2002yane@gmail.com</p>
+        <a href="CONTACT.html" class="btn main-cta">
+            CONTACT ME
+        </a>
+    </section>
+    <footer>
+        © 2026 SOUFYANE EL HADDAOUI | SEH
+    </footer>
+</main>
+<script>
+function toggleMenu2() {
+    document.getElementById("sidebar")
+    .classList.toggle("active");
+}
+function closeMenu() {
+    if (window.innerWidth <= 768) {
+        document.getElementById("sidebar")
+        .classList.remove("active");
+    }
+}
+</script>
+<script src="seh-extra.js" defer></script>
+
+<div class="seh-legal-footer">
+  <div><a href="PRIVACY.html">Privacy Policy</a> · <a href="CGU.html">Terms of Use (CGU)</a> · <a href="CONTACT.html">Contact Us</a> · <a href="ABOUT.html">About Us</a> · <a href="#" id="sehCookieSettings">Cookie settings</a></div>
+  <p>© 2026 Soufyane El Haddaoui – SEH World · Made in Morocco 🇲🇦</p>
+</div>
+</body>
+</html>

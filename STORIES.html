@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>if(location.protocol==="http:"&&location.hostname!=="localhost"&&location.hostname!=="127.0.0.1"){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
+<title>Inspiring Short Stories with Arabic Translation – SEH World</title>
+<meta name="description" content="Read short inspiring stories in English with Arabic translation about perseverance, honesty, patience and big dreams. New stories every week.">
+<meta name="author" content="Soufyane El Haddaoui">
+<link rel="canonical" href="https://souf2002yane.github.io/SEH-WORLD/STORIES.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SEH World">
+<meta property="og:title" content="Inspiring Short Stories with Arabic Translation – SEH World">
+<meta property="og:description" content="Read short inspiring stories in English with Arabic translation about perseverance, honesty, patience and big dreams. New stories every week.">
+<meta property="og:image" content="https://souf2002yane.github.io/SEH-WORLD/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SEH World - Games, Stories and Personal Website">
+<meta property="og:url" content="https://souf2002yane.github.io/SEH-WORLD/STORIES.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Inspiring Short Stories with Arabic Translation – SEH World">
+<meta name="twitter:description" content="Read short inspiring stories in English with Arabic translation about perseverance, honesty, patience and big dreams. New stories every week.">
+<meta name="twitter:image" content="https://souf2002yane.github.io/SEH-WORLD/og-image.png">
+</head>
+<body>
+<nav class="bottom-row">
+    <a href="index.html" class="nav-item ">🏠<br><small>MENU</small></a>
+    <a href="INFO.html" class="nav-item ">👤<br><small>INFO PERSONAL</small></a>
+   <a href="GAME.html" class="nav-item ">🎮<br><small>GAME</small></a>
+    <a href="STORIES.html" class="nav-item active">📚<br><small>STORIES</small></a>
+</nav>
+<br><br>
+<style>
+body{font-family:sans-serif; padding:20px; max-width:999px; margin:auto;}
+.top-auth{display:flex;justify-content:space-between;align-items:center;background:#111;color:#fff;padding:10px 14px;border-radius:14px;margin-bottom:15px}
+.top-auth button{background:#E9C46A;border:none;padding:8px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+.story-item{ background:white; border-radius:18px; margin-bottom:18px; box-shadow:0 6px 18px rgba(0,0,0,0.07); overflow:hidden; position:relative; border:1px solid #eee; }
+.story-item::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:rgb(255, 0, 255); }
+.story-title{ padding:16px 20px 16px 25px; font-weight:bold; font-size:17px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
+.story-title b{ color:#793502; }
+.story-icon{ background:#f0f0f0; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; }
+.story-content{ display:none; padding:0 20px 18px 25px; color:#333; font-size:14.8px; }
+.story-content.show{ display:block; }
+.story-text{ line-height:1.6; text-indent: 30px; }
+.moral{ background:#fff8e1; border-left:4px solid #FFD700; padding:8px 10px; border-radius:8px; margin-top:12px; font-weight:bold; white-space:normal; }
+.translate-btn{ margin-top:12px; background:#00c853; color:white; border:none; padding:7px 14px; border-radius:20px; cursor:pointer; font-size:13px; font-weight:bold; }
+.title-left{ display:flex; align-items:center; gap:12px; }
+.title-left img{ width:70px; height:70px; object-fit:cover; border-radius:12px; flex-shrink:0; transition:0.3s; }
+.story-title:hover .title-left img{ transform:scale(1.08); }
+.coming-box{ background:white; border-radius:18px; margin-top:25px; margin-bottom:20px; padding:20px; border:1px solid #eee; box-shadow:0 6px 18px rgba(0,0,0,0.07); position:relative; overflow:hidden; }
+.coming-box::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:rgb(255, 0, 255); }
+.coming-title{ font-size:19px; font-weight:bold; color:#793502; margin-bottom:5px; }
+.coming-sub{ font-size:13.5px; color:#777; margin-bottom:15px; line-height:1.6; }
+.coming-item{ display:flex; align-items:center; gap:12px; padding:12px 10px; border-radius:12px; background:#fdfdfd; border:1px dashed #e0c2ff; margin-bottom:10px; cursor:pointer; }
+.coming-item img{ width:50px; height:50px; object-fit:cover; border-radius:10px; filter:grayscale(30%); }
+.coming-item b{ color:#333; font-size:15px; }
+.coming-item span{ margin-left:auto; font-size:20px; }
+.coming-footer{ text-align:center; font-size:13px; color:#793502; font-weight:bold; margin-top:12px; }
+.share-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.share-btn{ border:none; padding:9px 14px; border-radius:20px; cursor:pointer; font-size:13px; font-weight:bold; color:white; }
+.share-wa{ background:#25D366; }
+.share-fb{ background:#1877F2; }
+.share-dl{ background:#111; }
+.like-row{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.like-btn{background:#fff;border:2px solid #ff4d6d;color:#ff4d6d;padding:8px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+.like-btn.liked{background:#ff4d6d;color:#fff}
+.read-btn{background:#111;color:#fff;border:none;padding:9px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+.read-btn.done{background:#00c853}
+.comments-box{margin-top:18px;background:#f8f9fa;border-radius:14px;padding:14px;border:1px solid #eee}
+.comments-box h4{margin:0 0 10px;font-size:15px}
+.comment-item{background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;border:1px solid #eee}
+.comment-item b{font-size:13px;color:#111}
+.comment-item span{font-size:11px;color:#888;margin-left:6px}
+.comment-item p{margin:5px 0 0;font-size:14px;line-height:1.5}
+.comment-form{display:flex;gap:8px;margin-top:10px}
+.comment-form input{flex:1;padding:10px;border-radius:20px;border:1px solid #ddd;outline:none}
+.comment-form button{background:#111;color:#fff;border:none;padding:10px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+.locked-preview{background:#fff8e1;border:1px dashed #E9C46A;padding:14px;border-radius:12px;margin-top:10px;line-height:1.7}
+.locked-btn{background:#793502;color:#fff;border:none;padding:11px 18px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:10px;width:100%}
+.auth-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;justify-content:center;align-items:center;padding:15px}
+.auth-modal.show{display:flex}
+.auth-box{background:white;border-radius:20px;padding:22px;width:100%;max-width:360px;text-align:center}
+.auth-box input{width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin:6px 0}
+.auth-box button{width:100%;padding:12px;border:none;border-radius:20px;background:#111;color:#fff;font-weight:bold;margin-top:8px;cursor:pointer}
+.auth-box .link{color:#2575fc;cursor:pointer;font-size:13px}
+</style>
+<div class="top-auth"><span id="userLabel">🔥 SEH WORLD - STORIES</span><span>⭐ Points: <b id="pointsNum">0</b></span><button id="authBtn">Login / Sign Up</button></div>
+<input type="text" name="fake-user" style="display:none" tabindex="-1" autocomplete="username">
+<input type="password" name="fake-pass" style="display:none" tabindex="-1" autocomplete="new-password">
+<form autocomplete="off" onsubmit="return false;" style="margin:0; padding:0;">
+<input type="search" id="searchBox" name="story-search-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Search stories" maxlength="60" placeholder="🔍 Search stories (e.g. lion, honest, phone...)" onkeyup="searchStory()" oninput="searchStory()" style="width:100%; padding:12px 18px; border-radius:25px; border:2px solid #ddd; outline:none; font-size:15px; margin-bottom:20px; box-sizing:border-box;">
+</form>
+<h1>📚 10 Stories - With Comments</h1>
+<button type="button" class="main-cta" onclick="toggleStory(1);document.getElementById('story1').scrollIntoView({behavior:'smooth',block:'center'})">📖 READ A STORY NOW</button>
+
+<!-- 1 -->
+<div class="story-item" data-story="1">
+<div class="story-title" onclick="toggleStory(1)"><div class="title-left"><img src="IMAGES/story1.jpeg" alt="Illustration for the story: The Boy Who Never Gave Up" loading="lazy" decoding="async"><b>📘 1. The Boy Who Never Gave Up</b></div> <div class="story-icon" id="icon1">+</div></div>
+<div class="story-content" id="story1">
+<div id="text1-en" class="story-text">Once there was a young boy named Adam who dreamed of becoming a programmer.
+He had no computer, only an old phone with a small screen
+He started learning HTML from YouTube videos every night.
+His first website was very ugly and broken.
+His friends laughed at him and said he will never succeed.
+He felt sad but he did not stop.
+He fixed one mistake every single day.
+He learned CSS after one week of hard work.
+He learned JavaScript after one month of trying.
+His second website was better but still had problems.
+His third website failed to load on the internet.
+He wanted to quit but he remembered his dream.
+He watched more tutorials and wrote codes in a notebook.
+He woke up early every morning to practice.
+On the 10th try, his website finally worked.
+He showed it to his teacher and his teacher was shocked.
+His teacher shared it with the whole class.
+Hundreds of students visited his website that day.
+That day he understood that failure is just a lesson.
+Now he has his own company and helps other beginners.
+But the story did not end there. One night, his phone broke completely and he lost all his codes.
+He cried for a moment, then he opened his notebook and started again from zero.
+His friends thought he would quit this time, but he surprised everyone.
+He rebuilt his website in only three days, and it was better than before.
+A famous company saw his work and invited him to a meeting.
+That meeting changed his life forever, because they believed in his talent.
+<div class="moral">Moral: Never give up. Every expert was once a beginner.</div></div>
+<div id="text1-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">
+كان هناك ولد صغير اسمه آدم يحلم أن يصبح مبرمجاً.
+لم يكن يملك حاسوباً، فقط هاتف قديم بشاشة صغيرة.
+بدأ يتعلم HTML من فيديوهات يوتيوب كل ليلة.
+موقعه الأول كان قبيحاً ومليئاً بالأخطاء.
+أصدقاؤه ضحكوا عليه وقالوا له لن تنجح أبداً.
+شعر بالحزن لكنه لم يتوقف.
+كان يصلح خطأ واحداً كل يوم.
+تعلم CSS بعد أسبوع من العمل الشاق.
+وتعلم JavaScript بعد شهر من المحاولة.
+موقعه الثاني كان أفضل لكنه ما زال به مشاكل.
+موقعه الثالث فشل في التحميل على الإنترنت.
+أراد أن يستسلم لكنه تذكر حلمه.
+شاهد المزيد من الدروس وكتب الأكواد في دفتر.
+كان يستيقظ باكراً كل صباح ليتدرب.
+في المحاولة العاشرة، اشتغل موقعه أخيراً.
+أراه لأستاذه واندهش أستاذه كثيراً.
+شاركه أستاذه مع القسم كله.
+مئات الطلاب زاروا موقعه في ذلك اليوم.
+في ذلك اليوم فهم أن الفشل مجرد درس.
+الآن لديه شركته الخاصة ويساعد المبتدئين.
+لكن القصة لم تنته هنا. ففي إحدى الليالي، تعطّل هاتفه تماماً وفقد كل أكواده.
+بكى لحظة واحدة، ثم فتح دفتره وبدأ من الصفر من جديد.
+ظن أصدقاؤه أنه سيستسلم هذه المرة، لكنه فاجأ الجميع.
+أعاد بناء موقعه في ثلاثة أيام فقط، وكان أفضل من قبل.
+رأت شركة مشهورة عمله ودعته إلى اجتماع.
+ذلك الاجتماع غيّر حياته إلى الأبد، لأنهم آمنوا بموهبته.
+<div class="moral">العبرة: لا تستسلم أبداً. كل خبير كان مبتدئاً.</div></div>
+<button class="translate-btn" id="btn1" onclick="translateStory(1)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like1" onclick="toggleLike(1)">❤️ Like (<span id="likeCount1">0</span>)</button><button class="read-btn" id="read1" onclick="markAsRead(1)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(1,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(1,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(1)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList1"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput1" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(1)">Send</button></div><p id="commentHint1" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 2 -->
+<div class="story-item" data-story="2">
+<div class="story-title" onclick="toggleStory(2)"><div class="title-left"><img src="IMAGES/story2.jpeg" alt="Illustration for the story: Power of a Small Start" loading="lazy" decoding="async"><b>🚀 2. Power of a Small Start</b></div> <div class="story-icon" id="icon2">+</div></div>
+<div class="story-content" id="story2">
+<div id="text2-en" class="story-text">Many people think they need a lot of money to start.
+They think they need a big office and powerful computers.
+But the truth is completely different.
+Google started in a small and dirty garage.
+Facebook started in a small room at Harvard university.
+Amazon started by selling only books from home.
+Apple started with two friends in a garage too.
+All these huge companies started very small.
+They did not wait for the perfect time.
+They started with what they had.
+They had only a small idea and a big passion.
+They worked every day without stopping.
+People said their ideas were stupid and useless.
+But they believed in themselves and continued.
+Slowly their small ideas became big projects.
+Their projects became companies worth billions.
+This is the power of starting small.
+You don't need to be perfect to start.
+You just need to start to become perfect.
+Your small website today can be big tomorrow.
+And remember, the garage was dark, but their dream was bright.
+They had no money for advertising, so they used their ideas as advertising.
+One day, a small client trusted them, and that client told another client.
+Suddenly, the small idea became a story that everyone talked about.
+The world did not believe in them at first, but they believed in themselves.
+That is why their small start became a great success.
+<div class="moral">Moral: Start small, dream big, work hard.</div></div>
+<div id="text2-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">يعتقد الكثير أنهم يحتاجون مالاً كثيراً للبدء.
+يظنون أنهم يحتاجون مكتباً كبيراً وحواسيب قوية.
+لكن الحقيقة مختلفة تماماً.
+جوجل بدأت في كراج صغير وقذر.
+فيسبوك بدأ في غرفة صغيرة في هارفارد.
+أمازون بدأ ببيع الكتب فقط من المنزل.
+آبل بدأت أيضاً بصديقين في كراج.
+كل هذه الشركات بدأت صغيرة جداً.
+لم ينتظروا الوقت المثالي.
+بدأوا بما لديهم.
+كان لديهم فكرة صغيرة وشغف كبير.
+عملوا كل يوم دون توقف.
+قال الناس إن أفكارهم غبية.
+لكنهم آمنوا بأنفسهم واستمروا.
+ببطء تحولت أفكارهم لمشاريع كبيرة.
+أصبحت مشاريعهم شركات بمليارات.
+هذه هي قوة البداية الصغيرة.
+لا تحتاج أن تكون مثالياً لتبدأ.
+أنت فقط تحتاج أن تبدأ لتصبح مثالياً.
+موقعك الصغير اليوم يمكن أن يكبر غداً.
+وتذكّر أن الكراج كان مظلماً، لكن حلمهم كان مضيئاً.
+لم يكن لديهم مال للإعلان، فجعلوا أفكارهم هي الإعلان.
+وفي يوم ما، وثق بهم عميل صغير، فأخبر عميلاً آخر.
+وفجأة، أصبحت الفكرة الصغيرة قصة يتحدث عنها الجميع.
+العالم لم يؤمن بهم في البداية، لكنهم آمنوا بأنفسهم.
+ولهذا السبب تحوّلت بدايتهم الصغيرة إلى نجاح عظيم.
+<div class="moral">العبرة: ابدأ صغيراً، احلم كبيراً.</div></div>
+<button class="translate-btn" id="btn2" onclick="translateStory(2)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like2" onclick="toggleLike(2)">❤️ Like (<span id="likeCount2">0</span>)</button><button class="read-btn" id="read2" onclick="markAsRead(2)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(2,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(2,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(2)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList2"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput2" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(2)">Send</button></div><p id="commentHint2" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 3 -->
+<div class="story-item" data-story="3">
+<div class="story-title" onclick="toggleStory(3)"><div class="title-left"><img src="IMAGES/story3.jpeg" alt="Illustration for the story: Dream From a Phone" loading="lazy" decoding="async"><b>⭐ 3. Dream From a Phone</b></div> <div class="story-icon" id="icon3">+</div></div>
+<div class="story-content" id="story3">
+<div id="text3-en" class="story-text">In a small village lived a boy named Youssef.
+He loved technology but his family was very poor.
+He had no computer and no money to buy one.
+He had only a cheap Android phone with broken screen.
+He decided to learn programming using only his phone.
+He downloaded free coding apps from Play Store.
+He learned to write HTML on his phone.
+It was very hard to type on a small keyboard.
+His eyes hurt from looking at the small screen.
+Sometimes his phone battery died while coding.
+He saved his codes on paper when battery was dead.
+He went to cyber cafe to test his website weekly.
+He spent all his pocket money on one hour internet.
+After 6 months he built his first real website.
+It was a simple website about his village.
+People in his village loved it and shared it.
+A man from the city saw it and offered him a job.
+Now he works as web developer in Casablanca.
+He bought a new laptop and phone with salary.
+He proved you can learn from anywhere with anything.
+But before that job, something unexpected happened. His phone fell into water and stopped working.
+He thought his dream was finished, but his teacher lent him an old phone.
+He continued learning on that old phone, day and night, without stopping.
+When the man from the city saw his determination, he was deeply impressed.
+He said: I do not want your website, I want your determination.
+That sentence opened a new door that Youssef never imagined.
+<div class="moral">Moral: Your phone is enough. No excuses.</div></div>
+<div id="text3-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">في قرية صغيرة عاش ولد اسمه يوسف.
+كان يحب التكنولوجيا لكن عائلته فقيرة جداً.
+لم يكن لديه حاسوب ولا مال لشرائه.
+كان لديه فقط هاتف رخيص بشاشة مكسورة.
+قرر أن يتعلم البرمجة بهاتفه فقط.
+حمل تطبيقات برمجة مجانية من المتجر.
+تعلم كتابة HTML على هاتفه.
+كان صعباً جداً الكتابة على لوحة صغيرة.
+عيناه تؤلمانه من النظر للشاشة.
+أحياناً تنفد بطارية هاتفه وهو يبرمج.
+كان يحفظ أكواده على الورق.
+يذهب لمقهى الإنترنت ليجرب موقعه أسبوعياً.
+يصرف كل مصروفه على ساعة إنترنت.
+بعد 6 أشهر بنى أول موقع حقيقي له.
+كان موقعاً بسيطاً عن قريته.
+أهل قريته أحبوه وشاركوه.
+رجل من المدينة رآه وعرض عليه عملاً.
+الآن يعمل مطور ويب في الدار البيضاء.
+اشترى حاسوباً وهاتفاً جديداً براتبه.
+أثبت أنه يمكنك التعلم من أي مكان.
+لكن قبل ذلك العمل، حدث شيء غير متوقع. سقط هاتفه في الماء وتوقف عن العمل.
+ظن أن حلمه انتهى، لكن معلمه أعارَه هاتفاً قديماً.
+واصل التعلم على ذلك الهاتف القديم، ليلاً ونهاراً، دون توقف.
+وعندما رأى رجل المدينة إصراره، تأثر كثيراً.
+وقال له: أنا لا أريد موقعك، أنا أريد إصرارك.
+تلك الجملة فتحت باباً جديداً لم يتخيله يوسف أبداً.
+<div class="moral">العبرة: هاتفك يكفي. بدون أعذار.</div></div>
+<button class="translate-btn" id="btn3" onclick="translateStory(3)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like3" onclick="toggleLike(3)">❤️ Like (<span id="likeCount3">0</span>)</button><button class="read-btn" id="read3" onclick="markAsRead(3)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(3,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(3,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(3)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList3"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput3" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(3)">Send</button></div><p id="commentHint3" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 4 -->
+<div class="story-item" data-story="4">
+<div class="story-title" onclick="toggleStory(4)"><div class="title-left"><img src="IMAGES/story4.jpeg" alt="Illustration for the story: Patience is Key" loading="lazy" decoding="async"><b>⏳ 4. Patience is Key</b></div> <div class="story-icon" id="icon4">+</div></div>
+<div class="story-content" id="story4">
+<div id="text4-en" class="story-text">A programmer had zero visitors for 3 months.
+He wrote articles every day with no result.
+His friends told him to stop wasting time.
+He felt tired and almost wanted to quit.
+But he decided to continue for one more month.
+He learned about SEO and improved his titles.
+He shared his stories on social media daily.
+Suddenly in fourth month his site exploded.
+He got 100 visitors on first day.
+Then 500 visitors on second day.
+Then 2000 visitors on third day.
+Then 10000 visitors after one week.
+Google started ranking his articles first.
+People started commenting and thanking him.
+He started earning money from ads.
+He realized patience was the real secret.
+Most people quit just before success comes.
+He almost quit but he continued.
+If you are working hard, keep going.
+Success needs time, patience, and consistency.
+But the most difficult night was the night before success.
+He was alone, tired, and his website had only one visitor: himself.
+He opened his laptop and said: This is my last article, then I will stop.
+He wrote that article with all his heart, as if it was his final message.
+In the morning, that article was the one that changed everything.
+A famous website shared it, and thousands of people came to read it.
+<div class="moral">Moral: Be patient. Success takes time.</div></div>
+<div id="text4-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">مبرمج لم يزره أحد لمدة 3 أشهر.
+كان يكتب مقالات يومياً بلا نتيجة.
+أصدقاؤه قالوا له توقف عن تضييع الوقت.
+شعر بالتعب وكاد يستسلم.
+لكنه قرر الاستمرار شهراً إضافياً.
+تعلم عن السيو وحسن عناوينه.
+شارك قصصه على مواقع التواصل يومياً.
+فجأة في الشهر الرابع انفجر موقعه.
+حصل على 100 زائر في اليوم الأول.
+ثم 500 زائر في اليوم الثاني.
+ثم 2000 زائر في اليوم الثالث.
+ثم 10000 زائر بعد أسبوع.
+جوجل بدأ يصنف مقالاته أولاً.
+الناس بدأت تعلق وتشكره.
+بدأ يكسب المال من الإعلانات.
+أدرك أن الصبر هو السر الحقيقي.
+معظم الناس يستسلمون قبل النجاح مباشرة.
+هو كاد يستسلم لكنه استمر.
+إذا كنت تعمل بجد، استمر.
+النجاح يحتاج وقت وصبر واستمرارية.
+لكن أصعب ليلة كانت الليلة التي سبقت النجاح.
+كان وحيداً ومتعباً، وكان الزائر الوحيد لموقعه هو نفسه.
+فتح حاسوبه وقال: هذا هو مقالي الأخير، ثم سأتوقف.
+كتب ذلك المقال بكل قلبه، كأنه رسالته الأخيرة.
+وفي الصباح، كان ذلك المقال هو الذي غيّر كل شيء.
+شاركه موقع مشهور، وجاء الآلاف ليقرأوه.
+<div class="moral">العبرة: اصبر، النجاح يحتاج وقت.</div></div>
+<button class="translate-btn" id="btn4" onclick="translateStory(4)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like4" onclick="toggleLike(4)">❤️ Like (<span id="likeCount4">0</span>)</button><button class="read-btn" id="read4" onclick="markAsRead(4)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(4,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(4,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(4)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList4"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput4" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(4)">Send</button></div><p id="commentHint4" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 5 -->
+<div class="story-item" data-story="5">
+<div class="story-title" onclick="toggleStory(5)"><div class="title-left"><img src="IMAGES/story5.jpeg" alt="Illustration for the story: Don't Compare Yourself" loading="lazy" decoding="async"><b>🎯 5. Don't Compare Yourself</b></div> <div class="story-icon" id="icon5">+</div></div>
+<div class="story-content" id="story5">
+<div id="text5-en" class="story-text">Two friends started learning programming together.
+One friend was very fast and learned quickly.
+The other was slow and made many mistakes.
+The fast friend built 3 websites in one month.
+The slow friend built only half a website.
+The slow friend felt jealous and sad.
+He compared himself every day and felt bad.
+He thought he will never be like his friend.
+So he stopped learning and quit.
+But the fast friend continued and became expert.
+After one year, fast friend had a good job.
+If slow friend had continued, he would have job too.
+Everyone has different speed and path.
+Some people learn fast, some learn slow.
+Slow does not mean you will fail.
+It only means you need more time.
+Focus on your own progress, not others.
+Compare yourself only to yesterday's you.
+If you are better than yesterday, you win.
+Your time will come if you keep working.
+But one day, the slow friend opened his old notebook.
+He saw how much he had learned, and he was shocked.
+He realized he was not slow, he was only afraid of comparison.
+He decided to return, but this time he would not look at anyone.
+He worked quietly for three months, and his level changed completely.
+When his friend saw his new website, he said: You have become better than me.
+<div class="moral">Moral: Focus on your own journey.</div></div>
+<div id="text5-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">صديقان بدآ تعلم البرمجة معاً.
+أحدهما كان سريعاً وتعلم بسرعة.
+الآخر كان بطيئاً ويرتكب أخطاء كثيرة.
+الصديق السريع بنى 3 مواقع في شهر واحد.
+الصديق البطيء بنى نصف موقع فقط.
+شعر البطيء بالغيرة والحزن.
+كان يقارن نفسه يومياً ويشعر بالسوء.
+ظن أنه لن يصبح مثل صديقه أبداً.
+فتوقف عن التعلم واستسلم.
+لكن السريع استمر وأصبح خبيراً.
+بعد سنة، السريع حصل على وظيفة جيدة.
+لو استمر البطيء لحصل على وظيفة أيضاً.
+كل شخص له سرعته وطريقه المختلفة.
+البعض يتعلم بسرعة والبعض ببطء.
+البطء لا يعني أنك ستفشل.
+يعني فقط أنك تحتاج وقتاً أكثر.
+ركز على تقدمك أنت، ليس الآخرين.
+قارن نفسك بنفسك أمس فقط.
+إذا كنت أفضل من أمس فأنت فائز.
+سيأتي وقتك إذا استمريت في العمل.
+لكن في يوم ما، فتح الصديق البطيء دفتره القديم.
+ورأى كم تعلّم، فاندهش كثيراً.
+أدرك أنه لم يكن بطيئاً، بل كان خائفاً من المقارنة فقط.
+قرر أن يعود، لكن هذه المرة لن ينظر إلى أحد.
+عمل بهدوء ثلاثة أشهر، وتغير مستواه تماماً.
+وعندما رأى صديقه موقعه الجديد، قال له: لقد أصبحت أفضل مني.
+<div class="moral">العبرة: ركز على طريقك أنت.</div></div>
+<button class="translate-btn" id="btn5" onclick="translateStory(5)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like5" onclick="toggleLike(5)">❤️ Like (<span id="likeCount5">0</span>)</button><button class="read-btn" id="read5" onclick="markAsRead(5)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(5,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(5,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(5)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList5"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput5" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(5)">Send</button></div><p id="commentHint5" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 6 -->
+<div class="story-item" data-story="6">
+<div class="story-title" onclick="toggleStory(6)"><div class="title-left"><img src="IMAGES/story6.jpeg" alt="Illustration for the story: The Honest Boy" loading="lazy" decoding="async"><b>💰 6. The Honest Boy</b></div> <div class="story-icon" id="icon6">+</div></div>
+<div class="story-content" id="story6">
+<div id="text6-en" class="story-text">A poor boy found a wallet in the street.
+Inside the wallet there was 5000 dirhams.
+There was also an ID card and phone number.
+The boy was very poor and needed money.
+He thought about keeping the money for himself.
+But his mother taught him to be honest.
+He called the number in the wallet.
+An old man answered and was crying.
+He said that money was for his wife's surgery.
+The boy met the old man and gave wallet back.
+The old man was very happy and thanked him.
+He wanted to give the boy 500 dirhams reward.
+The boy refused and said honesty is free.
+The old man was owner of a big company.
+He was impressed by boy's honesty and character.
+He offered the boy a job in his company.
+The boy accepted and worked very hard.
+After years he became manager of company.
+His honesty changed his life completely.
+One honest act can open big doors.
+But the old man was watching the boy for a long time before that day.
+He had already heard about his honesty from the neighbours.
+When the boy returned the wallet, the old man was not surprised at all.
+He said: I was waiting for this moment to test your heart.
+The boy did not understand, until the old man showed him a letter.
+That letter contained a secret that changed the boy's future completely.
+<div class="moral">Moral: Honesty is the best policy.</div></div>
+<div id="text6-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">ولد فقير وجد محفظة في الشارع.
+داخل المحفظة كان هناك 5000 درهم.
+وكان هناك بطاقة هوية ورقم هاتف.
+الولد كان فقيراً جداً ويحتاج المال.
+فكر في الاحتفاظ بالمال لنفسه.
+لكن أمه علمته أن يكون أميناً.
+اتصل بالرقم الموجود في المحفظة.
+أجاب رجل عجوز وكان يبكي.
+قال إن المال لعملية زوجته.
+قابل الولد الرجل العجوز وأعاد المحفظة.
+الرجل العجوز كان سعيداً جداً وشكره.
+أراد أن يعطي الولد 500 درهم مكافأة.
+الولد رفض وقال الأمانة مجانية.
+الرجل العجوز كان صاحب شركة كبيرة.
+أعجب بأمانة الولد وشخصيته.
+عرض على الولد وظيفة في شركته.
+قبل الولد وعمل بجد كبير.
+بعد سنوات أصبح مدير الشركة.
+أمانته غيرت حياته تماماً.
+عمل أمين واحد يمكن أن يفتح أبواباً كبيرة.
+لكن الرجل العجوز كان يراقب الولد منذ مدة طويلة قبل ذلك اليوم.
+وكان قد سمع عن أمانته من الجيران.
+وعندما أعاد الولد المحفظة، لم يتفاجأ الرجل العجوز أبداً.
+وقال له: كنت أنتظر هذه اللحظة لأختبر قلبك.
+لم يفهم الولد، حتى أراه الرجل العجوز رسالة.
+تلك الرسالة كانت تحمل سراً غيّر مستقبل الولد تماماً.
+<div class="moral">العبرة: الصدق والأمانة يغيران الحياة.</div></div>
+<button class="translate-btn" id="btn6" onclick="translateStory(6)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like6" onclick="toggleLike(6)">❤️ Like (<span id="likeCount6">0</span>)</button><button class="read-btn" id="read6" onclick="markAsRead(6)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(6,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(6,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(6)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList6"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput6" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(6)">Send</button></div><p id="commentHint6" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 7 -->
+<div class="story-item" data-story="7">
+<div class="story-title" onclick="toggleStory(7)"><div class="title-left"><img src="IMAGES/story7.jpeg" alt="Illustration for the story: Two Friends and Bear" loading="lazy" decoding="async"><b>🐻 7. Two Friends and Bear</b></div> <div class="story-icon" id="icon7">+</div></div>
+<div class="story-content" id="story7">
+<div id="text7-en" class="story-text">Two friends were walking in a forest.
+Suddenly they saw a big bear coming.
+One friend quickly climbed a tree.
+He did not help his friend at all.
+The other friend did not know how to climb.
+He fell on ground and pretended to be dead.
+Bear came and sniffed him and thought dead.
+Bear left because bears don't eat dead people.
+After bear left, friend came down from tree.
+He asked: what did bear tell you in ear?
+Second friend said: bear told me to never trust fake friend.
+First friend felt ashamed and sorry.
+He learned true friend helps in danger.
+A friend in need is a friend indeed.
+We should always help our friends.
+Selfish friendship is not real friendship.
+Real friend stays with you in hard time.
+This story teaches us value of friendship.
+Always be a good and helpful friend.
+And choose your friends carefully.
+But the bear had not really left. He was hiding behind a tree, watching them.
+The friend on the ground heard the bear breathing again, and his heart stopped.
+The friend on the tree saw the bear returning, and he had to make a decision.
+Would he stay safe on the tree, or would he come down to save his friend?
+That moment was the real test of their friendship.
+The bear came closer, and the forest became completely silent.
+<div class="moral">Moral: A friend in need is a friend indeed.</div></div>
+<div id="text7-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">صديقان كانا يمشيان في غابة.
+فجأة رأيا دباً كبيراً قادماً.
+أحدهما تسلق شجرة بسرعة.
+ولم يساعد صديقه أبداً.
+الصديق الآخر لم يكن يعرف التسلق.
+سقط على الأرض وتظاهر أنه ميت.
+جاء الدب وشمه وظن أنه ميت.
+غادر الدب لأن الدببة لا تأكل الموتى.
+بعدما ذهب الدب، نزل الصديق من الشجرة.
+سأله: ماذا قال لك الدب في أذنك؟
+قال الثاني: قال لي لا تثق أبداً في صديق مزيف.
+شعر الأول بالخجل والأسف.
+تعلم أن الصديق الحقيقي يساعد في الخطر.
+الصديق وقت الضيق صديق حقيقي.
+يجب أن نساعد أصدقاءنا دائماً.
+الصداقة الأنانية ليست صداقة حقيقية.
+الصديق الحقيقي يبقى معك في وقت الشدة.
+هذه القصة تعلمنا قيمة الصداقة.
+كن دائماً صديقاً جيداً ومساعداً.
+واختر أصدقاءك بعناية.
+لكن الدب لم يكن قد غادر حقاً. كان مختبئاً خلف شجرة، يراقبهما.
+وسمع الصديق على الأرض أنفاس الدب من جديد، فتوقف قلبه.
+ورأى الصديق على الشجرة الدب عائداً، وكان عليه أن يتخذ قراراً.
+هل سيبقى آمناً على الشجرة، أم سينزل لينقذ صديقه؟
+تلك اللحظة كانت الاختبار الحقيقي لصداقتهما.
+اقترب الدب، وأصبحت الغابة صامتة تماماً.
+<div class="moral">العبرة: الصديق وقت الضيق.</div></div>
+<button class="translate-btn" id="btn7" onclick="translateStory(7)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like7" onclick="toggleLike(7)">❤️ Like (<span id="likeCount7">0</span>)</button><button class="read-btn" id="read7" onclick="markAsRead(7)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(7,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(7,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(7)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList7"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput7" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(7)">Send</button></div><p id="commentHint7" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 8 -->
+<div class="story-item" data-story="8">
+<div class="story-title" onclick="toggleStory(8)"><div class="title-left"><img src="IMAGES/story8.jpeg" alt="Illustration for the story: The Lion and The Mouse" loading="lazy" decoding="async"><b>🦁 8. The Lion and The Mouse</b></div> <div class="story-icon" id="icon8">+</div></div>
+<div class="story-content" id="story8">
+<div id="text8-en" class="story-text">A lion was sleeping in the jungle.
+A small mouse started running on his body.
+The lion woke up and caught the mouse.
+He wanted to kill and eat the mouse.
+Mouse begged: please let me go, I will help you one day.
+Lion laughed: how can small mouse help big lion?
+But he let the mouse go anyway.
+After some days hunters caught the lion in a net.
+Lion roared loudly and all animals were scared.
+Mouse heard the roar and came to help.
+Mouse saw lion trapped in net and started biting net.
+He cut the net with his sharp teeth.
+Lion became free and thanked the small mouse.
+They became best friends forever.
+Even small friends can be big help.
+Never underestimate anyone because of size.
+Kindness always comes back to you.
+Help others and others will help you.
+No act of kindness is ever wasted.
+Small mouse saved big lion's life.
+But the hunters had not left the forest. They were waiting near the net.
+When the lion became free, he heard their footsteps coming closer.
+The mouse whispered: Run now, or they will catch us both.
+The lion looked at the small mouse, and he understood something important.
+Sometimes, the smallest friend is the one who saves your life twice.
+The lion carried the mouse on his back and ran into the deep forest.
+<div class="moral">Moral: No act of kindness is wasted.</div></div>
+<div id="text8-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">أسد كان نائماً في الغابة.
+فأر صغير بدأ يجري على جسده.
+استيقظ الأسد وأمسك بالفأر.
+أراد أن يقتله ويأكله.
+توسل الفأر: أرجوك اتركني وسأساعدك يوماً ما.
+ضحك الأسد: كيف يمكن لفأر صغير مساعدة أسد كبير؟
+لكنه تركه يذهب على أي حال.
+بعد أيام أمسك الصيادون الأسد في شبكة.
+زأر الأسد بصوت عال وكل الحيوانات خافت.
+سمع الفأر الزئير وجاء للمساعدة.
+رأى الفأر الأسد عالقاً في الشبكة وبدأ يعضها.
+قطع الشبكة بأسنانه الحادة.
+تحرر الأسد وشكر الفأر الصغير.
+أصبحا أفضل صديقين للأبد.
+حتى الأصدقاء الصغار يمكن أن يكونوا مساعدة كبيرة.
+لا تستهين بأحد بسبب حجمه.
+اللطف يعود إليك دائماً.
+ساعد الآخرين وسيساعدك الآخرون.
+لا عمل لطيف يضيع أبداً.
+الفأر الصغير أنقذ حياة الأسد الكبير.
+لكن الصيادين لم يغادروا الغابة. كانوا ينتظرون قرب الشبكة.
+وعندما تحرر الأسد، سمع خطواتهم تقترب.
+همس الفأر: اهرب الآن، وإلا أمسكوا بنا معاً.
+نظر الأسد إلى الفأر الصغير، وفهم شيئاً مهماً.
+أحياناً، الصديق الأصغر هو الذي ينقذ حياتك مرتين.
+حمل الأسد الفأر على ظهره وركض إلى عمق الغابة.
+<div class="moral">العبرة: لا يضيع عمل طيب أبداً.</div></div>
+<button class="translate-btn" id="btn8" onclick="translateStory(8)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like8" onclick="toggleLike(8)">❤️ Like (<span id="likeCount8">0</span>)</button><button class="read-btn" id="read8" onclick="markAsRead(8)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(8,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(8,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(8)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList8"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput8" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(8)">Send</button></div><p id="commentHint8" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 9 -->
+<div class="story-item" data-story="9">
+<div class="story-title" onclick="toggleStory(9)"><div class="title-left"><img src="IMAGES/story9.jpeg" alt="Illustration for the story: Ant and Grasshopper" loading="lazy" decoding="async"><b>🐜 9. Ant and Grasshopper</b></div> <div class="story-icon" id="icon9">+</div></div>
+<div class="story-content" id="story9">
+<div id="text9-en" class="story-text">In summer an ant was working very hard.
+He was collecting food for winter every day.
+A grasshopper was singing and dancing all summer.
+Grasshopper laughed at ant: why work so hard?
+Ant said: I am saving food for winter, you should too.
+Grasshopper said: I have plenty of time, I will enjoy now.
+Ant continued working without listening to him.
+Summer finished and winter came with snow.
+Grasshopper had no food and was very hungry.
+He went to ant's house and asked for food.
+Ant said: you sang all summer, now dance in winter.
+But ant was kind and gave him some food.
+Grasshopper learned a big lesson that day.
+He learned you must work hard today for tomorrow.
+Next summer grasshopper also worked with ant.
+They both collected food together for winter.
+When winter came they both had enough food.
+They were warm and happy in their homes.
+Hard work always pays off in the end.
+Laziness brings hunger and regret.
+But the winter was longer and colder than ever before.
+The food they collected was almost finished, and the snow did not stop.
+The grasshopper looked at the ant and said: What will we do now?
+The ant smiled and opened a small secret box she had hidden.
+Inside that box, there was enough food to survive one more month.
+The grasshopper understood that hard work also means thinking ahead.
+<div class="moral">Moral: Work hard today for tomorrow.</div></div>
+<div id="text9-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">في الصيف كانت نملة تعمل بجد كبير.
+كانت تجمع الطعام للشتاء كل يوم.
+جندب كان يغني ويرقص طوال الصيف.
+ضحك الجندب على النملة: لماذا تعملين بجد؟
+قالت النملة: أنا أدخر طعاماً للشتاء، يجب أن تفعل أنت أيضاً.
+قال الجندب: لدي وقت كثير، سأستمتع الآن.
+استمرت النملة في العمل دون الاستماع له.
+انتهى الصيف وجاء الشتاء بالثلج.
+الجندب لم يكن لديه طعام وكان جائعاً جداً.
+ذهب لبيت النملة وطلب طعاماً.
+قالت النملة: غنيت طوال الصيف، الآن ارقص في الشتاء.
+لكن النملة كانت طيبة وأعطته بعض الطعام.
+تعلم الجندب درساً كبيراً ذلك اليوم.
+تعلم أنه يجب أن تعمل بجد اليوم من أجل الغد.
+الصيف القادم عمل الجندب أيضاً مع النملة.
+جمعا الطعام معاً للشتاء.
+عندما جاء الشتاء كان لديهما طعام كاف.
+كانا دافئين وسعيدين في منزليهما.
+العمل الجاد يؤتي ثماره في النهاية.
+الكسل يجلب الجوع والندم.
+لكن الشتاء كان أطول وأبرد من أي وقت مضى.
+وكاد الطعام الذي جمعاه أن ينفد، والثلج لم يتوقف.
+نظر الجندب إلى النملة وقال: ماذا سنفعل الآن؟
+ابتسمت النملة وفتحت صندوقاً صغيراً كانت قد أخفته.
+وداخل ذلك الصندوق، كان هناك طعام يكفي لشهر إضافي.
+فهم الجندب أن العمل الجاد يعني أيضاً التفكير في المستقبل.
+<div class="moral">العبرة: اعمل اليوم لترتاح غداً.</div></div>
+<button class="translate-btn" id="btn9" onclick="translateStory(9)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like9" onclick="toggleLike(9)">❤️ Like (<span id="likeCount9">0</span>)</button><button class="read-btn" id="read9" onclick="markAsRead(9)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(9,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(9,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(9)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList9"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput9" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(9)">Send</button></div><p id="commentHint9" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<!-- 10 -->
+<div class="story-item" data-story="10">
+<div class="story-title" onclick="toggleStory(10)"><div class="title-left"><img src="IMAGES/story10.jpeg" alt="Illustration for the story: The Rich Man and The Poor Man" loading="lazy" decoding="async"><b>🌟 10. The Rich Man and The Poor Man</b></div> <div class="story-icon" id="icon10">+</div></div>
+<div class="story-content" id="story10">
+<div id="text10-en" class="story-text">A rich man lived in a big beautiful house.
+A poor man lived in a small hut near his house.
+Rich man always complained and was never happy.
+He had cars, money, but no peace of mind.
+Poor man was always happy and smiling.
+He had little food but thanked God every day.
+Rich man asked him: why are you always happy?
+Poor man said: because I am thankful for what I have.
+Rich man said: but you have nothing, I have everything.
+Poor man said: you have everything but you want more.
+I have little but I am thankful for it.
+Happiness does not come from money or houses.
+It comes from heart and thankfulness.
+Rich man thought about his words all night.
+Next morning he started being thankful too.
+He shared his food and money with poor people.
+He found happiness by helping others.
+He and poor man became best friends.
+Rich man learned money can't buy happiness.
+True happiness is in contentment and sharing.
+But one night, the rich man lost everything in one moment.
+His company closed, his cars were sold, and his house became empty.
+He went to the poor man, crying, and said: Now I have nothing, like you.
+The poor man smiled and said: Now you will understand true happiness.
+He gave him bread and a place to sleep, without asking for anything.
+That night, the rich man slept peacefully for the first time in his life.
+<div class="moral">Moral: Happiness is not in money, it's in contentment.</div></div>
+<div id="text10-ar" class="story-text" style="display:none; direction:rtl; text-align:right;">رجل غني عاش في بيت كبير وجميل.
+رجل فقير عاش في كوخ صغير قرب بيته.
+الغني كان دائماً يشتكي ولم يكن سعيداً أبداً.
+كان لديه سيارات ومال لكن بلا راحة بال.
+الفقير كان دائماً سعيداً ومبتسماً.
+كان لديه طعام قليل لكنه يشكر الله كل يوم.
+سأله الغني: لماذا أنت سعيد دائماً؟
+قال الفقير: لأني شاكر لما لدي.
+قال الغني: لكنك لا تملك شيئاً، أنا أملك كل شيء.
+قال الفقير: أنت تملك كل شيء لكنك تريد المزيد.
+أنا أملك القليل لكني شاكر له.
+السعادة لا تأتي من المال أو البيوت.
+تأتي من القلب والشكر.
+فكر الغني في كلامه طوال الليل.
+في الصباح بدأ يكون شاكراً أيضاً.
+شارك طعامه وماله مع الفقراء.
+وجد السعادة بمساعدة الآخرين.
+أصبح هو والفقير أفضل صديقين.
+تعلم الغني أن المال لا يشتري السعادة.
+السعادة الحقيقية في القناعة والمشاركة.
+لكن في إحدى الليالي، خسر الرجل الغني كل شيء في لحظة واحدة.
+أُغلقت شركته، وبِيعت سياراته، وأصبح بيته فارغاً.
+فذهب إلى الرجل الفقير باكياً، وقال: الآن أصبحت لا أملك شيئاً، مثلك.
+ابتسم الفقير وقال: الآن ستفهم السعادة الحقيقية.
+أعطاه خبزاً ومكاناً لينام، دون أن يطلب شيئاً.
+تلك الليلة، نام الرجل الغني بسلام لأول مرة في حياته.
+<div class="moral">العبرة: السعادة ليست في المال بل في القناعة.</div></div>
+<button class="translate-btn" id="btn10" onclick="translateStory(10)">🌐 Translate to Arabic</button>
+<div class="like-row"><button class="like-btn" id="like10" onclick="toggleLike(10)">❤️ Like (<span id="likeCount10">0</span>)</button><button class="read-btn" id="read10" onclick="markAsRead(10)">✓ Mark as Read +10 Points</button></div>
+<div class="share-row"><button class="share-btn share-wa" onclick="shareStory(10,'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(10,'fb')">📘 Facebook</button><button class="share-btn share-dl" onclick="downloadStory(10)">📥 Download as Image</button></div>
+<div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList10"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput10" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(10)">Send</button></div><p id="commentHint10" style="font-size:12px;color:#888">Please login to write a comment.</p></div>
+</div></div>
+
+<div class="coming-box">
+  <div class="coming-title">🔥 COMING SOON - Upcoming Stories</div>
+  <div class="coming-sub">5 new stories are coming soon! Here is the beginning of each story. Login to read the full story when it is unlocked.<br>5 قصص جديدة قادمة قريباً! هذه بداية كل قصة. سجّل دخولك لقراءة القصة كاملة عند فتحها.</div>
+  <div class="coming-item" onclick="openLocked(11)"><img src="IMAGES/story11.jpeg" alt="Cover of upcoming story: The Boy Who Built His Dream With Zero Money" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='placeholder.svg'"><b>11. The Boy Who Built His Dream With Zero Money</b><span>🔒</span></div>
+  <div id="locked11" style="display:none"><div class="locked-preview">He had zero money in his pocket, and zero money in his bank. Everyone told him: You cannot build anything without money. But he had something more powerful than money: an idea that kept him awake at night. One morning, he decided to start with nothing...<br><span style="color:#793502;font-weight:bold">To be continued...</span></div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList11"></div><div class="comment-form"><input id="commentInput11" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(11)">Send</button></div></div></div>
+  <div class="coming-item" onclick="openLocked(12)"><img src="IMAGES/story12.jpeg" alt="Cover of upcoming story: The Secret of The Rich Student" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='placeholder.svg'"><b>12. The Secret of The Rich Student</b><span>🔒</span></div>
+  <div id="locked12" style="display:none"><div class="locked-preview">Everyone in school thought he was rich because his family had money. But no one knew his real secret. Every night, after everyone slept, he opened an old notebook and wrote something strange. That notebook contained a secret that would shock the whole school...<br><span style="color:#793502;font-weight:bold">To be continued...</span></div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList12"></div><div class="comment-form"><input id="commentInput12" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(12)">Send</button></div></div></div>
+  <div class="coming-item" onclick="openLocked(13)"><img src="IMAGES/story13.jpeg" alt="Cover of upcoming story: I Failed 100 Times Before I Succeeded" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='placeholder.svg'"><b>13. I Failed 100 Times Before I Succeeded</b><span>🔒</span></div>
+  <div id="locked13" style="display:none"><div class="locked-preview">He counted his failures on a wall: 1, 2, 3... until he reached 99. Everyone told him to stop. His friends left him. His family was worried about him. But on failure number 100, something unexpected happened that changed everything...<br><span style="color:#793502;font-weight:bold">To be continued...</span></div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList13"></div><div class="comment-form"><input id="commentInput13" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(13)">Send</button></div></div></div>
+  <div class="coming-item" onclick="openLocked(14)"><img src="IMAGES/story14.jpeg" alt="Cover of upcoming story: The Phone That Changed My Life" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='placeholder.svg'"><b>14. The Phone That Changed My Life</b><span>🔒</span></div>
+  <div id="locked14" style="display:none"><div class="locked-preview">It was an old phone, with a cracked screen and a weak battery. He found it in a drawer and almost threw it away. But that night, he received a message on that phone. A message that would change his life forever...<br><span style="color:#793502;font-weight:bold">To be continued...</span></div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList14"></div><div class="comment-form"><input id="commentInput14" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(14)">Send</button></div></div></div>
+  <div class="coming-item" onclick="openLocked(15)"><img src="IMAGES/story15.jpeg" alt="Cover of upcoming story: Don't Give Up - Your Time Is Coming" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='placeholder.svg'"><b>15. Don't Give Up - Your Time Is Coming</b><span>🔒</span></div>
+  <div id="locked15" style="display:none"><div class="locked-preview">He waited for years, and nothing changed. He worked hard, but no one noticed him. He was about to give up, and he wrote a final message to his friends: This is the end. But the next morning, he received a call that he never expected...<br><span style="color:#793502;font-weight:bold">To be continued...</span></div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList15"></div><div class="comment-form"><input id="commentInput15" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(15)">Send</button></div></div></div>
+  <div class="coming-footer">⏳ New stories every week - قصص جديدة كل أسبوع ⏳</div>
+</div>
+
+<!-- ✅ تمت الإضافة: زر استرجاع كلمة السر -->
+<div id="authModal" class="auth-modal"><div class="auth-box">
+<h3 id="authTitle">Login</h3>
+<input type="text" id="authName" placeholder="Your Name (For Sign Up Only)" autocomplete="off">
+<input type="email" id="authEmail" placeholder="Email" autocomplete="email">
+<input type="password" id="authPass" placeholder="Password" autocomplete="current-password">
+<button id="authSubmit">Login</button>
+<p><span id="authToggle" class="link">You do not have an account? Create an account</span></p>
+<p><span id="forgotPass" class="link" style="color:#e74c3c">Forgot password? Click here to reset it</span></p>
+<p id="resetMsg" style="color:green;font-size:13px"></p>
+<p id="authError" style="color:red;font-size:13px"></p>
+<button onclick="closeAuth()" style="background:#eee;color:#111">Cancel</button>
+</div></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, collection, addDoc, query, where, orderBy, onSnapshot, getDocs, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const firebaseConfig = { apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg", authDomain: "seh-world.firebaseapp.com", projectId: "seh-world", storageBucket: "seh-world.firebasestorage.app", messagingSenderId: "888057068574", appId: "1:888057068574:web:796fdde71679597931020f", measurementId: "G-KESK983LBH" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let currentUser = null;
+let points = parseInt(localStorage.getItem('seh_points')||'0');
+let isSignup = false;
+window.__seh = { auth, db, getUser: ()=>currentUser };
+function updatePointsUI(){ const el=document.getElementById('pointsNum'); if(el) el.innerText=points; }
+async function savePoints(){ localStorage.setItem('seh_points', points); if(currentUser){ try{ await setDoc(doc(db,"users",currentUser.uid), { points, updatedAt: new Date() }, { merge:true }); }catch(e){} } }
+window.addPoints = async function(n){ points+=n; updatePointsUI(); await savePoints(); };
+updatePointsUI();
+onAuthStateChanged(auth, async (user)=>{
+  currentUser=user;
+  const btn=document.getElementById('authBtn'); const label=document.getElementById('userLabel');
+  if(user){ btn.innerText="Logout"; label.innerText="👋 "+(user.displayName||user.email.split('@')[0]); try{ const s=await getDoc(doc(db,"users",user.uid)); if(s.exists()&&typeof s.data().points==='number'){ if(s.data().points>points){ points=s.data().points; localStorage.setItem('seh_points',points); updatePointsUI(); } } }catch(e){} document.querySelectorAll('[id^="commentHint"]').forEach(h=>h.innerText="You are logged in. You can write a comment."); }
+  else{ btn.innerText="Login / Sign Up"; label.innerText="🔥 SEH WORLD - STORIES"; document.querySelectorAll('[id^="commentHint"]').forEach(h=>h.innerText="Please login to write a comment."); }
+  for(let i=1;i<=15;i++){ loadLikes(i); loadUserLike(i); loadReadStatus(i); }
+});
+document.getElementById('authBtn').onclick=()=>{ if(currentUser) signOut(auth); else document.getElementById('authModal').classList.add('show'); };
+window.closeAuth=()=>document.getElementById('authModal').classList.remove('show');
+window.requireLogin=()=>{ if(!currentUser){ document.getElementById('authModal').classList.add('show'); } else { alert('This story will be unlocked soon. Thank you for logging in.'); } };
+document.getElementById('authToggle').onclick=()=>{ isSignup=!isSignup; document.getElementById('authTitle').innerText=isSignup?"Create Account":"Login"; document.getElementById('authSubmit').innerText=isSignup?"Sign Up":"Login"; document.getElementById('authToggle').innerText=isSignup?"You already have an account? Login":"You do not have an account? Create an account"; document.getElementById('authName').style.display=isSignup?"block":"none"; };
+document.getElementById('authSubmit').onclick=async()=>{ const email=document.getElementById('authEmail').value.trim(); const pass=document.getElementById('authPass').value; const name=document.getElementById('authName').value.trim(); const err=document.getElementById('authError'); err.innerText=""; try{ if(isSignup){ const cred=await createUserWithEmailAndPassword(auth,email,pass); if(name) await updateProfile(cred.user,{displayName:name}); await setDoc(doc(db,"users",cred.user.uid),{name,email,points,createdAt:new Date()},{merge:true}); } else { await signInWithEmailAndPassword(auth,email,pass); } closeAuth(); }catch(e){ err.innerText=e.message; } };
+// ✅ تمت الإضافة: استرجاع كلمة السر
+document.getElementById('forgotPass').onclick = async () => {
+  const email = document.getElementById('authEmail').value.trim();
+  const err = document.getElementById('authError');
+  const msg = document.getElementById('resetMsg');
+  err.innerText = "";
+  msg.innerText = "";
+  if(!email){
+    err.innerText = "Please write your email first";
+    return;
+  }
+  try{
+    await sendPasswordResetEmail(auth, email);
+    msg.innerText = "Check your email. We sent you a link to reset your password.";
+  }catch(e){
+    err.innerText = e.message;
+  }
+};
+async function loadComments(n){
+  const list=document.getElementById('commentsList'+n); if(!list) return;
+  try{
+    const q=query(collection(db,"comments"), where("storyId","==",String(n)), orderBy("createdAt","desc"));
+    onSnapshot(q,(snap)=>{
+      if(snap.empty){ list.innerHTML='<p style="color:#888;font-size:13px">No comments yet. Be the first to comment.</p>'; return; }
+      list.innerHTML="";
+      snap.forEach(d=>{ const c=d.data(); const div=document.createElement('div'); div.className='comment-item'; const date=c.createdAt?.toDate?c.createdAt.toDate().toLocaleDateString('en-GB'):""; div.innerHTML='<b>'+(c.name||'User')+'</b><span>'+date+'</span><p></p>'; div.querySelector('p').textContent=c.text; list.appendChild(div); });
+    });
+  }catch(e){ list.innerHTML='<p style="color:#888;font-size:13px">Comments will appear here.</p>'; }
+}
+for(let i=1;i<=15;i++) loadComments(i);
+window.postComment=async function(n){
+  if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; }
+  const input=document.getElementById('commentInput'+n); const text=input.value.trim(); if(!text) return;
+  try{ await addDoc(collection(db,"comments"),{ storyId:String(n), text, name: currentUser.displayName||currentUser.email.split('@')[0], email: currentUser.email, uid: currentUser.uid, createdAt: serverTimestamp() }); input.value=""; }catch(e){ alert(e.message); }
+};
+async function loadLikes(n){
+  try{ const snap=await getDoc(doc(db,"storyLikes",String(n))); const el=document.getElementById('likeCount'+n); if(el) el.innerText=snap.exists()?(snap.data().count||0):0; }catch(e){}
+}
+window.toggleLike=async function(n){
+  if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; }
+  const key='seh_like_'+n+'_'+currentUser.uid; const liked=localStorage.getItem(key)==='1';
+  try{
+    const ref=doc(db,"storyLikes",String(n));
+    if(liked){ await setDoc(ref,{count:increment(-1)},{merge:true}); localStorage.removeItem(key); }
+    else{ await setDoc(ref,{count:increment(1)},{merge:true}); localStorage.setItem(key,'1'); }
+    loadLikes(n); loadUserLike(n);
+  }catch(e){}
+};
+async function loadUserLike(n){ const btn=document.getElementById('like'+n); if(!btn||!currentUser) return; const liked=localStorage.getItem('seh_like_'+n+'_'+currentUser.uid)==='1'; btn.classList.toggle('liked',liked); }
+window.markAsRead=async function(n){
+  const key='seh_read_'+n;
+  if(localStorage.getItem(key)==='1'){ alert('You have already received points for this story.'); return; }
+  localStorage.setItem(key,'1');
+  await window.addPoints(10);
+  const btn=document.getElementById('read'+n); if(btn){ btn.innerText='✓ Completed - Thank You'; btn.classList.add('done'); }
+  if(currentUser){ try{ await setDoc(doc(db,"users",currentUser.uid),{['read_'+n]:true},{merge:true}); }catch(e){} }
+};
+function loadReadStatus(n){ const btn=document.getElementById('read'+n); if(btn&&localStorage.getItem('seh_read_'+n)==='1'){ btn.innerText='✓ Completed - Thank You'; btn.classList.add('done'); } }
+</script>
+
+<script>
+window.addEventListener('load', function(){
+  var s = document.getElementById('searchBox');
+  if(s){
+    if(s.value.indexOf('@') !== -1 || s.value.indexOf('gmail') !== -1 || s.value.indexOf('.com') !== -1){
+      s.value = '';
+    }
+    var check = 0;
+    var timer = setInterval(function(){
+      if(s.value.indexOf('@') !== -1){ s.value = ''; }
+      check++;
+      if(check > 10) clearInterval(timer);
+    }, 500);
+  }
+});
+function searchStory(){
+  let box = document.getElementById('searchBox');
+  let input = box.value.toLowerCase().trim();
+  if(input.indexOf('@') !== -1 || input.indexOf('gmail') !== -1 || input.indexOf('.com') !== -1){
+    input = '';
+    box.value = '';
+  }
+  let items = document.querySelectorAll('.story-item');
+  items.forEach(item => {
+    let title = item.querySelector('.story-title b').textContent.toLowerCase();
+    let text = item.querySelector('.story-text').textContent.toLowerCase();
+    if(input === '' || title.includes(input) || text.includes(input)){ item.style.display = "block"; } else { item.style.display = "none"; }
+  });
+}
+function toggleStory(n){
+  let c=document.getElementById('story'+n);
+  let ic=document.getElementById('icon'+n);
+  let isOpen=c.classList.contains('show');
+  document.querySelectorAll('.story-content').forEach(x=>x.classList.remove('show'));
+  document.querySelectorAll('.story-icon').forEach(x=>{x.textContent='+'; x.style.background='#f0f0f0';});
+  if(!isOpen){ c.classList.add('show'); ic.textContent='−'; ic.style.background='#FFD700'; ic.style.color='white'; }
+}
+function openLocked(n){
+  document.querySelectorAll('[id^="locked"]').forEach(x=>{ if(x.id!=='locked'+n) x.style.display='none'; });
+  let el=document.getElementById('locked'+n);
+  el.style.display = el.style.display==='none' || el.style.display==='' ? 'block' : 'none';
+}
+function translateStory(n){
+  let en=document.getElementById('text'+n+'-en');
+  let ar=document.getElementById('text'+n+'-ar');
+  let btn=document.getElementById('btn'+n);
+  if(en.style.display!=='none'){ en.style.display='none'; ar.style.display='block'; btn.textContent='🌐 Translate to English'; }
+  else{ en.style.display='block'; ar.style.display='none'; btn.textContent='🌐 Translate to Arabic'; }
+}
+function shareStory(n,type){
+  let title=document.querySelectorAll('.story-item')[n-1].querySelector('.story-title b').innerText;
+  let url=window.location.href.split('#')[0]+'#story'+n;
+  let text='📚 '+title+' - Read it here 👇\n'+url;
+  if(type==='wa'){ window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank'); }
+  else{ window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),'_blank'); }
+}
+function downloadStory(n){
+  let item = document.querySelectorAll('.story-item')[n-1];
+  let content = document.getElementById('story'+n);
+  let wasOpen = content.classList.contains('show');
+  if(!wasOpen) content.classList.add('show');
+  let btns = item.querySelectorAll('.translate-btn, .share-row, .story-icon, .like-row, .comments-box');
+  btns.forEach(b => b.style.display = 'none');
+  html2canvas(item, {backgroundColor:'#ffffff', scale:2, useCORS:true}).then(canvas=>{
+    btns.forEach(b => b.style.display = '');
+    if(item.querySelector('.share-row')) item.querySelector('.share-row').style.display = 'flex';
+    if(!wasOpen) content.classList.remove('show');
+    let a = document.createElement('a');
+    a.download = 'story-'+n+'.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  });
+}
+</script>
+<script src="javascript"></script>
+<script src="seh-extra.js" defer></script>
+<div class="seh-legal-footer">
+  <div><a href="PRIVACY.html">Privacy Policy</a> · <a href="CGU.html">Terms of Use (CGU)</a> · <a href="#" id="sehCookieSettings">Cookie settings</a></div>
+  <p>© 2026 Soufyane El Haddaoui – SEH World · Made in Morocco 🇲🇦</p>
+</div>
+</body>
+</html>
