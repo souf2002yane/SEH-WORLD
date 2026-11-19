@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <script>if(location.protocol==="http:"&&location.hostname!=="localhost"&&location.hostname!=="127.0.0.1"){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
-<title>Free Online Games: Tic Tac Toe, Checkers, Memory & Quiz – SEH World</title>
+<title>Free Online Games – SEH World</title>
 <meta name="description" content="Play 8 free online games: Challenge Party, Tic Tac Toe, Rock Paper Scissors, Checkers, Memory, Quiz, Guess Word & Simon. No download, no login needed.">
 <meta name="author" content="Soufyane El Haddaoui">
 <link rel="canonical" href="https://souf2002yane.github.io/SEH-WORLD/GAME.html">
@@ -15,13 +15,14 @@
 <body>
 <div class="top-bar">
 <span id="todayDate">📅 Loading date...</span>
+<button id="sehLangBtn" onclick="SEH_LANG.toggle()" style="background:#fff;color:#111;border:none;padding:7px 14px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:12px">🌐 عربي</button>
 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style="font-size:20px;text-decoration:none">📘</a>
 </div>
  <nav class="bottom-row">
-    <a href="index.html" class="nav-item ">🏠<br><small>MENU</small></a>
-    <a href="INFO.html" class="nav-item ">👤<br><small>INFO PERSONAL</small></a>
-    <a href="GAME.html" class="nav-item active">🎮<br><small>GAME</small></a>
-    <a href="STORIES.html" class="nav-item ">📚<br><small>STORIES</small></a>
+    <a href="index.html" class="nav-item ">🏠<br><small data-i18n="menu">MENU</small></a>
+    <a href="INFO.html" class="nav-item ">👤<br><small data-i18n="info">INFO PERSONAL</small></a>
+    <a href="GAME.html" class="nav-item active">🎮<br><small data-i18n="game">GAME</small></a>
+    <a href="STORIES.html" class="nav-item ">📚<br><small data-i18n="stories">STORIES</small></a>
 </nav> 
 <hr><br><br>
 <style>
@@ -113,75 +114,72 @@
   .word-slot{width:48px;height:48px;border:2px dashed #764ba2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;background:white}
 </style>
 
-<!-- MODE + LANG + PROGRESS + DAILY -->
+<!-- MODE + PROGRESS + DAILY - حيدنا أزرار اللغة القدام -->
 <div style="max-width:500px;margin:0 auto">
-  <div class="lang"><button id="langArBtn" onclick="setGameLang('ar')">العربية</button><button id="langEnBtn" class="active" onclick="setGameLang('en')">English</button></div>
-  <div class="seg"><button id="offlineBtn" class="active" onclick="setGameMode('offline')">📱 OFFLINE</button><button id="onlineBtn" onclick="setGameMode('online')">🌐 ONLINE</button></div>
-  <div class="progress-box"><b id="unlockText">🔒 2 New Games locked - Reach 1000 Points</b><div class="progress-bar"><div class="progress-fill" id="unlockFill"></div></div><small id="unlockSub">0 / 1000</small></div>
-  <div class="daily-box"><b>🎁 <span data-t="daily">Daily Reward</span></b><p id="starsText" style="margin:6px 0">⭐ Stars: 0 / 30</p><button class="btn" id="dailyBtn" onclick="claimDaily()" style="margin-top:0">Claim +5 ⭐ Today</button><small id="dailyMsg" style="display:block;margin-top:6px;color:#666"></small></div>
+  <div class="seg"><button id="offlineBtn" class="active" onclick="setGameMode('offline')" data-i18n="offline">📱 OFFLINE</button><button id="onlineBtn" onclick="setGameMode('online')" data-i18n="online">🌐 ONLINE</button></div>
+  <div class="progress-box"><b id="unlockText" data-i18n="unlock">🔒 2 New Games locked - Reach 1000 Points</b><div class="progress-bar"><div class="progress-fill" id="unlockFill"></div></div><small id="unlockSub">0 / 1000</small></div>
+  <div class="daily-box"><b>🎁 <span data-i18n="daily">Daily Reward</span></b><p id="starsText" style="margin:6px 0">⭐ Stars: 0 / 30</p><button class="btn" id="dailyBtn" onclick="claimDaily()" style="margin-top:0" data-i18n="claim">Claim +5 ⭐ Today</button><small id="dailyMsg" style="display:block;margin-top:6px;color:#666"></small></div>
 </div>
 
-<h2 class="games-title" data-t="title">🎮 Choose Your Game</h2>
-<p class="games-sub" data-t="subtitle">Click on an image to play - 8 Games</p>
-<button type="button" class="main-cta" id="mainPlayBtn" onclick="openGame('challenge',document.querySelector('.game-card'))">🎮 START PLAYING</button>
+<h2 class="games-title" data-i18n="game_title">🎮 Choose Your Game</h2>
+<p class="games-sub" data-i18n="game_sub">Click on an image to play - 8 Games</p>
+<button type="button" class="main-cta" id="mainPlayBtn" onclick="openGame('challenge',document.querySelector('.game-card'))" data-i18n="start_playing">🎮 START PLAYING</button>
 
 <div class="games-grid" id="gamesMenu">
   <div class="game-card" data-mode="offline" onclick="openGame('challenge',this)">
     <img src="https://psycatgames.com/cdn-cgi/image/f=auto,fit=cover,w=960,h=540,q=60/magazine/party-games/most-likely-to/funny-questions-illustration.jpg" alt="Challenge Party" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <b>Challenge Party</b><span>2-6 Players • Challenges</span>
+    <b data-i18n="challenge_party">Challenge Party</b><span data-i18n="challenge_desc">2-6 Players • Challenges</span>
   </div>
   <div class="game-card" data-mode="online offline" onclick="openGame('xo',this)">
     <img src="https://staticz.novelgames.com/games/tictactoe/icon1024.webp" alt="Tic Tac Toe" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <b>Tic Tac Toe</b><span>VS Friend / VS Computer / Online</span>
+    <b data-i18n="xo_title">Tic Tac Toe (X O)</b><span data-i18n="xo_desc">VS Friend / VS Computer / Online</span>
   </div>
   <div class="game-card" data-mode="offline" onclick="openGame('rps',this)">
     <img src="https://cdn.sp.games/cdn-cgi/image/width=1200,height=675,fit=cover,quality=62,format=auto/rock-paper-scissor/images/game-large.webp" alt="Rock Paper Scissors" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <b>Rock Paper Scissors</b><span>Win 5 = +10 Points</span>
+    <b data-i18n="rps_title">Rock Paper Scissors</b><span data-i18n="rps_desc">Win 5 = +10 Points</span>
   </div>
   <div class="game-card" data-mode="offline" onclick="openGame('dama',this)">
     <img src="https://luiscastellanos.org/wp-content/uploads/damas.jpg" alt="Checkers" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <b>Checkers</b><span>VS Friend / VS Computer</span>
+    <b data-i18n="dama_title">Checkers</b><span data-i18n="dama_desc">VS Friend / VS Computer</span>
   </div>
   <div class="game-card" data-mode="offline" onclick="openGame('memory',this)">
     <img src="https://toyfinitypk.com/cdn/shop/files/0EBFE5EF-C208-44C3-BB68-F7F07B01432B.webp?v=1779018862&width=3840" alt="Memory" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <b>Memory Game</b><span>Find all matching pairs</span>
+    <b data-i18n="memory_title">Memory Game</b><span data-i18n="memory_desc">Find all matching pairs</span>
   </div>
   <div class="game-card" data-mode="offline" onclick="openGame('quiz',this)">
     <img src="https://www.weqyoua.net/thumbs/83092.png?r=175826159" alt="Quiz" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <b>Quiz - Questions</b><span>5 Groups • Are you smart?</span>
+    <b data-i18n="quiz_title">Quiz - Questions</b><span data-i18n="quiz_desc">5 Groups • Are you smart?</span>
   </div>
-  <!-- NEW LOCKED GAMES -->
   <div class="game-card locked" data-mode="offline" data-locked="1" id="card-word" onclick="tryOpenLocked('word',this)">
-    <span class="new-badge">NEW</span><span class="lock-badge">🔒 1000 Points</span>
+    <span class="new-badge" data-i18n="new">NEW</span><span class="lock-badge">🔒 1000 Points</span>
     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Guess Word" loading="lazy" referrerpolicy="no-referrer">
-    <b>🔤 Guess Word</b><span>5 Words = +10 Points</span>
+    <b data-i18n="word_title">🔤 Guess The Word</b><span data-i18n="word_desc">5 Words = +10 Points</span>
   </div>
   <div class="game-card locked" data-mode="offline" data-locked="1" id="card-simon" onclick="tryOpenLocked('simon',this)">
-    <span class="new-badge">NEW</span><span class="lock-badge">🔒 1000 Points</span>
+    <span class="new-badge" data-i18n="new">NEW</span><span class="lock-badge">🔒 1000 Points</span>
     <img src="https://cdn-icons-png.flaticon.com/512/3094/3094834.png" alt="Simon Memory" loading="lazy" referrerpolicy="no-referrer">
-    <b>🎵 Fast Memory</b><span>5 Levels = +10 Points</span>
+    <b data-i18n="simon_title">🎵 Fast Memory</b><span data-i18n="simon_desc">5 Levels = +10 Points</span>
   </div>
 </div>
-<button class="back-btn" id="backBtn" onclick="backToMenu()" style="display:none">⬅ Back to Games</button>
+<button class="back-btn" id="backBtn" onclick="backToMenu()" style="display:none" data-i18n="back_games">⬅ Back to Games</button>
 
-<div id="view-challenge" class="game-view"><div class="container"><h1>🎮 Challenge Party</h1><p class="subtitle">Choose players, random challenges, test your luck!</p><div id="setup"><p style="text-align:center;font-weight:600;margin-bottom:10px">🎉 How many players?</p><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:15px"><button class="party-count-btn" onclick="setPartyPlayers(2,this)">2 Players</button><button class="party-count-btn" onclick="setPartyPlayers(3,this)">3 Players</button><button class="party-count-btn" onclick="setPartyPlayers(4,this)">4 Players</button><button class="party-count-btn" onclick="setPartyPlayers(5,this)">5 Players</button><button class="party-count-btn" onclick="setPartyPlayers(6,this)">6 Players</button></div><div class="players" id="partyInputs"><input id="p1" placeholder="Player 1"><input id="p2" placeholder="Player 2"><input id="p3" placeholder="Player 3"><input id="p4" placeholder="Player 4"></div><button class="btn" onclick="startFirstGame()">Start The First Game →</button></div><div id="firstCard" class="card"><div>The player is: </div><div id="chosenPlayer" class="player-name"></div><div>The challenge is: </div><div id="chosenChallenge" class="challenge"></div><div class="actions"><button class="btn btn-yes" onclick="didChallenge(true)">Done ✅</button><button class="btn btn-no" onclick="didChallenge(false)">Skip ❌</button></div></div><div id="secondCard" class="card"><h3 id="secondTitle">SECOND GAME</h3><p id="secondDesc"></p><input type="number" id="guess" placeholder="Your guess..."><button class="btn" onclick="checkGuess()">Guess!</button>
+<div id="view-challenge" class="game-view"><div class="container"><h1 data-i18n="challenge_party_full">🎮 Challenge Party</h1><p class="subtitle" data-i18n="challenge_sub">Choose players, random challenges, test your luck!</p><div id="setup"><p style="text-align:center;font-weight:600;margin-bottom:10px" data-i18n="how_many">🎉 How many players?</p><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:15px"><button class="party-count-btn" onclick="setPartyPlayers(2,this)">2 Players</button><button class="party-count-btn" onclick="setPartyPlayers(3,this)">3 Players</button><button class="party-count-btn" onclick="setPartyPlayers(4,this)">4 Players</button><button class="party-count-btn" onclick="setPartyPlayers(5,this)">5 Players</button><button class="party-count-btn" onclick="setPartyPlayers(6,this)">6 Players</button></div><div class="players" id="partyInputs"><input id="p1" placeholder="Player 1"><input id="p2" placeholder="Player 2"><input id="p3" placeholder="Player 3"><input id="p4" placeholder="Player 4"></div><button class="btn" onclick="startFirstGame()" data-i18n="start_first">Start The First Game →</button></div><div id="firstCard" class="card"><div>The player is: </div><div id="chosenPlayer" class="player-name"></div><div>The challenge is: </div><div id="chosenChallenge" class="challenge"></div><div class="actions"><button class="btn btn-yes" onclick="didChallenge(true)" data-i18n="done">Done ✅</button><button class="btn btn-no" onclick="didChallenge(false)" data-i18n="skip">Skip ❌</button></div></div><div id="secondCard" class="card"><h3 id="secondTitle">SECOND GAME</h3><p id="secondDesc"></p><input type="number" id="guess" placeholder="Your guess..."><button class="btn" onclick="checkGuess()" data-i18n="guess_btn">Guess!</button>
   <p id="secondResult" style="margin-top:10px;font-weight:600"></p></div><div id="totalBox" class="total"></div></div></div>
 
 <div id="view-xo" class="game-view"><div class="container"><h1>❌⭕ Tic Tac Toe</h1>
-<div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px;flex-wrap:wrap"><button class="mode-btn active" id="xoFriendBtn" onclick="setXoMode('friend')">👤 VS Friend</button><button class="mode-btn" id="xoCompBtn" onclick="setXoMode('computer')">🤖 VS Computer</button><button class="mode-btn" id="xoOnlineBtn" onclick="setXoMode('online')">🌐 ONLINE</button></div>
-<!-- ONLINE XO -->
+<div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px;flex-wrap:wrap"><button class="mode-btn active" id="xoFriendBtn" onclick="setXoMode('friend')" data-i18n="vs_friend">👤 VS Friend</button><button class="mode-btn" id="xoCompBtn" onclick="setXoMode('computer')" data-i18n="vs_comp">🤖 VS Computer</button><button class="mode-btn" id="xoOnlineBtn" onclick="setXoMode('online')" data-i18n="vs_online">🌐 ONLINE</button></div>
 <div id="xoOnlineBox" style="display:none;background:#FFF8E1;border:2px solid #E9C46A;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center">
-  <b>🌐 Play Online with Friend - Winner takes 10 Points from Loser</b>
+  <b data-i18n="xo_online_title">🌐 Play Online with Friend - Winner takes 10 Points from Loser</b>
   <p id="xoOnlineStatus" style="font-size:13px;margin:6px 0">Choose Host or Guest</p>
-  <div style="display:flex;gap:8px"><button class="btn" style="margin:0;background:#111" onclick="createOnlineRoom()">👑 I am Host - Create Link</button><button class="btn" style="margin:0;background:#00c896" onclick="joinOnlineRoom()">👤 I am Guest - Join</button></div>
+  <div style="display:flex;gap:8px"><button class="btn" style="margin:0;background:#111" onclick="createOnlineRoom()" data-i18n="host">👑 I am Host - Create Link</button><button class="btn" style="margin:0;background:#00c896" onclick="joinOnlineRoom()" data-i18n="guest">👤 I am Guest - Join</button></div>
   <input id="xoRoomInput" placeholder="Paste room link / code here..." style="width:100%;padding:10px;margin-top:8px;border-radius:10px;border:1px solid #ccc;display:none">
-  <button class="btn" id="xoJoinBtn" onclick="doJoinOnline()" style="display:none;background:#00c896">Join Room →</button>
-  <div id="xoShareBox" style="display:none;margin-top:10px"><input id="xoShareLink" readonly style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc"><button class="btn" onclick="copyXoLink()">📋 Copy Link & Send to Friend</button><small>Send this link to your friend, he clicks Guest</small></div>
+  <button class="btn" id="xoJoinBtn" onclick="doJoinOnline()" style="display:none;background:#00c896" data-i18n="join_room">Join Room →</button>
+  <div id="xoShareBox" style="display:none;margin-top:10px"><input id="xoShareLink" readonly style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc"><button class="btn" onclick="copyXoLink()" data-i18n="copy_link">📋 Copy Link & Send to Friend</button><small>Send this link to your friend, he clicks Guest</small></div>
   <p id="xoOnlineInfo" style="font-size:12px;color:#666;margin-top:6px"></p>
 </div>
-<div class="status" id="xoStatus">Turn : X</div><div class="xo-board"><div class="xo-cell" onclick="playXO(0)" id="c0"></div><div class="xo-cell" onclick="playXO(1)" id="c1"></div><div class="xo-cell" onclick="playXO(2)" id="c2"></div><div class="xo-cell" onclick="playXO(3)" id="c3"></div><div class="xo-cell" onclick="playXO(4)" id="c4"></div><div class="xo-cell" onclick="playXO(5)" id="c5"></div><div class="xo-cell" onclick="playXO(6)" id="c6"></div><div class="xo-cell" onclick="playXO(7)" id="c7"></div><div class="xo-cell" onclick="playXO(8)" id="c8"></div></div><button class="btn" onclick="resetXO()">Play Again</button></div></div>
+<div class="status" id="xoStatus">Turn : X</div><div class="xo-board"><div class="xo-cell" onclick="playXO(0)" id="c0"></div><div class="xo-cell" onclick="playXO(1)" id="c1"></div><div class="xo-cell" onclick="playXO(2)" id="c2"></div><div class="xo-cell" onclick="playXO(3)" id="c3"></div><div class="xo-cell" onclick="playXO(4)" id="c4"></div><div class="xo-cell" onclick="playXO(5)" id="c5"></div><div class="xo-cell" onclick="playXO(6)" id="c6"></div><div class="xo-cell" onclick="playXO(7)" id="c7"></div><div class="xo-cell" onclick="playXO(8)" id="c8"></div></div><button class="btn" onclick="resetXO()" data-i18n="play_again">Play Again</button></div></div>
 
-<div id="view-rps" class="game-view"><div class="container"><h1>✊✋✌️ Rock Paper Scissors</h1><p style="text-align:center;color:#888">Win 5 rounds = +10 Points 🏆 | Wins in row: <b id="rpsStreak">0 / 5</b></p><div class="rps-choices"><button class="rps-btn" onclick="playRPS('Rock')">✊</button><button class="rps-btn" onclick="playRPS('Paper')">✋</button><button class="rps-btn" onclick="playRPS('Scissors')">✌️</button></div><div class="rps-result" id="rpsResult">Choose one to play:</div><div style="display:flex;justify-content:space-around;font-weight:600;margin-top:10px"><span>You: <b id="pScore">0</b></span><span>Computer: <b id="cScore">0</b></span></div><button class="btn" onclick="resetRPS()">Play Again</button></div></div>
+<div id="view-rps" class="game-view"><div class="container"><h1>✊✋✌️ Rock Paper Scissors</h1><p style="text-align:center;color:#888"><span data-i18n="rps_win">Win 5 rounds = +10 Points 🏆</span> | <span data-i18n="rps_streak">Wins in row:</span> <b id="rpsStreak">0 / 5</b></p><div class="rps-choices"><button class="rps-btn" onclick="playRPS('Rock')">✊</button><button class="rps-btn" onclick="playRPS('Paper')">✋</button><button class="rps-btn" onclick="playRPS('Scissors')">✌️</button></div><div class="rps-result" id="rpsResult">Choose one to play:</div><div style="display:flex;justify-content:space-around;font-weight:600;margin-top:10px"><span>You: <b id="pScore">0</b></span><span>Computer: <b id="cScore">0</b></span></div><button class="btn" onclick="resetRPS()" data-i18n="play_again">Play Again</button></div></div>
 
 <div id="view-dama" class="game-view"><div class="container"><h1>♟️ Checkers</h1><div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px"><button class="mode-btn active" id="damaFriendBtn" onclick="setDamaMode('friend')">👤 VS Friend</button><button class="mode-btn" id="damaCompBtn" onclick="setDamaMode('computer')">🤖 VS Computer</button></div><p style="text-align:center;color:#888;font-size:14px" id="damaSub">2 players on same phone - Red starts</p><div id="damaTurn">Turn: 🔴 Red</div><div id="damaBoard"></div><button class="btn" onclick="initDama()">New Game 🔄</button><p style="text-align:center;font-size:13px;color:#666;margin-top:10px">Click your piece, then click where you want to move<br>If you reach the end you become 👑 King</p></div></div>
 
@@ -189,17 +187,16 @@
 
 <div id="view-quiz" class="game-view"><div class="container"><h1>🧠❓ Quiz</h1><p style="text-align:center;color:#888">Score: <b id="quizScore">0</b> | Question: <b id="quizNum">1/5</b> | Group: <b id="quizGroup">-</b></p><div class="quiz-q" id="quizQ"></div><div id="quizOpts"></div><p id="quizMsg" style="text-align:center;font-weight:600;margin-top:10px"></p><button class="btn" onclick="initQuiz()" style="display:none" id="quizRestart">Play Again 🔄</button></div></div>
 
-<!-- NEW: GUESS WORD -->
-<div id="view-word" class="game-view"><div class="container"><h1>🔤 <span data-t="wordTitle">Guess Word</span></h1><p style="text-align:center;color:#888"><span data-t="wordSub">Arrange letters - 5 words = +10 Points</span> | ✅ <b id="wordScore">0 / 5</b></p><p id="wordHint" style="text-align:center;font-weight:600;margin:12px 0"></p><div class="word-answer" id="wordAnswer"></div><div class="word-letters" id="wordLetters"></div><p id="wordMsg" style="text-align:center;font-weight:600"></p><div style="display:flex;gap:8px"><button class="btn" onclick="checkWord()">Check ✅</button><button class="btn" style="background:#ff5a6a" onclick="resetWordLetters()">Reset 🔄</button></div><button class="btn" onclick="initWord()" style="background:#111">Next Word →</button></div></div>
+<div id="view-word" class="game-view"><div class="container"><h1>🔤 <span data-i18n="wordTitle">Guess Word</span></h1><p style="text-align:center;color:#888"><span data-i18n="wordSub">Arrange letters - 5 words = +10 Points</span> | ✅ <b id="wordScore">0 / 5</b></p><p id="wordHint" style="text-align:center;font-weight:600;margin:12px 0"></p><div class="word-answer" id="wordAnswer"></div><div class="word-letters" id="wordLetters"></div><p id="wordMsg" style="text-align:center;font-weight:600"></p><div style="display:flex;gap:8px"><button class="btn" onclick="checkWord()">Check ✅</button><button class="btn" style="background:#ff5a6a" onclick="resetWordLetters()">Reset 🔄</button></div><button class="btn" onclick="initWord()" style="background:#111">Next Word →</button></div></div>
 
-<!-- NEW: SIMON / FAST MEMORY -->
-<div id="view-simon" class="game-view"><div class="container"><h1>🎵 <span data-t="simonTitle">Fast Memory</span></h1><p style="text-align:center;color:#888"><span data-t="simonSub">Repeat the colors - 5 Levels = +10 Points</span> | Level: <b id="simonLevel">0 / 5</b></p><p id="simonMsg" style="text-align:center;font-weight:600;margin:10px 0">Press Start</p><div class="simon-grid"><button class="simon-btn" style="background:#ff5a6a" onclick="simonClick(0)">🔴</button><button class="simon-btn" style="background:#00c896" onclick="simonClick(1)">🟢</button><button class="simon-btn" style="background:#667eea" onclick="simonClick(2)">🔵</button><button class="simon-btn" style="background:#E9C46A" onclick="simonClick(3)">🟡</button></div><button class="btn" onclick="startSimon()">Start ▶️</button></div></div>
+<div id="view-simon" class="game-view"><div class="container"><h1>🎵 <span data-i18n="simonTitle">Fast Memory</span></h1><p style="text-align:center;color:#888"><span data-i18n="simonSub">Repeat the colors - 5 Levels = +10 Points</span> | Level: <b id="simonLevel">0 / 5</b></p><p id="simonMsg" style="text-align:center;font-weight:600;margin:10px 0">Press Start</p><div class="simon-grid"><button class="simon-btn" style="background:#ff5a6a" onclick="simonClick(0)">🔴</button><button class="simon-btn" style="background:#00c896" onclick="simonClick(1)">🟢</button><button class="simon-btn" style="background:#667eea" onclick="simonClick(2)">🔵</button><button class="simon-btn" style="background:#E9C46A" onclick="simonClick(3)">🟡</button></div><button class="btn" onclick="startSimon()">Start ▶️</button></div></div>
 
-<div style="max-width:500px;margin:20px auto"><button class="btn-secondary" onclick="showMoreGames()" id="moreGamesBtn" style="width:100%; padding:13px; border:1px solid #382201; background:white; color:black; border-radius:8px; cursor:pointer;"><b>Click here for more games →</b></button></div>
-<div id="moreGames" style="display:none;max-width:500px;margin:0 auto"><h1 style="margin-bottom:20px">🔥 More Games - Coming Soon</h1><div class="container" style="text-align:center"><p>🎲 A new game is coming soon...</p><p style="color:#888;margin-top:10px">Stay with us, we add new games every week</p></div></div>
+<div style="max-width:500px;margin:20px auto"><button class="btn-secondary" onclick="showMoreGames()" id="moreGamesBtn" style="width:100%; padding:13px; border:1px solid #382201; background:white; color:black; border-radius:8px; cursor:pointer;" data-i18n="more_games_btn"><b>Click here for more games →</b></button></div>
+<div id="moreGames" style="display:none;max-width:500px;margin:0 auto"><h1 style="margin-bottom:20px" data-i18n="more_games_title">🔥 More Games - Coming Soon</h1><div class="container" style="text-align:center"><p data-i18n="more_games_p1">🎲 A new game is coming soon...</p><p style="color:#888;margin-top:10px" data-i18n="more_games_p2">Stay with us, we add new games every week</p></div></div>
 
-<div class="lb-wrap"><h1 style="margin-bottom:5px">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2><p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p><p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div><div id="leaderList"></div></div>
+<div class="lb-wrap"><h1 style="margin-bottom:5px" data-i18n="lb_title">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px" data-i18n="lb_sub">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2><p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p><p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div><div id="leaderList"></div></div>
 
+<script src="seh-lang.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -218,15 +215,17 @@ window.renderLeaderboardReal = async function() { const listEl = document.getEle
 
 <script>
 document.getElementById('todayDate').innerText = "📅 " + new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-// === MODE OFFLINE / ONLINE ===
 let gameMode='offline';
 function setGameMode(m){ gameMode=m; document.getElementById('offlineBtn').classList.toggle('active',m=='offline'); document.getElementById('onlineBtn').classList.toggle('active',m=='online'); document.querySelectorAll('.game-card').forEach(c=>{ let modes=(c.dataset.mode||'offline').split(' '); c.style.display = modes.includes(m) ? 'block' : 'none'; }); if(m=='online'){ openGame('xo',document.querySelector('[onclick*="xo"]')); setXoMode('online'); } }
-function setGameLang(l){ localStorage.setItem('seh_game_lang',l); document.getElementById('langArBtn').classList.toggle('active',l=='ar'); document.getElementById('langEnBtn').classList.toggle('active',l=='en'); const t={ ar:{title:'🎮 اختار اللعبة ',subtitle:' اضغط على الصورة لتلعب - 8 ألعاب',daily:'المكافأة اليومية',wordTitle:'خمن الكلمة',wordSub:'رتب الحروف - 5 كلمات = +10 نقط',simonTitle:'الذاكرة السريعة',simonSub:'أعد الألوان - 5 مستويات = +10 نقط'}, en:{title:'🎮 Choose Your Game',subtitle:'Click on an image to play - 8 Games',daily:'Daily Reward',wordTitle:'Guess Word',wordSub:'Arrange letters - 5 words = +10 Points',simonTitle:'Fast Memory',simonSub:'Repeat the colors - 5 Levels = +10 Points'} }[l]; document.querySelectorAll('[data-t]').forEach(el=>{ let k=el.dataset.t; if(t[k]) el.textContent=t[k]; }); }
-// === UNLOCK 1000 ===
+// النظام الجديد: هاد الفونكسيون كتخلي الترجمة القديمة تخدم مع النظام الجديد
+function setGameLang(l){
+  localStorage.setItem('seh_lang', l);
+  localStorage.setItem('seh_game_lang', l);
+  if(window.SEH_LANG){ SEH_LANG.current = l; SEH_LANG.apply(); }
+}
 function getPoints(){ return parseInt(localStorage.getItem('seh_points')||'0'); }
 function updateUnlockUI(){ let p=getPoints(); let fill=document.getElementById('unlockFill'); if(fill) fill.style.width=Math.min(100,p/10)+'%'; let sub=document.getElementById('unlockSub'); if(sub) sub.textContent=p+' / 1000'; let txt=document.getElementById('unlockText'); if(txt) txt.textContent = p>=1000 ? '✅ New Games Unlocked! 🎉' : `🔒 2 New Games locked - ${1000-p} Points left`; document.querySelectorAll('[data-locked="1"]').forEach(c=>{ if(p>=1000){ c.classList.remove('locked'); c.querySelector('.lock-badge').style.display='none'; } }); }
 function tryOpenLocked(name,el){ if(getPoints()<1000){ alert('🔒 You need 1000 Points to unlock this game!\nYou have '+getPoints()+' Points.\nPlay more to unlock!'); return; } openGame(name,el); }
-// === DAILY STARS ===
 function getStars(){ return parseInt(localStorage.getItem('seh_stars')||'0'); }
 function updateStarsUI(){ let s=getStars(); let el=document.getElementById('starsText'); if(el) el.textContent=`⭐ Stars: ${s} / 30`; let btn=document.getElementById('dailyBtn'); let today=new Date().toDateString(); let last=localStorage.getItem('seh_daily_last'); if(btn){ if(last==today){ btn.textContent='✅ Already claimed today - Come back tomorrow'; btn.disabled=true; btn.style.opacity='.6'; } else { btn.textContent='Claim +5 ⭐ Today'; btn.disabled=false; btn.style.opacity='1'; } } }
 function claimDaily(){ let today=new Date().toDateString(); if(localStorage.getItem('seh_daily_last')==today){ alert('Already claimed today!'); return; } let s=getStars()+5; localStorage.setItem('seh_daily_last',today); if(s>=30){ s=s-30; localStorage.setItem('seh_stars',s); addPoints(10); alert('🎉 30 Stars! You got +10 Points!'); } else { localStorage.setItem('seh_stars',s); } updateStarsUI(); document.getElementById('dailyMsg').textContent='You got +5 ⭐! Come back tomorrow.'; }
@@ -240,14 +239,12 @@ let players = []; let totalPoints = 0; let secret = 0; let maxRange = 10;
 function startFirstGame(){ players = []; for(let i=1;i<=partyPlayerCount;i++){ let el = document.getElementById('p'+i); let v = el ? el.value.trim() : ''; players.push(v || `Player ${i}`); } const player = players[Math.floor(Math.random()*players.length)]; const challenge = challenges[Math.floor(Math.random()*challenges.length)]; chosenPlayer.textContent = player; chosenChallenge.textContent = challenge; firstCard.classList.add('show'); document.getElementById('setup').style.display='none'; }
 function didChallenge(done){ firstCard.style.display='none'; if(done){ const points = Math.floor(Math.random()*10)+1; const luck = Math.floor(Math.random()*5)+1; totalPoints = luck > 3 ? points + luck*2 : points + luck; maxRange = 10; secondDesc.innerHTML = `You got <b>${points} pts</b> + luck <b>${luck}</b> = <b>${totalPoints} pts</b> in first game.<br>Now guess 1-10 to get +2 pts`; secondTitle.textContent = "SECOND GAME - You did it!"; } else { totalPoints = 0; maxRange = 20; secondTitle.textContent = "SECOND GAME - Hard Mode"; secondDesc.textContent = `You lost first game. Guess 1-20 to save yourself!`; } secret = Math.floor(Math.random()*maxRange)+1; secondCard.classList.add('show'); guess.placeholder = `Guess 1-${maxRange}`; }
 function checkGuess(){ const g = parseInt(guess.value); if(!g){ secondResult.textContent = "Enter a number!"; return; } if(g === secret){ totalPoints += 2; secondResult.textContent = `🎉 You WIN! The number was ${secret}. +2 points!`; addPoints(totalPoints); } else { secondResult.textContent = `😢 You lose. The number was ${secret}.`; } totalBox.innerHTML = `🏆 TOTAL POINTS: ${totalPoints} <br><button class="btn" style="background:white;color:#764ba2;margin-top:12px" onclick="location.reload()">Play Again 🔄</button>`; totalBox.classList.add('show'); }
-// === XO ===
 let board = Array(9).fill(''), current='X', over=false; let xoMode = 'friend'; let xoOnlineRoom=null, xoOnlineRole=null, xoUnsub=null;
 function setXoMode(m){ xoMode = m; document.getElementById('xoFriendBtn').classList.toggle('active', m=='friend'); document.getElementById('xoCompBtn').classList.toggle('active', m=='computer'); document.getElementById('xoOnlineBtn').classList.toggle('active', m=='online'); document.getElementById('xoOnlineBox').style.display = m=='online' ? 'block' : 'none'; resetXO(); checkXoUrl(); }
 function playXO(i){ if(xoMode=='online'){ playXOOnline(i); return; } if(board[i] || over) return; if(xoMode=='computer' && current!='X') return; doXoMove(i); if(xoMode=='computer' && !over && current=='O'){ document.getElementById('xoStatus').textContent='Computer is thinking... 🤖'; setTimeout(()=>{ xoComputerMove(); }, 600); } }
 function doXoMove(i){ board[i]=current; document.getElementById('c'+i).textContent=current; document.getElementById('c'+i).classList.add(current.toLowerCase()); if([[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(w=>w.every(j=>board[j]==current))){ document.getElementById('xoStatus').textContent = xoMode=='computer' ? (current=='X' ? '🏆 You win! +20 Points' : '🤖 Computer wins!') : xoMode=='online' ? `🏆 ${current} wins Online!` : `🏆 ${current} wins!`; over=true; if(xoMode=='computer' && current=='X') addPoints(20); if(xoMode=='friend') addPoints(10); return; } if(!board.includes('')){document.getElementById('xoStatus').textContent='Draw 🤝'; over=true; return;} current=current=='X'?'O':'X'; document.getElementById('xoStatus').textContent='Turn: '+ (xoMode=='computer' ? (current=='X' ? 'Your turn (X)' : 'Computer (O)') : current); }
 function xoComputerMove(){ if(over || current!='O') return; let lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; let pick=-1; for(let line of lines){ let vals=line.map(i=>board[i]); if(vals.filter(v=>v=='O').length==2 && vals.includes('')){ pick=line[vals.indexOf('')]; break; } } if(pick==-1) for(let line of lines){ let vals=line.map(i=>board[i]); if(vals.filter(v=>v=='X').length==2 && vals.includes('')){ pick=line[vals.indexOf('')]; break; } } if(pick==-1 && board[4]=='') pick=4; if(pick==-1){ let empty=board.map((v,i)=>v==''?i:-1).filter(i=>i!=-1); pick=empty[Math.floor(Math.random()*empty.length)]; } if(pick!=-1) doXoMove(pick); }
 function resetXO(){ board=Array(9).fill(''); current='X'; over=false; for(let i=0;i<9;i++){document.getElementById('c'+i).textContent='';document.getElementById('c'+i).className='xo-cell';} document.getElementById('xoStatus').textContent= xoMode=='computer' ? 'Your turn (X)' : 'Turn: X'; }
-// ONLINE XO via Firestore
 function getRoomIdFromUrl(){ let p=new URLSearchParams(location.search); return p.get('room'); }
 function checkXoUrl(){ let rid=getRoomIdFromUrl(); if(rid && xoMode=='online'){ document.getElementById('xoRoomInput').value=rid; document.getElementById('xoOnlineStatus').textContent='Link detected! Click Guest to join room: '+rid; } }
 async function createOnlineRoom(){ let rid='SEH-'+Math.random().toString(36).slice(2,8).toUpperCase(); xoOnlineRole='X'; xoOnlineRoom=rid; try{ await window.sehSetDoc(window.sehDoc(window.sehDb,'xo_rooms',rid),{board:Array(9).fill(''),current:'X',over:false,winner:null,host:window.sehUser?window.sehUser.uid:'guest',guest:null,createdAt:new Date()}); let link=location.origin+location.pathname+'?room='+rid; document.getElementById('xoShareLink').value=link; document.getElementById('xoShareBox').style.display='block'; document.getElementById('xoOnlineStatus').textContent='✅ Room created! Send link to friend. You are X, waiting...'; listenRoom(rid); }catch(e){ alert('Need Firestore rules for xo_rooms. Check Firebase Console.'); } }
@@ -256,7 +253,6 @@ async function doJoinOnline(){ let val=document.getElementById('xoRoomInput').va
 function listenRoom(rid){ if(xoUnsub) xoUnsub(); xoUnsub=window.sehOnSnap(window.sehDoc(window.sehDb,'xo_rooms',rid),(snap)=>{ if(!snap.exists()) return; let d=snap.data(); board=d.board; current=d.current; over=d.over; for(let i=0;i<9;i++){ let el=document.getElementById('c'+i); el.textContent=board[i]||''; el.className='xo-cell'+(board[i]? ' '+board[i].toLowerCase():''); } if(d.winner){ document.getElementById('xoStatus').textContent=`🏆 ${d.winner} wins!`; if(d.winner==xoOnlineRole && !d.pointsGiven){ addPoints(10); if(window.sehUser) alert('🏆 You win! +10 Points from opponent!'); window.sehUpdateDoc(window.sehDoc(window.sehDb,'xo_rooms',rid),{pointsGiven:true}); } else if(d.winner && d.winner!=xoOnlineRole && !d.pointsGiven){ addPoints(-10); } } else if(d.over){ document.getElementById('xoStatus').textContent='Draw 🤝'; } else { document.getElementById('xoStatus').textContent = current==xoOnlineRole ? 'Your turn ('+current+')' : 'Waiting for friend ('+current+')...'; } document.getElementById('xoOnlineInfo').textContent='Room: '+rid+' | You: '+xoOnlineRole; }); }
 async function playXOOnline(i){ if(!xoOnlineRoom){ alert('First create or join a room!'); return; } if(over || board[i]) return; if(current!=xoOnlineRole){ alert('Not your turn!'); return; } let nb=[...board]; nb[i]=current; let win=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(w=>w.every(j=>nb[j]==current)); let draw=!win && !nb.includes(''); try{ await window.sehUpdateDoc(window.sehDoc(window.sehDb,'xo_rooms',xoOnlineRoom),{board:nb,current:current=='X'?'O':'X',over:win||draw,winner:win?current:null}); }catch(e){ console.log(e); } }
 function copyXoLink(){ let el=document.getElementById('xoShareLink'); el.select(); document.execCommand('copy'); alert('Link copied! Send it to your friend 📋'); }
-// === RPS: 5 wins = 10 points ===
 let ps=0, cs=0, rpsWinStreak=0;
 function playRPS(my){ let opts=['Rock','Paper','Scissors']; let comp=opts[Math.floor(Math.random()*3)]; let txt=''; if(my==comp) txt=`Draw! ${my}`; else if((my=='Rock'&&comp=='Scissors')||(my=='Paper'&&comp=='Rock')||(my=='Scissors'&&comp=='Paper')){ rpsWinStreak++; if(rpsWinStreak>=5){ txt=`🎉 5 WINS! You got +10 Points!`; addPoints(10); rpsWinStreak=0; } else { txt=`You win! ${my} beats ${comp} 🎉 (${rpsWinStreak}/5)`; } ps++; } else{ txt=`You lose! ${comp} beats ${my} 😢`; cs++; rpsWinStreak=0; } document.getElementById('rpsResult').innerHTML=`You: ${my} | Computer: ${comp}<br>${txt}`; document.getElementById('pScore').textContent=ps; document.getElementById('cScore').textContent=cs; document.getElementById('rpsStreak').textContent=rpsWinStreak+' / 5'; }
 function resetRPS(){ps=0;cs=0;rpsWinStreak=0;pScore.textContent=0;cScore.textContent=0;rpsResult.textContent='Choose one to play'; document.getElementById('rpsStreak').textContent='0 / 5';}
@@ -295,7 +291,7 @@ const quizSets = [
 ];
 function shuffleArr(arr){ return arr.sort(()=>Math.random()-0.5); }
 function getRandomQuiz(){
-  let lang = localStorage.getItem('seh_game_lang')||'en';
+  let lang = localStorage.getItem('seh_lang')||'en';
   let set = quizSets[Math.floor(Math.random()*quizSets.length)];
   let copy = JSON.parse(JSON.stringify(set.list));
   copy.forEach(q=>{
@@ -309,7 +305,6 @@ function getRandomQuiz(){
 }let quizData = []; let quizGroupName = ""; let quizIdx=0, quizScore=0, quizAnswered=false;
 function initQuiz(){ let picked = getRandomQuiz(); quizData = picked.list; quizGroupName = picked.name; quizIdx=0; quizScore=0; showQuiz(); document.getElementById('quizRestart').style.display='none'; document.getElementById('quizMsg').textContent=''; document.getElementById('quizGroup').textContent = quizGroupName; }
 function showQuiz(){ quizAnswered=false; document.getElementById('quizScore').textContent=quizScore; document.getElementById('quizNum').textContent=(quizIdx+1)+'/'+quizData.length; let q=quizData[quizIdx]; document.getElementById('quizQ').textContent=q.q; let box=document.getElementById('quizOpts'); box.innerHTML=''; q.opts.forEach((opt,i)=>{ let b=document.createElement('button'); b.className='quiz-opt'; b.textContent=opt; b.onclick=()=>{ if(quizAnswered) return; quizAnswered=true; if(i==q.a){ b.classList.add('correct'); quizScore++; addPoints(10); document.getElementById('quizScore').textContent=quizScore; document.getElementById('quizMsg').textContent='✅ Correct! +10 Points'; } else { b.classList.add('wrong'); document.getElementById('quizMsg').textContent='❌ Wrong! Correct answer: '+q.opts[q.a]; } setTimeout(()=>{ quizIdx++; document.getElementById('quizMsg').textContent=''; if(quizIdx<quizData.length) showQuiz(); else { document.getElementById('quizQ').textContent=`🏆 Finished! You got ${quizScore} / ${quizData.length} - Group: ${quizGroupName}`; document.getElementById('quizOpts').innerHTML=''; document.getElementById('quizRestart').style.display='block'; } },1200); }; box.appendChild(b); }); }
-// === WORD GAME ===
 const wordList=[{w:"BOOK",hint:"You read stories in it 📖"},{w:"CAT",hint:"Small animal 🐱"},{w:"BALL",hint:"You play football with it ⚽"},{w:"SUN",hint:"Shines in the day ☀️"},{w:"GAME",hint:"You play it 🎮"},{w:"FISH",hint:"Lives in water 🐟"},{w:"STAR",hint:"Shines in the sky ⭐"},{w:"LION",hint:"King of animals 🦁"},{w:"APPLE",hint:"Red fruit 🍎"},{w:"PHONE",hint:"You use it every day 📱"}];
 let wordCurrent=null, wordPicked=[], wordScore=0;
 function initWord(){ wordScore=0; document.getElementById('wordScore').textContent='0 / 5'; nextWord(); }
@@ -317,16 +312,15 @@ function nextWord(){ wordCurrent=wordList[Math.floor(Math.random()*wordList.leng
 function renderWordAnswer(){ let slots=document.querySelectorAll('#wordAnswer .word-slot'); slots.forEach((s,i)=> s.textContent=wordPicked[i]||''); }
 function resetWordLetters(){ wordPicked=[]; renderWordAnswer(); let letters=document.querySelectorAll('#wordLetters .word-letter'); letters.forEach(b=>{ b.style.opacity='1'; b.style.pointerEvents='auto'; }); }
 function checkWord(){ let guess=wordPicked.join(''); if(guess.length!=wordCurrent.w.length){ document.getElementById('wordMsg').textContent='Complete the word first!'; return; } if(guess==wordCurrent.w){ wordScore++; document.getElementById('wordScore').textContent=wordScore+' / 5'; document.getElementById('wordMsg').textContent='✅ Correct! '+wordCurrent.w; if(wordScore>=5){ addPoints(10); document.getElementById('wordMsg').textContent='🏆 5 Words! +10 Points!'; wordScore=0; setTimeout(()=>{ document.getElementById('wordScore').textContent='0 / 5'; },1500); } setTimeout(nextWord,1200); } else { document.getElementById('wordMsg').textContent='❌ Wrong! Try again'; resetWordLetters(); } }
-// === SIMON ===
 let simonSeq=[], simonIdx=0, simonLevel=0, simonPlaying=false;
 function startSimon(){ simonSeq=[]; simonLevel=0; document.getElementById('simonLevel').textContent='0 / 5'; nextSimon(); }
 function nextSimon(){ simonLevel++; document.getElementById('simonLevel').textContent=simonLevel+' / 5'; simonSeq.push(Math.floor(Math.random()*4)); simonIdx=0; document.getElementById('simonMsg').textContent='Watch... 👀'; simonPlaying=false; let i=0; let timer=setInterval(()=>{ if(i>=simonSeq.length){ clearInterval(timer); document.getElementById('simonMsg').textContent='Your turn! Repeat'; simonPlaying=true; return; } flashSimon(simonSeq[i]); i++; },700); }
 function flashSimon(n){ let btns=document.querySelectorAll('.simon-btn'); btns[n].classList.add('lit'); setTimeout(()=>btns[n].classList.remove('lit'),400); }
 function simonClick(n){ if(!simonPlaying) return; flashSimon(n); if(n==simonSeq[simonIdx]){ simonIdx++; if(simonIdx==simonSeq.length){ simonPlaying=false; if(simonLevel>=5){ document.getElementById('simonMsg').textContent='🏆 5 Levels! +10 Points!'; addPoints(10); simonLevel=0; } else { document.getElementById('simonMsg').textContent='✅ Good! Next level...'; setTimeout(nextSimon,800); } } } else { document.getElementById('simonMsg').textContent='❌ Wrong! Press Start again'; simonPlaying=false; } }
-updateUnlockUI(); updateStarsUI(); setGameLang(localStorage.getItem('seh_game_lang')||'en');
+updateUnlockUI(); updateStarsUI();
 </script>
 <script src="javascript"></script>
 <script src="seh-extra.js" defer></script>
-<div class="seh-legal-footer" style="text-align:center; padding:25px 15px 100px 15px; background:#111; color:#fff; font-size:14px;"><div style="margin-bottom:10px;"><a href="index.html" style="color:#E9C46A;">Home</a> · <a href="PRIVACY.html" style="color:#E9C46A;">Privacy Policy</a> · <a href="CGU.html" style="color:#E9C46A;">Terms of Use</a> · <a href="CONTACT.html" style="color:#E9C46A;">Contact Us</a> · <a href="ABOUT.html" style="color:#E9C46A;">About Us</a></div>
+<div class="seh-legal-footer" style="text-align:center; padding:25px 15px 100px 15px; background:#111; color:#fff; font-size:14px;"><div style="margin-bottom:10px;"><a href="index.html" style="color:#E9C46A;" data-i18n="home_link">Home</a> · <a href="PRIVACY.html" style="color:#E9C46A;" data-i18n="privacy">Privacy Policy</a> · <a href="CGU.html" style="color:#E9C46A;" data-i18n="cgu">Terms of Use</a> · <a href="CONTACT.html" style="color:#E9C46A;" data-i18n="contact">Contact Us</a> · <a href="ABOUT.html" style="color:#E9C46A;" data-i18n="about_us">About Us</a></div>
 <p>© 2026 Soufyane El Haddaoui – SEH World · Made in Morocco 🇲🇦</p></div></body>
 </html>

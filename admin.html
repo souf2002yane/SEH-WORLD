@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>لوحة الأدمن - SEH</title>
+<style>
+  body{font-family:Arial;background:#111;color:#fff;padding:20px}
+  .card{background:#222;padding:15px;border-radius:12px;margin:10px 0}
+  .stat{display:inline-block;background:#333;padding:15px;margin:5px;border-radius:10px;min-width:140px;text-align:center}
+  .stat b{font-size:24px;color:#ffd700;display:block}
+  table{width:100%;border-collapse:collapse;margin-top:10px}
+  td,th{border-bottom:1px solid #444;padding:8px;text-align:right}
+  button{background:#ffd700;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:bold}
+</style>
+</head>
+<body>
+
+<h1>👑 لوحة الأدمن SEH</h1>
+<p id="adminInfo">كيتأكد...</p>
+
+<div id="adminContent" style="display:none">
+  <div>
+    <div class="stat"><b id="totalUsers">0</b>مجموع المسجلين</div>
+    <div class="stat"><b id="todayUsers">0</b>تسجلو اليوم</div>
+    <div class="stat"><b id="avgStars">0</b>معدل النجوم ⭐</div>
+    <div class="stat"><b id="totalReports">0</b>تبليغات</div>
+  </div>
+
+  <div class="card">
+    <h3>🏆 Top 10 النقط</h3>
+    <div id="top10">كيتشارجا...</div>
+  </div>
+
+  <div class="card">
+    <h3>🆕 آخر التسجيلات</h3>
+    <div id="lastUsers">كيتشارجا...</div>
+  </div>
+
+  <div class="card">
+    <h3>🚨 التبليغات على المشاكل</h3>
+    <div id="reportsList">كيتشارجا...</div>
+  </div>
+
+  <div class="card">
+    <h3>⭐ آخر التقييمات</h3>
+    <div id="ratingsList">كيتشارجا...</div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// حط firebaseConfig ديالك هنا
+const firebaseConfig = {
+  apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg",
+  authDomain: "seh-world.firebaseapp.com",
+  projectId: "seh-world",
+  storageBucket: "seh-world.firebasestorage.app",
+  messagingSenderId: "888057068574",
+  appId: "1:888057068574:web:796fdde71679597931020f",
+  measurementId: "G-KESK983LBH"
+};
+const ADMIN_EMAIL = "souf2002yane@gmail.com";
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 1. الحماية - غير الأدمن
+const current = JSON.parse(localStorage.getItem('seh_currentUser') || 'null');
+if (!current || current.email !== ADMIN_EMAIL) {
+  alert('ماعندكش الحق تدخل هنا!');
+  window.location.href = 'index.html';
+  throw new Error('Not admin');
+}
+
+document.getElementById('adminInfo').textContent = 'مرحبا بيك ' + current.name;
+document.getElementById('adminContent').style.display = 'block';
+
+async function load() {
+  // المستخدمين
+  const usersSnap = await getDocs(collection(db, "users"));
+  let users = [];
+  usersSnap.forEach(d => users.push(d.data()));
+  document.getElementById('totalUsers').textContent = users.length;
+  let today = new Date().toISOString().slice(0,10);
+  document.getElementById('todayUsers').textContent = users.filter(u => (u.createdAt||'').slice(0,10) === today).length;
+  
+  // Top 10
+  users.sort((a,b) => (b.points||0) - (a.points||0));
+  document.getElementById('top10').innerHTML = users.slice(0,10).map((u,i) => <div>${i+1}. ${u.name} - ${u.points||0} نقطة - ${u.email}</div>).join('');
+  document.getElementById('lastUsers').innerHTML = [...users].reverse().slice(0,10).map(u => <div>${u.name} - ${u.email} - ${u.createdAt||''}</div>).join('');
+
+  // التقييمات
+  const rateSnap = await getDocs(collection(db, "ratings"));
+  let rates = [];
+  rateSnap.forEach(d => rates.push(d.data()));
+  let avg = rates.length ? (rates.reduce((s,r)=>s+(r.stars||0),0)/rates.length).toFixed(1) : 0;
+  document.getElementById('avgStars').textContent = avg + ' ⭐ ('+rates.length+')';
+  document.getElementById('ratingsList').innerHTML = rates.slice(-10).reverse().map(r => <div>${r.userName} عطا ${r.stars} ⭐</div>).join('') || 'باقي مكاين والو';
+
+  // التبليغات
+  const repSnap = await getDocs(collection(db, "reports"));
+  let reps = [];
+  repSnap.forEach(d => reps.push({id:d.id, ...d.data()}));
+  document.getElementById('totalReports').textContent = reps.length;
+  document.getElementById('reportsList').innerHTML = reps.reverse().map(r => <div style="border-bottom:1px solid #444;padding:8px">${r.userName} - ${r.where} - ${r.message} <br><small>${r.createdAt||''}</small></div>).join('') || 'مكاين حتى تبليغ';
+}
+load();
+</script>
+</body>
+</html>
