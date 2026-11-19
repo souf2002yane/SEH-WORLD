@@ -2,21 +2,31 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>لوحة الأدمن - SEH</title>
 <style>
   body{font-family:Arial;background:#111;color:#fff;padding:20px}
   .card{background:#222;padding:15px;border-radius:12px;margin:10px 0}
   .stat{display:inline-block;background:#333;padding:15px;margin:5px;border-radius:10px;min-width:140px;text-align:center}
   .stat b{font-size:24px;color:#ffd700;display:block}
-  table{width:100%;border-collapse:collapse;margin-top:10px}
-  td,th{border-bottom:1px solid #444;padding:8px;text-align:right}
   button{background:#ffd700;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:bold}
+  input{padding:10px;border-radius:8px;border:1px solid #444;background:#222;color:#fff;width:100%;box-sizing:border-box;margin:5px 0}
+  .row{border-bottom:1px solid #444;padding:8px}
 </style>
 </head>
 <body>
 
 <h1>👑 لوحة الأدمن SEH</h1>
-<p id="adminInfo">كيتأكد...</p>
+<p id="adminInfo">كيتأكد... تسنى شوية</p>
+
+<div id="loginBox" style="display:none;background:#222;padding:20px;border-radius:12px;max-width:400px">
+  <h3>دخول الأدمن</h3>
+  <p style="color:#aaa;font-size:13px">دخل بالإيميل ديال الأدمن باش تبان ليك اللوحة</p>
+  <input type="email" id="adminEmail" placeholder="souf2002yane@gmail.com">
+  <input type="password" id="adminPass" placeholder="كلمة السر">
+  <button onclick="adminLogin()" style="width:100%;margin-top:10px">دخول</button>
+  <p id="loginErr" style="color:#ff5555"></p>
+</div>
 
 <div id="adminContent" style="display:none">
   <div>
@@ -24,6 +34,13 @@
     <div class="stat"><b id="todayUsers">0</b>تسجلو اليوم</div>
     <div class="stat"><b id="avgStars">0</b>معدل النجوم ⭐</div>
     <div class="stat"><b id="totalReports">0</b>تبليغات</div>
+    <div class="stat"><b id="totalPoints">0</b>مجموع النقط</div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 قلب على مستخدم</h3>
+    <input type="text" id="searchInput" placeholder="قلب بالاسم ولا الإيميل..." oninput="filterUsers()">
+    <div id="searchResult"></div>
   </div>
 
   <div class="card">
@@ -45,13 +62,15 @@
     <h3>⭐ آخر التقييمات</h3>
     <div id="ratingsList">كيتشارجا...</div>
   </div>
+
+  <button onclick="adminLogout()" style="background:#ff3b30;color:#fff;width:100%;margin-top:20px">🚪 خروج</button>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// حط firebaseConfig ديالك هنا
 const firebaseConfig = {
   apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg",
   authDomain: "seh-world.firebaseapp.com",
@@ -63,49 +82,86 @@ const firebaseConfig = {
 };
 const ADMIN_EMAIL = "souf2002yane@gmail.com";
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
-// 1. الحماية - غير الأدمن
-const current = JSON.parse(localStorage.getItem('seh_currentUser') || 'null');
-if (!current || current.email !== ADMIN_EMAIL) {
-  alert('ماعندكش الحق تدخل هنا!');
-  window.location.href = 'index.html';
-  throw new Error('Not admin');
+let allUsers = [];
+
+function fmtDate(v){
+  if(!v) return '';
+  if(v.toDate) return v.toDate().toLocaleString('ar-MA');
+  if(typeof v === 'string') return v;
+  if(v.seconds) return new Date(v.seconds*1000).toLocaleString('ar-MA');
+  return String(v);
+}
+function dateKey(v){
+  if(!v) return '';
+  if(v.toDate) return v.toDate().toISOString().slice(0,10);
+  if(typeof v === 'string') return v.slice(0,10);
+  if(v.seconds) return new Date(v.seconds*1000).toISOString().slice(0,10);
+  return '';
 }
 
-document.getElementById('adminInfo').textContent = 'مرحبا بيك ' + current.name;
-document.getElementById('adminContent').style.display = 'block';
+window.adminLogin = async ()=>{
+  const email = document.getElementById('adminEmail').value.trim();
+  const pass = document.getElementById('adminPass').value;
+  try{ await signInWithEmailAndPassword(auth, email, pass); }
+  catch(e){ document.getElementById('loginErr').textContent = e.message; }
+};
+window.adminLogout = async ()=>{ await signOut(auth); location.reload(); };
+window.filterUsers = ()=>{
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  if(!q){ document.getElementById('searchResult').innerHTML=''; return; }
+  const found = allUsers.filter(u => (u.name||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q));
+  document.getElementById('searchResult').innerHTML = found.slice(0,20).map(u=>`<div class="row">${u.name||'-'} - ${u.email||'-'} - ${u.points||0} نقطة - ${u.phone||''}</div>`).join('') || 'ما لقيت والو';
+};
 
-async function load() {
-  // المستخدمين
-  const usersSnap = await getDocs(collection(db, "users"));
-  let users = [];
-  usersSnap.forEach(d => users.push(d.data()));
-  document.getElementById('totalUsers').textContent = users.length;
-  let today = new Date().toISOString().slice(0,10);
-  document.getElementById('todayUsers').textContent = users.filter(u => (u.createdAt||'').slice(0,10) === today).length;
-  
-  // Top 10
-  users.sort((a,b) => (b.points||0) - (a.points||0));
-  document.getElementById('top10').innerHTML = users.slice(0,10).map((u,i) => <div>${i+1}. ${u.name} - ${u.points||0} نقطة - ${u.email}</div>).join('');
-  document.getElementById('lastUsers').innerHTML = [...users].reverse().slice(0,10).map(u => <div>${u.name} - ${u.email} - ${u.createdAt||''}</div>).join('');
+onAuthStateChanged(auth, (user)=>{
+  if(!user || user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()){
+    document.getElementById('adminInfo').textContent = 'خاصك تدخل بحساب الأدمن';
+    document.getElementById('loginBox').style.display = 'block';
+    document.getElementById('adminContent').style.display = 'none';
+    if(user) document.getElementById('adminEmail').value = user.email;
+    return;
+  }
+  document.getElementById('adminInfo').textContent = 'مرحبا بيك ' + (user.displayName || user.email) + ' 👑';
+  document.getElementById('loginBox').style.display = 'none';
+  document.getElementById('adminContent').style.display = 'block';
+  load();
+});
 
-  // التقييمات
-  const rateSnap = await getDocs(collection(db, "ratings"));
-  let rates = [];
-  rateSnap.forEach(d => rates.push(d.data()));
-  let avg = rates.length ? (rates.reduce((s,r)=>s+(r.stars||0),0)/rates.length).toFixed(1) : 0;
-  document.getElementById('avgStars').textContent = avg + ' ⭐ ('+rates.length+')';
-  document.getElementById('ratingsList').innerHTML = rates.slice(-10).reverse().map(r => <div>${r.userName} عطا ${r.stars} ⭐</div>).join('') || 'باقي مكاين والو';
+async function load(){
+  try{
+    const usersSnap = await getDocs(collection(db, "users"));
+    let users = [];
+    usersSnap.forEach(d => users.push(d.data()));
+    allUsers = users;
+    document.getElementById('totalUsers').textContent = users.length;
+    document.getElementById('totalPoints').textContent = users.reduce((s,u)=>s+(u.points||0),0);
+    let today = new Date().toISOString().slice(0,10);
+    document.getElementById('todayUsers').textContent = users.filter(u => dateKey(u.createdAt) === today).length;
 
-  // التبليغات
-  const repSnap = await getDocs(collection(db, "reports"));
-  let reps = [];
-  repSnap.forEach(d => reps.push({id:d.id, ...d.data()}));
-  document.getElementById('totalReports').textContent = reps.length;
-  document.getElementById('reportsList').innerHTML = reps.reverse().map(r => <div style="border-bottom:1px solid #444;padding:8px">${r.userName} - ${r.where} - ${r.message} <br><small>${r.createdAt||''}</small></div>).join('') || 'مكاين حتى تبليغ';
+    users.sort((a,b) => (b.points||0) - (a.points||0));
+    document.getElementById('top10').innerHTML = users.slice(0,10).map((u,i) => `<div class="row">${i+1}. ${u.name||'-'} - ${u.points||0} نقطة - ${u.email||'-'}</div>`).join('') || 'باقي مكاين والو';
+    document.getElementById('lastUsers').innerHTML = [...users].reverse().slice(0,10).map(u => `<div class="row">${u.name||'-'} - ${u.email||'-'} - ${fmtDate(u.createdAt)}</div>`).join('') || 'باقي مكاين والو';
+
+    const rateSnap = await getDocs(collection(db, "ratings"));
+    let rates = [];
+    rateSnap.forEach(d => rates.push(d.data()));
+    let avg = rates.length ? (rates.reduce((s,r)=>s+(r.stars||0),0)/rates.length).toFixed(1) : 0;
+    document.getElementById('avgStars').textContent = avg + ' ⭐ ('+rates.length+')';
+    document.getElementById('ratingsList').innerHTML = rates.slice(-10).reverse().map(r => `<div class="row">${r.userName||'مجهول'} عطا ${r.stars||0} ⭐ - ${r.comment||''}</div>`).join('') || 'باقي مكاين والو';
+
+    const repSnap = await getDocs(collection(db, "reports"));
+    let reps = [];
+    repSnap.forEach(d => reps.push({id:d.id, ...d.data()}));
+    document.getElementById('totalReports').textContent = reps.length;
+    document.getElementById('reportsList').innerHTML = reps.reverse().map(r => `<div class="row">${r.userName||'-'} - ${r.where||''} - ${r.message||''} <br><small>${fmtDate(r.createdAt)}</small></div>`).join('') || 'مكاين حتى تبليغ';
+  }catch(e){
+    document.getElementById('adminInfo').textContent = 'خطأ: ' + e.message;
+    console.error(e);
+  }
 }
-load();
 </script>
 </body>
 </html>
