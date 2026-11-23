@@ -19,20 +19,21 @@
 </nav>
 <br><br>
 <style>
-body{font-family:sans-serif; padding:20px; max-width:999px; margin:auto;}
-.top-auth{display:flex;justify-content:space-between;align-items:center;background:#111;color:#fff;padding:10px 14px;border-radius:14px;margin-bottom:15px}
-.top-auth button{background:#E9C46A;border:none;padding:8px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+body{font-family:sans-serif; padding:20px; padding-bottom:110px; max-width:999px; margin:auto;}
+.top-auth{display:flex;justify-content:space-between;align-items:center;background:#111;color:#fff;padding:10px 14px;border-radius:14px;margin-bottom:15px;gap:8px;flex-wrap:wrap}
+.top-auth button{background:#E9C46A;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;cursor:pointer;white-space:nowrap}
+.top-auth button#authBtn{background:#fff;color:#111}
 .story-item{ background:white; border-radius:18px; margin-bottom:18px; box-shadow:0 6px 18px rgba(0,0,0,0.07); overflow:hidden; position:relative; border:1px solid #eee; }
 .story-item::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:rgb(255, 0, 255); }
-.story-title{ padding:16px 20px 16px 25px; font-weight:bold; font-size:17px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
+.story-title{ padding:16px 20px 16px 25px; font-weight:bold; font-size:17px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:10px; }
 .story-title b{ color:#793502; }
-.story-icon{ background:#f0f0f0; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; }
+.story-icon{ background:#f0f0f0; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; flex-shrink:0; }
 .story-content{ display:none; padding:0 20px 18px 25px; color:#333; font-size:14.8px; }
 .story-content.show{ display:block; }
 .story-text{ line-height:1.6; text-indent: 30px; }
 .moral{ background:#fff8e1; border-left:4px solid #FFD700; padding:8px 10px; border-radius:8px; margin-top:12px; font-weight:bold; }
 .translate-btn{ margin-top:12px; background:#00c853; color:white; border:none; padding:7px 14px; border-radius:20px; cursor:pointer; font-size:13px; font-weight:bold; }
-.title-left{ display:flex; align-items:center; gap:12px; }
+.title-left{ display:flex; align-items:center; gap:12px; min-width:0; }
 .title-left img{ width:70px; height:70px; object-fit:cover; border-radius:12px; flex-shrink:0; }
 .share-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
 .share-btn{ border:none; padding:9px 14px; border-radius:20px; cursor:pointer; font-size:13px; font-weight:bold; color:white; }
@@ -45,7 +46,7 @@ body{font-family:sans-serif; padding:20px; max-width:999px; margin:auto;}
 .comments-box{margin-top:18px;background:#f8f9fa;border-radius:14px;padding:14px;border:1px solid #eee}
 .comment-item{background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;border:1px solid #eee}
 .comment-form{display:flex;gap:8px;margin-top:10px}
-.comment-form input{flex:1;padding:10px;border-radius:20px;border:1px solid #ddd;outline:none}
+.comment-form input{flex:1;padding:10px;border-radius:20px;border:1px solid #ddd;outline:none;min-width:0}
 .comment-form button{background:#111;color:#fff;border:none;padding:10px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
 .locked-preview{background:#fff8e1;border:1px dashed #E9C46A;padding:14px;border-radius:12px;margin-top:10px;line-height:1.7}
 .locked-btn{background:#793502;color:#fff;border:none;padding:11px 18px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:10px;width:100%}
@@ -59,17 +60,25 @@ body{font-family:sans-serif; padding:20px; max-width:999px; margin:auto;}
 .auth-box input{width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin:6px 0}
 .auth-box button{width:100%;padding:12px;border:none;border-radius:20px;background:#111;color:#fff;font-weight:bold;margin-top:8px;cursor:pointer}
 .auth-box .link{color:#2575fc;cursor:pointer;font-size:13px}
+/* FIX MOBILE */
+@media(max-width:600px){
+  body{padding:12px;padding-bottom:120px}
+  .title-left img{width:56px;height:56px}
+  .story-title{font-size:15px;padding:12px 14px 12px 18px}
+  .top-auth{font-size:13px}
+  .top-auth button{padding:7px 10px;font-size:12px}
+}
 </style>
 
-<div class="top-auth"><span id="userLabel">🔥 SEH WORLD - STORIES</span><span>⭐ <span data-i18n="points">Points</span>: <b id="pointsNum">0</b></span><button id="sehLangBtn" onclick="SEH_LANG.toggle()" style="background:#fff;color:#111">🌐 عربي</button></div>
+<!-- FIX: زدت زر Login اللي كان ناقص و كان كيوقف الموقع -->
+<div class="top-auth"><span id="userLabel">🔥 SEH WORLD - STORIES</span><span>⭐ <span data-i18n="points">Points</span>: <b id="pointsNum">0</b></span><div style="display:flex;gap:6px"><button id="authBtn">Login / Sign Up</button><button id="sehLangBtn" onclick="SEH_LANG.toggle()" style="background:#fff;color:#111">🌐 عربي</button></div></div>
 
 <input type="search" id="searchBox" placeholder="🔍 Search stories (e.g. lion, honest, phone...)" onkeyup="searchStory()" style="width:100%; padding:12px 18px; border-radius:25px; border:2px solid #ddd; outline:none; font-size:15px; margin-bottom:20px;">
 
 <h1 data-i18n="stories_title">📚 10 Stories</h1>
 <button type="button" class="main-cta" onclick="toggleStory(1)" data-i18n="read_now">📖 READ A STORY NOW</button>
 
-<!-- هنا كيتبناو القصص أوتوماتيكيا من stories-data.js -->
-<div id="storiesContainer"></div>
+<div id="storiesContainer"><p style="text-align:center;color:#888;padding:20px">Loading stories... ⏳</p></div>
 <div id="lockedContainer"></div>
 
 <div id="authModal" class="auth-modal"><div class="auth-box">
@@ -102,11 +111,13 @@ window.addPoints = async function(n){ points+=n; updatePointsUI(); await savePoi
 updatePointsUI();
 onAuthStateChanged(auth, async (user)=>{
   currentUser=user; const btn=document.getElementById('authBtn'); const label=document.getElementById('userLabel');
-  if(user){ btn.innerText="Logout"; label.innerText="👋 "+(user.displayName||user.email.split('@')[0]); try{ const s=await getDoc(doc(db,"users",user.uid)); if(s.exists()&&typeof s.data().points==='number'){ if(s.data().points>points){ points=s.data().points; localStorage.setItem('seh_points',points); updatePointsUI(); } } }catch(e){} }
-  else{ btn.innerText="Login / Sign Up"; label.innerText="🔥 SEH WORLD - STORIES"; }
+  if(user){ if(btn) btn.innerText="Logout"; if(label) label.innerText="👋 "+(user.displayName||user.email.split('@')[0]); try{ const s=await getDoc(doc(db,"users",user.uid)); if(s.exists()&&typeof s.data().points==='number'){ if(s.data().points>points){ points=s.data().points; localStorage.setItem('seh_points',points); updatePointsUI(); } } }catch(e){} }
+  else{ if(btn) btn.innerText="Login / Sign Up"; if(label) label.innerText="🔥 SEH WORLD - STORIES"; }
   for(let i=1;i<=15;i++){ loadLikes(i); loadUserLike(i); loadReadStatus(i); }
 });
-document.getElementById('authBtn').onclick=()=>{ if(currentUser) signOut(auth); else document.getElementById('authModal').classList.add('show'); };
+// FIX: حماية إلا كان الزر ما كاينش، ما يوقفش الموقع
+const authBtnEl = document.getElementById('authBtn');
+if(authBtnEl){ authBtnEl.onclick=()=>{ if(currentUser) signOut(auth); else document.getElementById('authModal').classList.add('show'); }; }
 window.closeAuth=()=>document.getElementById('authModal').classList.remove('show');
 window.requireLogin=()=>{ if(!currentUser){ document.getElementById('authModal').classList.add('show'); } else { alert('This story will be unlocked soon. Thank you for logging in.'); } };
 document.getElementById('authToggle').onclick=()=>{ isSignup=!isSignup; document.getElementById('authTitle').innerText=isSignup?"Create Account":"Login"; document.getElementById('authSubmit').innerText=isSignup?"Sign Up":"Login"; document.getElementById('authToggle').innerText=isSignup?"You already have an account? Login":"You do not have an account? Create an account"; document.getElementById('authName').style.display=isSignup?"block":"none"; };
@@ -123,17 +134,22 @@ window.postComment=async function(n){ if(!currentUser){ document.getElementById(
 </script>
 
 <script>
-// بناء القصص من الملف المعزول
 function renderStories(){
   const lang = localStorage.getItem('seh_lang') || 'en';
   const isAr = lang === 'ar';
   const container = document.getElementById('storiesContainer');
+  if(!container) return;
+  // FIX: إلا stories-data.js ما تخدمش، بين رسالة و ما تخليش بياض
+  if(typeof SEH_STORIES === 'undefined' || !SEH_STORIES || !SEH_STORIES.length){
+    container.innerHTML = '<p style="text-align:center;color:#e74c3c;padding:20px;font-weight:bold">⚠️ Stories file not loaded. Please refresh the page.<br><span style="color:#888;font-weight:normal;font-size:13px">stories-data.js is missing or blocked</span></p>';
+    return;
+  }
   container.innerHTML = '';
   SEH_STORIES.forEach(s => {
     const div = document.createElement('div');
     div.className = 'story-item'; div.setAttribute('data-story', s.id);
     div.innerHTML = `
-    <div class="story-title" onclick="toggleStory(${s.id})"><div class="title-left"><img src="${s.img}" alt="${isAr ? s.title_ar : s.title_en}" loading="lazy"><b>${isAr ? s.title_ar : s.title_en}</b></div><div class="story-icon" id="icon${s.id}">+</div></div>
+    <div class="story-title" onclick="toggleStory(${s.id})"><div class="title-left"><img src="${s.img}" alt="${isAr ? s.title_ar : s.title_en}" loading="lazy" onerror="this.style.display='none'"><b>${isAr ? s.title_ar : s.title_en}</b></div><div class="story-icon" id="icon${s.id}">+</div></div>
     <div class="story-content" id="story${s.id}">
       <div class="story-text" id="text${s.id}-main" style="${isAr ? 'direction:rtl;text-align:right' : ''}">${isAr ? s.body_ar : s.body_en}<div class="moral">${isAr ? s.moral_ar : s.moral_en}</div></div>
       <div class="like-row"><button class="like-btn" id="like${s.id}" onclick="toggleLike(${s.id})">❤️ Like (<span id="likeCount${s.id}">0</span>)</button><button class="read-btn" id="read${s.id}" onclick="markAsRead(${s.id})">✓ Mark as Read +10 Points</button></div>
@@ -144,19 +160,20 @@ function renderStories(){
     if(window.__loadComments) window.__loadComments(s.id);
   });
 
-  // القصص المقفولة
   const lockedBox = document.getElementById('lockedContainer');
+  if(!lockedBox) return;
   lockedBox.innerHTML = `<div class="coming-box"><div style="font-size:19px;font-weight:bold;color:#793502;margin-bottom:5px">🔥 COMING SOON - Upcoming Stories</div><div style="font-size:13.5px;color:#777;margin-bottom:15px">5 new stories are coming soon!</div><div id="lockedList"></div><div style="text-align:center;font-size:13px;color:#793502;font-weight:bold;margin-top:12px">⏳ New stories every week - قصص جديدة كل أسبوع ⏳</div></div>`;
   const list = document.getElementById('lockedList');
-  SEH_LOCKED.forEach(s => {
-    const item = document.createElement('div');
-    item.innerHTML = `<div class="coming-item" onclick="openLocked(${s.id})"><img src="${s.img}" loading="lazy"><b>${isAr ? s.title_ar : s.title_en}</b><span>🔒</span></div><div id="locked${s.id}" style="display:none"><div class="locked-preview">${isAr ? s.preview_ar : s.preview_en}</div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList${s.id}"></div><div class="comment-form"><input id="commentInput${s.id}" placeholder="Write your comment..."><button onclick="postComment(${s.id})">Send</button></div></div></div>`;
-    list.appendChild(item);
-    if(window.__loadComments) window.__loadComments(s.id);
-  });
+  if(typeof SEH_LOCKED !== 'undefined' && SEH_LOCKED){
+    SEH_LOCKED.forEach(s => {
+      const item = document.createElement('div');
+      item.innerHTML = `<div class="coming-item" onclick="openLocked(${s.id})"><img src="${s.img}" loading="lazy" onerror="this.style.display='none'"><b>${isAr ? s.title_ar : s.title_en}</b><span>🔒</span></div><div id="locked${s.id}" style="display:none"><div class="locked-preview">${isAr ? s.preview_ar : s.preview_en}</div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList${s.id}"></div><div class="comment-form"><input id="commentInput${s.id}" placeholder="Write your comment..."><button onclick="postComment(${s.id})">Send</button></div></div></div>`;
+      list.appendChild(item);
+      if(window.__loadComments) window.__loadComments(s.id);
+    });
+  }
 }
 renderStories();
-// إلا بدل اللغة، عاود رسم القصص باللغة الجديدة
 const oldApply = window.SEH_LANG ? window.SEH_LANG.apply : null;
 if(window.SEH_LANG){ const orig = window.SEH_LANG.apply.bind(window.SEH_LANG); window.SEH_LANG.apply = function(){ orig(); renderStories(); }; }
 
@@ -170,18 +187,20 @@ function searchStory(){
 }
 function toggleStory(n){
   let c=document.getElementById('story'+n); let ic=document.getElementById('icon'+n);
+  if(!c) return;
   let isOpen=c.classList.contains('show');
   document.querySelectorAll('.story-content').forEach(x=>x.classList.remove('show'));
   document.querySelectorAll('.story-icon').forEach(x=>{x.textContent='+'; x.style.background='#f0f0f0';});
-  if(!isOpen){ c.classList.add('show'); ic.textContent='−'; ic.style.background='#FFD700'; ic.style.color='white'; }
+  if(!isOpen){ c.classList.add('show'); if(ic){ ic.textContent='−'; ic.style.background='#FFD700'; ic.style.color='white'; } }
 }
 function openLocked(n){
   document.querySelectorAll('[id^="locked"]').forEach(x=>{ if(x.id!=='locked'+n) x.style.display='none'; });
   let el=document.getElementById('locked'+n);
+  if(!el) return;
   el.style.display = el.style.display==='none' || el.style.display==='' ? 'block' : 'none';
 }
 function shareStory(n,type){
-  let s = SEH_STORIES.find(x=>x.id===n) || SEH_LOCKED.find(x=>x.id===n);
+  let s = (typeof SEH_STORIES !== 'undefined' && SEH_STORIES.find(x=>x.id===n)) || (typeof SEH_LOCKED !== 'undefined' && SEH_LOCKED.find(x=>x.id===n));
   let title = s ? (localStorage.getItem('seh_lang')==='ar' ? s.title_ar : s.title_en) : 'Story '+n;
   let url=window.location.href.split('#')[0]+'#story'+n;
   let text='📚 '+title+' - Read it here 👇\n'+url;
