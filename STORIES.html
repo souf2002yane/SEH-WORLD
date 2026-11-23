@@ -60,7 +60,6 @@ body{font-family:sans-serif; padding:20px; padding-bottom:110px; max-width:999px
 .auth-box input{width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin:6px 0}
 .auth-box button{width:100%;padding:12px;border:none;border-radius:20px;background:#111;color:#fff;font-weight:bold;margin-top:8px;cursor:pointer}
 .auth-box .link{color:#2575fc;cursor:pointer;font-size:13px}
-/* FIX MOBILE */
 @media(max-width:600px){
   body{padding:12px;padding-bottom:120px}
   .title-left img{width:56px;height:56px}
@@ -70,10 +69,15 @@ body{font-family:sans-serif; padding:20px; padding-bottom:110px; max-width:999px
 }
 </style>
 
-<!-- FIX: زدت زر Login اللي كان ناقص و كان كيوقف الموقع -->
 <div class="top-auth"><span id="userLabel">🔥 SEH WORLD - STORIES</span><span>⭐ <span data-i18n="points">Points</span>: <b id="pointsNum">0</b></span><div style="display:flex;gap:6px"><button id="authBtn">Login / Sign Up</button><button id="sehLangBtn" onclick="SEH_LANG.toggle()" style="background:#fff;color:#111">🌐 عربي</button></div></div>
 
-<input type="search" id="searchBox" placeholder="🔍 Search stories (e.g. lion, honest, phone...)" onkeyup="searchStory()" style="width:100%; padding:12px 18px; border-radius:25px; border:2px solid #ddd; outline:none; font-size:15px; margin-bottom:20px;">
+<!-- FIX ANTI-AUTOFILL: البحث ولا readonly حتى تبرك عليه، باش Chrome ما يعمروش بالإيميل -->
+<form autocomplete="off" onsubmit="return false;" style="margin:0">
+  <input type="text" name="seh_search_xyz_987" id="searchBox" placeholder="🔍 Search stories (e.g. lion, honest, phone...)" onkeyup="searchStory()" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly')" onblur="this.setAttribute('readonly','readonly')" style="width:100%; padding:12px 18px; border-radius:25px; border:2px solid #ddd; outline:none; font-size:15px; margin-bottom:20px;">
+  <!-- حقول وهمية باش Chrome يعمرهم هما ماشي البحث -->
+  <input type="text" name="prevent_autofill_username" style="display:none" tabindex="-1" autocomplete="off">
+  <input type="password" name="prevent_autofill_password" style="display:none" tabindex="-1" autocomplete="off">
+</form>
 
 <h1 data-i18n="stories_title">📚 10 Stories</h1>
 <button type="button" class="main-cta" onclick="toggleStory(1)" data-i18n="read_now">📖 READ A STORY NOW</button>
@@ -83,9 +87,11 @@ body{font-family:sans-serif; padding:20px; padding-bottom:110px; max-width:999px
 
 <div id="authModal" class="auth-modal"><div class="auth-box">
 <h3 id="authTitle">Login</h3>
+<form autocomplete="off" onsubmit="return false;">
 <input type="text" id="authName" placeholder="Your Name (For Sign Up Only)" autocomplete="off">
 <input type="email" id="authEmail" placeholder="Email" autocomplete="email">
 <input type="password" id="authPass" placeholder="Password" autocomplete="current-password">
+</form>
 <button id="authSubmit">Login</button>
 <p><span id="authToggle" class="link">You do not have an account? Create an account</span></p>
 <p><span id="forgotPass" class="link" style="color:#e74c3c">Forgot password? Click here to reset it</span></p>
@@ -115,7 +121,6 @@ onAuthStateChanged(auth, async (user)=>{
   else{ if(btn) btn.innerText="Login / Sign Up"; if(label) label.innerText="🔥 SEH WORLD - STORIES"; }
   for(let i=1;i<=15;i++){ loadLikes(i); loadUserLike(i); loadReadStatus(i); }
 });
-// FIX: حماية إلا كان الزر ما كاينش، ما يوقفش الموقع
 const authBtnEl = document.getElementById('authBtn');
 if(authBtnEl){ authBtnEl.onclick=()=>{ if(currentUser) signOut(auth); else document.getElementById('authModal').classList.add('show'); }; }
 window.closeAuth=()=>document.getElementById('authModal').classList.remove('show');
@@ -139,7 +144,6 @@ function renderStories(){
   const isAr = lang === 'ar';
   const container = document.getElementById('storiesContainer');
   if(!container) return;
-  // FIX: إلا stories-data.js ما تخدمش، بين رسالة و ما تخليش بياض
   if(typeof SEH_STORIES === 'undefined' || !SEH_STORIES || !SEH_STORIES.length){
     container.innerHTML = '<p style="text-align:center;color:#e74c3c;padding:20px;font-weight:bold">⚠️ Stories file not loaded. Please refresh the page.<br><span style="color:#888;font-weight:normal;font-size:13px">stories-data.js is missing or blocked</span></p>';
     return;
@@ -154,12 +158,11 @@ function renderStories(){
       <div class="story-text" id="text${s.id}-main" style="${isAr ? 'direction:rtl;text-align:right' : ''}">${isAr ? s.body_ar : s.body_en}<div class="moral">${isAr ? s.moral_ar : s.moral_en}</div></div>
       <div class="like-row"><button class="like-btn" id="like${s.id}" onclick="toggleLike(${s.id})">❤️ Like (<span id="likeCount${s.id}">0</span>)</button><button class="read-btn" id="read${s.id}" onclick="markAsRead(${s.id})">✓ Mark as Read +10 Points</button></div>
       <div class="share-row"><button class="share-btn share-wa" onclick="shareStory(${s.id},'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(${s.id},'fb')">📘 Facebook</button></div>
-      <div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList${s.id}"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput${s.id}" placeholder="Write your comment..."><button onclick="postComment(${s.id})">Send</button></div></div>
+      <div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList${s.id}"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput${s.id}" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(${s.id})">Send</button></div></div>
     </div>`;
     container.appendChild(div);
     if(window.__loadComments) window.__loadComments(s.id);
   });
-
   const lockedBox = document.getElementById('lockedContainer');
   if(!lockedBox) return;
   lockedBox.innerHTML = `<div class="coming-box"><div style="font-size:19px;font-weight:bold;color:#793502;margin-bottom:5px">🔥 COMING SOON - Upcoming Stories</div><div style="font-size:13.5px;color:#777;margin-bottom:15px">5 new stories are coming soon!</div><div id="lockedList"></div><div style="text-align:center;font-size:13px;color:#793502;font-weight:bold;margin-top:12px">⏳ New stories every week - قصص جديدة كل أسبوع ⏳</div></div>`;
@@ -167,18 +170,36 @@ function renderStories(){
   if(typeof SEH_LOCKED !== 'undefined' && SEH_LOCKED){
     SEH_LOCKED.forEach(s => {
       const item = document.createElement('div');
-      item.innerHTML = `<div class="coming-item" onclick="openLocked(${s.id})"><img src="${s.img}" loading="lazy" onerror="this.style.display='none'"><b>${isAr ? s.title_ar : s.title_en}</b><span>🔒</span></div><div id="locked${s.id}" style="display:none"><div class="locked-preview">${isAr ? s.preview_ar : s.preview_en}</div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList${s.id}"></div><div class="comment-form"><input id="commentInput${s.id}" placeholder="Write your comment..."><button onclick="postComment(${s.id})">Send</button></div></div></div>`;
+      item.innerHTML = `<div class="coming-item" onclick="openLocked(${s.id})"><img src="${s.img}" loading="lazy" onerror="this.style.display='none'"><b>${isAr ? s.title_ar : s.title_en}</b><span>🔒</span></div><div id="locked${s.id}" style="display:none"><div class="locked-preview">${isAr ? s.preview_ar : s.preview_en}</div><button class="locked-btn" onclick="requireLogin()">🔒 Login to Read The Full Story</button><div class="comments-box"><h4>💬 Comments</h4><div id="commentsList${s.id}"></div><div class="comment-form"><input id="commentInput${s.id}" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(${s.id})">Send</button></div></div></div>`;
       list.appendChild(item);
       if(window.__loadComments) window.__loadComments(s.id);
     });
   }
 }
 renderStories();
+
+// FIX ANTI-AUTOFILL: مسح الإيميل إلا Chrome عمرو فالبحث + تجاهل الإيميل فالبحث
+function clearAutofillEmail(){
+  var s = document.getElementById('searchBox');
+  if(!s) return;
+  if(s.value && s.value.indexOf('@') !== -1){
+    s.value = '';
+    searchStory();
+  }
+}
+window.addEventListener('load', function(){ setTimeout(clearAutofillEmail, 400); setTimeout(clearAutofillEmail, 1200); setTimeout(clearAutofillEmail, 2500); });
+// مراقبة كل ثانية فأول 5 ثواني، إلا Chrome عاود عمرو
+var _autofillGuard = 0;
+var _autofillTimer = setInterval(function(){ clearAutofillEmail(); _autofillGuard++; if(_autofillGuard > 5) clearInterval(_autofillTimer); }, 1000);
+
 const oldApply = window.SEH_LANG ? window.SEH_LANG.apply : null;
 if(window.SEH_LANG){ const orig = window.SEH_LANG.apply.bind(window.SEH_LANG); window.SEH_LANG.apply = function(){ orig(); renderStories(); }; }
 
 function searchStory(){
-  let input = document.getElementById('searchBox').value.toLowerCase().trim();
+  var box = document.getElementById('searchBox');
+  var input = box ? box.value.toLowerCase().trim() : '';
+  // إلا بقا فيه إيميل، اعتبرو بحث خاوي و بين كلشي
+  if(input.indexOf('@') !== -1) input = '';
   document.querySelectorAll('.story-item').forEach(item => {
     let title = item.querySelector('.story-title b').textContent.toLowerCase();
     let text = item.querySelector('.story-text').textContent.toLowerCase();
