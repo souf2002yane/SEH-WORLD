@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <script>if(location.protocol==="http:"&&location.hostname!=="localhost"&&location.hostname!=="127.0.0.1"){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}</script>
 <title>Free Online Games – SEH World</title>
-<meta name="description" content="Play 8 free online games: Challenge Party, Tic Tac Toe, Rock Paper Scissors, Checkers, Memory, Quiz, Guess Word & Simon. No download, no login needed.">
+<meta name="description" content="Play 9 free online games: Challenge Party, Tic Tac Toe, Rock Paper Scissors, Checkers, Memory, Quiz, Guess Word, Simon & Snake. No download, no login needed.">
 <meta name="author" content="Soufyane El Haddaoui">
 <link rel="canonical" href="https://souf2002yane.github.io/SEH-WORLD/GAME.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -113,16 +113,25 @@
   .word-answer{display:flex;gap:8px;justify-content:center;min-height:50px;margin:10px 0}
   .word-slot{width:48px;height:48px;border:2px dashed #764ba2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;background:white}
   .shop-buy-btn{background:#fbbf24;border:none;padding:8px 20px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:8px}
+  .snake-btn{background:#333;color:#fff;border:none;padding:12px 20px;border-radius:12px;font-size:20px;cursor:pointer}
+  .snake-btn:active{background:#00ff41;color:#111}
 </style>
 
 <div style="max-width:500px;margin:0 auto">
   <div class="seg"><button id="offlineBtn" class="active" onclick="setGameMode('offline')" data-i18n="offline">📱 OFFLINE</button><button id="onlineBtn" onclick="setGameMode('online')" data-i18n="online">🌐 ONLINE</button></div>
   <div class="progress-box"><b id="unlockText" data-i18n="unlock">🔒 2 New Games locked - Reach 1000 Points</b><div class="progress-bar"><div class="progress-fill" id="unlockFill"></div></div><small id="unlockSub">0 / 1000</small></div>
   <div class="daily-box"><b>🎁 <span data-i18n="daily">Daily Reward</span></b><p id="starsText" style="margin:6px 0">⭐ Stars: 0 / 30</p><button class="btn" id="dailyBtn" onclick="claimDaily()" style="margin-top:0" data-i18n="claim">Claim +5 ⭐ Today</button><small id="dailyMsg" style="display:block;margin-top:6px;color:#666"></small></div>
+  <!-- MUSIC BOX - NEW -->
+  <div style="background:white;border-radius:16px;padding:14px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:14px">
+    <h3 style="margin:0">🎵 Game Music</h3>
+    <p style="color:#888;font-size:13px;margin:6px 0">Background music like real games - Needs Sound Pack</p>
+    <button id="musicBtn" onclick="sehToggleMusic()" style="background:#111;color:#fff;border:none;padding:11px 24px;border-radius:20px;font-weight:bold;cursor:pointer">🎵 Play Music</button>
+    <p id="musicStatus" style="font-size:12px;color:green;margin-top:6px"></p>
+  </div>
 </div>
 
 <h2 class="games-title" data-i18n="game_title">🎮 Choose Your Game</h2>
-<p class="games-sub" data-i18n="game_sub">Click on an image to play - 8 Games</p>
+<p class="games-sub" data-i18n="game_sub">Click on an image to play - 9 Games</p>
 <button type="button" class="main-cta" id="mainPlayBtn" onclick="openGame('challenge',document.querySelector('.game-card'))" data-i18n="start_playing">🎮 START PLAYING</button>
 
 <div class="games-grid" id="gamesMenu">
@@ -160,6 +169,12 @@
     <img src="https://cdn-icons-png.flaticon.com/512/3094/3094834.png" alt="Simon Memory" loading="lazy" referrerpolicy="no-referrer">
     <b data-i18n="simon_title">🎵 Fast Memory</b><span data-i18n="simon_desc">5 Levels = +10 Points</span>
   </div>
+  <!-- SNAKE - NEW, PRACTICAL -->
+  <div class="game-card" data-mode="offline" id="card-snake" onclick="tryOpenSnake(this)">
+    <span class="new-badge">NEW</span><span class="lock-badge" id="snakeLockBadge">🔒 Extra Game</span>
+    <img src="https://cdn-icons-png.flaticon.com/512/3523/3523063.png" alt="Snake Game" loading="lazy" referrerpolicy="no-referrer">
+    <b>🐍 Snake Game</b><span>Eat • Grow • Win Points</span>
+  </div>
 </div>
 <button class="back-btn" id="backBtn" onclick="backToMenu()" style="display:none" data-i18n="back_games">⬅ Back to Games</button>
 
@@ -191,6 +206,9 @@
 
 <div id="view-simon" class="game-view"><div class="container"><h1>🎵 <span data-i18n="simonTitle">Fast Memory</span></h1><p style="text-align:center;color:#888"><span data-i18n="simonSub">Repeat the colors - 5 Levels = +10 Points</span> | Level: <b id="simonLevel">0 / 5</b></p><p id="simonMsg" style="text-align:center;font-weight:600;margin:10px 0">Press Start</p><div class="simon-grid"><button class="simon-btn" style="background:#ff5a6a" onclick="simonClick(0)">🔴</button><button class="simon-btn" style="background:#00c896" onclick="simonClick(1)">🟢</button><button class="simon-btn" style="background:#667eea" onclick="simonClick(2)">🔵</button><button class="simon-btn" style="background:#E9C46A" onclick="simonClick(3)">🟡</button></div><button class="btn" onclick="startSimon()">Start ▶️</button></div></div>
 
+<!-- SNAKE VIEW - PRACTICAL -->
+<div id="view-snake" class="game-view"><div class="container" style="text-align:center"><h1>🐍 Snake Game</h1><p style="color:#888;font-size:14px">Eat to grow - Don't hit wall or yourself</p><p style="margin:10px 0;font-weight:bold">Score: <b id="snakeScore" style="color:#00c896">0</b> | Best: <b id="snakeBest">0</b> | Points: <b id="snakePoints">0</b></p><canvas id="snakeCanvas" width="300" height="300" style="background:#000;border-radius:12px;max-width:100%;border:2px solid #00ff41"></canvas><br><br><div style="display:flex;gap:8px"><button class="btn" onclick="startSnake()" style="margin:0;background:#00c896">▶ Play Snake</button><button class="btn" onclick="stopSnake()" style="margin:0;background:#111">⏹ Stop</button></div><div style="margin-top:14px"><button class="snake-btn" onclick="sehSnakeDir(0,-1)">⬆️</button><br><button class="snake-btn" onclick="sehSnakeDir(-1,0)">⬅️</button><button class="snake-btn" onclick="sehSnakeDir(1,0)">➡️</button><br><button class="snake-btn" onclick="sehSnakeDir(0,1)">⬇️</button></div><p style="font-size:12px;color:#888;margin-top:10px">PC: Use Arrow Keys | Phone: Use Buttons</p><p id="snakeMsg" style="font-weight:600;margin-top:8px"></p></div></div>
+
 <div style="max-width:500px;margin:20px auto"><button class="btn-secondary" onclick="showMoreGames()" id="moreGamesBtn" style="width:100%; padding:13px; border:1px solid #382201; background:white; color:black; border-radius:8px; cursor:pointer;" data-i18n="more_games_btn"><b>Click here for more games →</b></button></div>
 <div id="moreGames" style="display:none;max-width:500px;margin:0 auto"><h1 style="margin-bottom:20px" data-i18n="more_games_title">🔥 More Games - Coming Soon</h1><div class="container" style="text-align:center"><p data-i18n="more_games_p1">🎲 A new game is coming soon...</p><p style="color:#888;margin-top:10px" data-i18n="more_games_p2">Stay with us, we add new games every week</p></div></div>
 
@@ -220,14 +238,14 @@
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">👑</div><b>VIP Badge - 500</b><br><small style="color:#888">Crown + 2x Points</small><br><button onclick="sehBuy('vip',500)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🎨</div><b>Color Theme - 250</b><br><small style="color:#888">Change Site Color</small><br><button onclick="sehBuy('color',250)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
-      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🌙</div><b>Dark Mode Pro - 200</b><br><small style="color:#888">Real Dark Mode</small><br><button onclick="sehBuy('dark',200)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
-      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🎮</div><b>Extra Game - 400</b><br><small style="color:#888">Hidden Snake Game</small><br><button onclick="sehBuy('game',400)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
+      <!-- DARK REMOVED - حيدنا Dark Mode -->
+      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🎮</div><b>Extra Game - 400</b><br><small style="color:#888">Snake Game</small><br><button onclick="sehBuy('game',400)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
       <div style="background:#FFF8E1;padding:14px;border-radius:16px;text-align:center;border:2px solid #E9C46A"><div style="font-size:32px">📝</div><b>My Diary - 600</b><br><small style="color:#888">Private Secret Diary + Lock</small><br><button onclick="sehBuy('diary',600)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
-      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🔊</div><b>Sound Pack - 150</b><br><small style="color:#888">Sounds in Games</small><br><button onclick="sehBuy('sound',150)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
+      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🔊</div><b>Sound Pack - 150</b><br><small style="color:#888">Game Music + Sounds</small><br><button onclick="sehBuy('sound',150)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
     </div>
     <div id="shopSecretGame" style="display:none;background:#111;color:#fff;padding:16px;border-radius:16px;margin-top:14px;text-align:center">
-      <h3>🎮 Secret Game - Snake VIP</h3><p style="font-size:13px;color:#ccc">Unlocked! You bought Extra Game</p>
-      <button onclick="alert('Snake is in More Games - Coming Soon!')" style="background:#22c55e;color:#fff;padding:10px 20px;border:none;border-radius:10px;font-weight:bold;cursor:pointer">▶️ Play Now</button>
+      <h3>🎮 Snake Unlocked!</h3><p style="font-size:13px;color:#ccc">You bought Extra Game - Snake is now in Games</p>
+      <button onclick="openGame('snake',document.getElementById('card-snake'))" style="background:#22c55e;color:#fff;padding:10px 20px;border:none;border-radius:10px;font-weight:bold;cursor:pointer">▶️ Play Snake Now</button>
     </div>
     <div id="shopDiary" style="display:none;background:#fff;padding:16px;border-radius:16px;margin-top:14px;border:2px solid #ec4899">
       <h3 style="text-align:center" data-i18n="diary_title">📝 My Diary - Private</h3>
@@ -253,7 +271,6 @@
 </div>
 
 <div class="lb-wrap"><h1 style="margin-bottom:5px" data-i18n="lb_title">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px" data-i18n="lb_sub">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2><p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p><p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div><div id="leaderList"></div></div>
-
 <script src="seh-lang.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -261,14 +278,14 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, orderBy, limit, getDocs, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg", authDomain: "seh-world.firebaseapp.com", projectId: "seh-world", storageBucket: "seh-world.firebasestorage.app", messagingSenderId: "888057068574", appId: "1:888057068574:web:796fdde71679597931020f", measurementId: "G-KESK983LBH" };
 const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
-window.sehAuth = auth; window.sehDb = db; window.sehUser = null; window.sehPoints = 0; window.sehOnSnap = onSnapshot; window.sehDoc = doc; window.sehSetDoc = setDoc; window.sehUpdateDoc = updateDoc;
+window.sehAuth = auth; window.sehDb = db; window.sehUser = null; window.sehPoints = parseInt(localStorage.getItem('seh_points')||'0'); window.sehOnSnap = onSnapshot; window.sehDoc = doc; window.sehSetDoc = setDoc; window.sehUpdateDoc = updateDoc;
 onAuthStateChanged(auth, async (user) => {
-  if (user) { window.sehUser = user; const ref = doc(db, "users", user.uid); const snap = await getDoc(ref); if (!snap.exists()) { await setDoc(ref, { name: user.displayName || "Player", email: user.email || "", points: 0, createdAt: new Date() }); window.sehPoints = 0; } else { window.sehPoints = snap.data().points || 0; } localStorage.setItem('seh_points', window.sehPoints); } else { window.sehUser = null; window.sehPoints = 0; localStorage.setItem('seh_points', '0'); }
-  renderLeaderboardReal(); updateUnlockUI(); updateStarsUI(); if(window.sehUpdateShopUI) sehUpdateShopUI();
+  if (user) { window.sehUser = user; const ref = doc(db, "users", user.uid); const snap = await getDoc(ref); if (!snap.exists()) { await setDoc(ref, { name: user.displayName || "Player", email: user.email || "", points: window.sehPoints, createdAt: new Date() }); } else { let fb = snap.data().points||0; let local = parseInt(localStorage.getItem('seh_points')||'0'); if(fb > local){ window.sehPoints = fb; localStorage.setItem('seh_points', String(fb)); localStorage.setItem('shopPoints', String(fb)); } else if(local > fb){ try{ await updateDoc(ref,{points: local}); }catch(e){} } } } else { window.sehUser = null; /* FIX: ما كنممسحوش النقاط ملي كيخرج */ }
+  renderLeaderboardReal(); updateUnlockUI(); updateStarsUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); if(window.sehUpdateSnakeLock) sehUpdateSnakeLock();
 });
-window.addPoints = async function(n) { let p = parseInt(localStorage.getItem('seh_points')||'0') + n; if(p<0) p=0; localStorage.setItem('seh_points', p); window.sehPoints = p; if (window.sehUser) { try { await updateDoc(doc(db, "users", window.sehUser.uid), { points: increment(n) }); } catch(e){ console.log(e); } } renderLeaderboardReal(); updateUnlockUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); };
-window.renderLeaderboardReal = async function() { const listEl = document.getElementById('leaderList'); if (!listEl) return; let myPoints = parseInt(localStorage.getItem('seh_points')||'0'); if (!window.sehUser) { document.getElementById('myNameLB').textContent = "Guest"; document.getElementById('myRankLB').textContent = "Guest - 0 Points"; document.getElementById('myLevelLB').textContent = "LEVEL 1"; listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">سجل دخول لترى لوحة الصدارة الحقيقية<br><a href="INFO.html"> log in</a></div></div>`; return; } let myName = window.sehUser.displayName || window.sehUser.email || "Player"; try { const q = query(collection(db, "users"), orderBy("points", "desc"), limit(10)); const snap = await getDocs(q); let players = []; snap.forEach(d => players.push({ id: d.id, ...d.data() })); players.sort((a,b)=> (b.points||0) - (a.points||0)); let medals = ['🥇','🥈','🥉']; let html = ''; players.forEach((p, i)=>{ let medal = medals[i] || ('#' + (i+1)); let level = Math.floor((p.points||0)/100)+1; let letter = (p.name||"P").charAt(0).toUpperCase(); let isMe = p.id === window.sehUser.uid; html += `<div class="lb-row ${isMe ? 'me' : ''}"><div style="font-size:22px;font-weight:900;width:38px;text-align:center">${medal}</div><div class="lb-avatar">${letter}</div><div style="flex:1"><b style="display:block;font-size:15px">${p.name||"Player"} ${isMe ? ' (You) ⭐' : ''}</b><small style="color:#888;font-size:12px">⭐ LEVEL ${level}</small></div>
-<div style="font-weight:900;color:#B7791F;font-size:16px;text-align:right">${p.points||0}<small style="display:block;color:#888;font-size:11px;font-weight:400">points</small></div></div>`; }); listEl.innerHTML = html || "لا يوجد لاعبون بعد"; let myRank = players.findIndex(p=>p.id===window.sehUser.uid) + 1; if (myRank === 0) myRank = players.length + 1; let myLevel = Math.floor(myPoints/100)+1; document.getElementById('myNameLB').textContent = myName; document.getElementById('myRankLB').textContent = 'Your Rank: #' + myRank + ' • ⭐ ' + myPoints + ' Points'; document.getElementById('myLevelLB').textContent = '⭐ LEVEL ' + myLevel; } catch(e){ console.log("Leaderboard error", e); } };
+window.addPoints = async function(n) { let p = parseInt(localStorage.getItem('seh_points')||'0') + n; if(p<0) p=0; localStorage.setItem('seh_points', String(p)); localStorage.setItem('shopPoints', String(p)); window.sehPoints = p; if (window.sehUser) { try { await updateDoc(doc(db, "users", window.sehUser.uid), { points: increment(n) }); } catch(e){ console.log(e); } } renderLeaderboardReal(); updateUnlockUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); };
+window.renderLeaderboardReal = async function() { const listEl = document.getElementById('leaderList'); if (!listEl) return; let myPoints = parseInt(localStorage.getItem('seh_points')||'0'); if (!window.sehUser) { let accName = ''; try{ accName = JSON.parse(localStorage.getItem('seh_account')||'{}').name || ''; }catch(e){} if(accName){ document.getElementById('myNameLB').textContent = accName; document.getElementById('myRankLB').textContent = accName + ' - ' + myPoints + ' Points'; document.getElementById('myLevelLB').textContent = 'LEVEL ' + (Math.floor(myPoints/100)+1); listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">Welcome ${accName} 👋<br>Play to earn points</div></div>`; return; } document.getElementById('myNameLB').textContent = "Guest"; document.getElementById('myRankLB').textContent = "Guest - 0 Points"; document.getElementById('myLevelLB').textContent = "LEVEL 1"; listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">Login to see real leaderboard<br><a href="INFO.html"> log in</a></div></div>`; return; } let myName = window.sehUser.displayName || window.sehUser.email || "Player"; try { const q = query(collection(db, "users"), orderBy("points", "desc"), limit(10)); const snap = await getDocs(q); let players = []; snap.forEach(d => players.push({ id: d.id, ...d.data() })); players.sort((a,b)=> (b.points||0) - (a.points||0)); let medals = ['🥇','🥈','🥉']; let html = ''; players.forEach((p, i)=>{ let medal = medals[i] || ('#' + (i+1)); let level = Math.floor((p.points||0)/100)+1; let letter = (p.name||"P").charAt(0).toUpperCase(); let isMe = p.id === window.sehUser.uid; html += `<div class="lb-row ${isMe ? 'me' : ''}"><div style="font-size:22px;font-weight:900;width:38px;text-align:center">${medal}</div><div class="lb-avatar">${letter}</div><div style="flex:1"><b style="display:block;font-size:15px">${p.name||"Player"} ${isMe ? ' (You) ⭐' : ''}</b><small style="color:#888;font-size:12px">⭐ LEVEL ${level}</small></div>
+<div style="font-weight:900;color:#B7791F;font-size:16px;text-align:right">${p.points||0}<small style="display:block;color:#888;font-size:11px;font-weight:400">points</small></div></div>`; }); listEl.innerHTML = html || "No players yet"; let myRank = players.findIndex(p=>p.id===window.sehUser.uid) + 1; if (myRank === 0) myRank = players.length + 1; let myLevel = Math.floor(myPoints/100)+1; document.getElementById('myNameLB').textContent = myName; document.getElementById('myRankLB').textContent = 'Your Rank: #' + myRank + ' • ⭐ ' + myPoints + ' Points'; document.getElementById('myLevelLB').textContent = '⭐ LEVEL ' + myLevel; } catch(e){ console.log("Leaderboard error", e); } };
 </script>
 
 <script>
@@ -282,8 +299,53 @@ function tryOpenLocked(name,el){ if(getPoints()<1000){ alert('🔒 You need 1000
 function getStars(){ return parseInt(localStorage.getItem('seh_stars')||'0'); }
 function updateStarsUI(){ let s=getStars(); let el=document.getElementById('starsText'); if(el) el.textContent=`⭐ Stars: ${s} / 30`; let btn=document.getElementById('dailyBtn'); let today=new Date().toDateString(); let last=localStorage.getItem('seh_daily_last'); if(btn){ if(last==today){ btn.textContent='✅ Already claimed today - Come back tomorrow'; btn.disabled=true; btn.style.opacity='.6'; } else { btn.textContent='Claim +5 ⭐ Today'; btn.disabled=false; btn.style.opacity='1'; } } }
 function claimDaily(){ let today=new Date().toDateString(); if(localStorage.getItem('seh_daily_last')==today){ alert('Already claimed today!'); return; } let s=getStars()+5; localStorage.setItem('seh_daily_last',today); if(s>=30){ s=s-30; localStorage.setItem('seh_stars',s); addPoints(10); alert('🎉 30 Stars! You got +10 Points!'); } else { localStorage.setItem('seh_stars',s); } updateStarsUI(); document.getElementById('dailyMsg').textContent='You got +5 ⭐! Come back tomorrow.'; }
-function openGame(name, el){ document.querySelectorAll('.game-view').forEach(x=>x.classList.remove('show')); document.querySelectorAll('.game-card').forEach(x=>x.classList.remove('active')); document.getElementById('view-'+name).classList.add('show'); if(el) el.classList.add('active'); document.getElementById('backBtn').style.display='block'; document.getElementById('gamesMenu').style.display='none'; document.querySelector('.games-title').style.display='none'; document.querySelector('.games-sub').style.display='none'; if(name=='dama') initDama(); if(name=='xo') resetXO(); if(name=='memory') initMemory(); if(name=='quiz') initQuiz(); if(name=='word') initWord(); if(name=='simon') startSimon(); window.scrollTo({top:0, behavior:'smooth'}); }
-function backToMenu(){ document.querySelectorAll('.game-view').forEach(x=>x.classList.remove('show')); document.querySelectorAll('.game-card').forEach(x=>x.classList.remove('active')); document.getElementById('backBtn').style.display='none'; document.getElementById('gamesMenu').style.display='grid'; document.querySelector('.games-title').style.display='block'; document.querySelector('.games-sub').style.display='block'; setGameMode(gameMode); }
+// ===== SNAKE + MUSIC - PRACTICAL =====
+let sehSnake=null, sehSnakeFood=null, sehSnakeDx=1, sehSnakeDy=0, sehSnakeTimer=null, sehSnakeScore=0;
+let sehMusicCtx=null, sehMusicTimer=null, sehMusicOn=false, sehMusicNotes=[523,659,784,659,523,659,784,1046], sehMusicIdx=0;
+function sehHasItem(id){ try{ return JSON.parse(localStorage.getItem('seh_inventory')||'[]').includes(id); }catch(e){ return false; } }
+function sehUpdateSnakeLock(){ let badge=document.getElementById('snakeLockBadge'); if(!badge) return; if(sehHasItem('game')){ badge.textContent='✅ Unlocked'; badge.style.background='#22c55e'; } else { badge.textContent='🔒 Extra Game'; } }
+function tryOpenSnake(el){ if(!sehHasItem('game')){ alert('🔒 Snake is locked!\nBuy Extra Game - 400 Points in Shop below to unlock Snake 🐍'); document.getElementById('shopSecretGame')?.scrollIntoView({behavior:'smooth'}); return; } openGame('snake',el); }
+function sehSnakeDir(x,y){ if(x===-sehSnakeDx && y===-sehSnakeDy) return; sehSnakeDx=x; sehSnakeDy=y; }
+function startSnake(){
+  let c=document.getElementById('snakeCanvas'); if(!c) return;
+  let ctx=c.getContext('2d');
+  sehSnake=[{x:15,y:15},{x:14,y:15},{x:13,y:15}]; sehSnakeDx=1; sehSnakeDy=0; sehSnakeScore=0;
+  document.getElementById('snakeScore').textContent='0'; document.getElementById('snakeMsg').textContent='';
+  sehSnakeFood={x:Math.floor(Math.random()*28), y:Math.floor(Math.random()*28)};
+  clearInterval(sehSnakeTimer);
+  if(sehHasItem('sound')) sehStartMusic();
+  sehSnakeTimer=setInterval(()=>{
+    let head={x:sehSnake[0].x+sehSnakeDx, y:sehSnake[0].y+sehSnakeDy};
+    if(head.x<0||head.x>=30||head.y<0||head.y>=30||sehSnake.some(s=>s.x===head.x&&s.y===head.y)){
+      clearInterval(sehSnakeTimer); sehStopMusic();
+      let best=parseInt(localStorage.getItem('seh_snake_best')||'0');
+      if(sehSnakeScore>best){ best=sehSnakeScore; localStorage.setItem('seh_snake_best', String(best)); }
+      document.getElementById('snakeBest').textContent=best;
+      document.getElementById('snakeMsg').textContent='💥 Game Over! Score: '+sehSnakeScore+' | Best: '+best+' - Press Play to try again';
+      return;
+    }
+    sehSnake.unshift(head);
+    if(head.x===sehSnakeFood.x && head.y===sehSnakeFood.y){
+      sehSnakeScore+=10; document.getElementById('snakeScore').textContent=sehSnakeScore;
+      if(window.addPoints) window.addPoints(2);
+      document.getElementById('snakePoints').textContent=getPoints();
+      sehPlayEatSound();
+      sehSnakeFood={x:Math.floor(Math.random()*28), y:Math.floor(Math.random()*28)};
+    } else { sehSnake.pop(); }
+    ctx.fillStyle='#000'; ctx.fillRect(0,0,300,300);
+    ctx.fillStyle='#ff4757'; ctx.fillRect(sehSnakeFood.x*10, sehSnakeFood.y*10, 10, 10);
+    sehSnake.forEach((s,i)=>{ ctx.fillStyle=i===0?'#fff':'#00ff41'; ctx.fillRect(s.x*10, s.y*10, 10, 10); });
+  },130);
+}
+function stopSnake(){ clearInterval(sehSnakeTimer); sehStopMusic(); document.getElementById('snakeMsg').textContent='⏹ Stopped - Press Play to restart'; }
+document.addEventListener('keydown', e=>{ if(!document.getElementById('view-snake')?.classList.contains('show')) return; if(e.key==='ArrowUp') sehSnakeDir(0,-1); if(e.key==='ArrowDown') sehSnakeDir(0,1); if(e.key==='ArrowLeft') sehSnakeDir(-1,0); if(e.key==='ArrowRight') sehSnakeDir(1,0); });
+function sehPlayNote(f){ if(!sehMusicCtx) return; let o=sehMusicCtx.createOscillator(); let g=sehMusicCtx.createGain(); o.connect(g); g.connect(sehMusicCtx.destination); o.type='square'; o.frequency.value=f; g.gain.value=0.04; o.start(); setTimeout(()=>o.stop(),180); }
+function sehStartMusic(){ if(sehMusicTimer) return; if(!sehMusicCtx) sehMusicCtx=new (window.AudioContext||window.webkitAudioContext)(); if(sehMusicCtx.state==='suspended') sehMusicCtx.resume(); sehMusicTimer=setInterval(()=>{ sehPlayNote(sehMusicNotes[sehMusicIdx%sehMusicNotes.length]); sehMusicIdx++; },220); let b=document.getElementById('musicBtn'); if(b) b.textContent='⏸ Pause Music'; let s=document.getElementById('musicStatus'); if(s) s.textContent='🎵 Music is playing...'; sehMusicOn=true; }
+function sehStopMusic(){ clearInterval(sehMusicTimer); sehMusicTimer=null; sehMusicOn=false; let b=document.getElementById('musicBtn'); if(b) b.textContent='🎵 Play Music'; let s=document.getElementById('musicStatus'); if(s) s.textContent=''; }
+function sehToggleMusic(){ if(!sehHasItem('sound')){ alert('🔒 Buy Sound Pack - 150 Points first to unlock Music 🔊'); return; } if(sehMusicOn) sehStopMusic(); else sehStartMusic(); }
+function sehPlayEatSound(){ if(!sehHasItem('sound')) return; if(!sehMusicCtx) sehMusicCtx=new (window.AudioContext||window.webkitAudioContext)(); let o=sehMusicCtx.createOscillator(); let g=sehMusicCtx.createGain(); o.connect(g); g.connect(sehMusicCtx.destination); o.frequency.value=900; g.gain.value=0.08; o.start(); setTimeout(()=>o.stop(),100); }
+function openGame(name, el){ document.querySelectorAll('.game-view').forEach(x=>x.classList.remove('show')); document.querySelectorAll('.game-card').forEach(x=>x.classList.remove('active')); document.getElementById('view-'+name).classList.add('show'); if(el) el.classList.add('active'); document.getElementById('backBtn').style.display='block'; document.getElementById('gamesMenu').style.display='none'; document.querySelector('.games-title').style.display='none'; document.querySelector('.games-sub').style.display='none'; if(name=='dama') initDama(); if(name=='xo') resetXO(); if(name=='memory') initMemory(); if(name=='quiz') initQuiz(); if(name=='word') initWord(); if(name=='simon') startSimon(); if(name=='snake'){ document.getElementById('snakeBest').textContent=localStorage.getItem('seh_snake_best')||'0'; document.getElementById('snakePoints').textContent=getPoints(); } window.scrollTo({top:0, behavior:'smooth'}); }
+function backToMenu(){ document.querySelectorAll('.game-view').forEach(x=>x.classList.remove('show')); document.querySelectorAll('.game-card').forEach(x=>x.classList.remove('active')); document.getElementById('backBtn').style.display='none'; document.getElementById('gamesMenu').style.display='grid'; document.querySelector('.games-title').style.display='block'; document.querySelector('.games-sub').style.display='block'; stopSnake(); setGameMode(gameMode); }
 function showMoreGames(){ document.getElementById("moreGames").style.display="block"; document.getElementById("moreGamesBtn").style.display="none"; window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'}); }
 let partyPlayerCount = 4;
 function setPartyPlayers(n, btn){ partyPlayerCount = n; document.querySelectorAll('.party-count-btn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); let box = document.getElementById('partyInputs'); box.innerHTML = ''; for(let i=1;i<=n;i++){ let inp = document.createElement('input'); inp.id = 'p'+i; inp.placeholder = 'Player '+i; box.appendChild(inp); } }
@@ -369,7 +431,7 @@ function startSimon(){ simonSeq=[]; simonLevel=0; document.getElementById('simon
 function nextSimon(){ simonLevel++; document.getElementById('simonLevel').textContent=simonLevel+' / 5'; simonSeq.push(Math.floor(Math.random()*4)); simonIdx=0; document.getElementById('simonMsg').textContent='Watch... 👀'; simonPlaying=false; let i=0; let timer=setInterval(()=>{ if(i>=simonSeq.length){ clearInterval(timer); document.getElementById('simonMsg').textContent='Your turn! Repeat'; simonPlaying=true; return; } flashSimon(simonSeq[i]); i++; },700); }
 function flashSimon(n){ let btns=document.querySelectorAll('.simon-btn'); btns[n].classList.add('lit'); setTimeout(()=>btns[n].classList.remove('lit'),400); }
 function simonClick(n){ if(!simonPlaying) return; flashSimon(n); if(n==simonSeq[simonIdx]){ simonIdx++; if(simonIdx==simonSeq.length){ simonPlaying=false; if(simonLevel>=5){ document.getElementById('simonMsg').textContent='🏆 5 Levels! +10 Points!'; addPoints(10); simonLevel=0; } else { document.getElementById('simonMsg').textContent='✅ Good! Next level...'; setTimeout(nextSimon,800); } } } else { document.getElementById('simonMsg').textContent='❌ Wrong! Press Start again'; simonPlaying=false; } }
-// ===== SHOP + DIARY LOGIC =====
+// ===== SHOP + DIARY LOGIC - DARK REMOVED =====
 let sehInv = JSON.parse(localStorage.getItem('seh_inventory')||'[]');
 let sehDiaries = JSON.parse(localStorage.getItem('seh_diary')||'[]');
 function sehUpdateShopUI(){
@@ -381,9 +443,10 @@ function sehUpdateShopUI(){
   if(sehInv.includes('sound')){ let s=document.getElementById('shopSoundBox'); if(s) s.style.display='block'; }
   if(sehInv.includes('game')){ let g=document.getElementById('shopSecretGame'); if(g) g.style.display='block'; }
   if(sehInv.includes('diary')){ let d=document.getElementById('shopDiary'); if(d) d.style.display='block'; }
-  if(sehInv.includes('dark')){ document.body.style.background='#111'; document.body.style.color='#fff'; }
+  // DARK REMOVED - ما بقاش كاين Dark Mode
   let th = localStorage.getItem('seh_theme'); if(th && sehInv.includes('color')) sehApplyTheme(th);
   if(localStorage.getItem('seh_sound')==='on'){ let t=document.getElementById('shopSoundToggle'); if(t) t.checked=true; }
+  sehUpdateSnakeLock();
 }
 function sehBuy(id, price){
   if(sehInv.includes(id)) return alert('You already bought this! Go to My Items');
@@ -391,12 +454,13 @@ function sehBuy(id, price){
   if(p < price) return alert('Not enough points! You need '+price+' and you have '+p+'\nPlay more to earn points!');
   if(!confirm('Are you sure you want to buy this for '+price+' points?')) return;
   sehInv.push(id); localStorage.setItem('seh_inventory', JSON.stringify(sehInv));
-  if(window.addPoints) window.addPoints(-price); else { localStorage.setItem('seh_points', p-price); }
+  if(window.addPoints) window.addPoints(-price); else { localStorage.setItem('seh_points', p-price); localStorage.setItem('shopPoints', p-price); }
   setTimeout(sehUpdateShopUI, 300);
   if(id==='diary') alert('🎉 Congrats! My Diary Unlocked!\nSet a PIN below and start writing!');
   if(id==='vip') alert('🎉 Congrats! You are VIP 👑');
   if(id==='color') alert('🎉 Congrats! Color Panel Unlocked!');
-  if(id==='game') alert('🎉 Congrats! Secret Game Unlocked!');
+  if(id==='game') alert('🎉 Congrats! Snake Unlocked! Go to Games and play Snake 🐍');
+  if(id==='sound') alert('🎉 Congrats! Music Unlocked! Press Play Music 🎵');
 }
 function sehSetTheme(c){ localStorage.setItem('seh_theme', c); sehApplyTheme(c); }
 function sehApplyTheme(c){ document.querySelectorAll('.shop-buy-btn').forEach(b=> b.style.background=c); }
@@ -407,6 +471,7 @@ function sehSaveDiary(){ let title=document.getElementById('diaryTitle').value.t
 function sehDeleteDiary(id){ if(!confirm('Delete this entry?')) return; sehDiaries=sehDiaries.filter(d=>d.id!==id); localStorage.setItem('seh_diary', JSON.stringify(sehDiaries)); sehRenderDiary(); }
 function sehRenderDiary(){ let q=(document.getElementById('diarySearch')?.value||'').toLowerCase(); let f=sehDiaries.filter(d=>(d.title+d.text).toLowerCase().includes(q)); let box=document.getElementById('diaryList'); if(!box) return; if(f.length===0){ box.innerHTML='<p style="text-align:center;color:#999">No entries yet. Write your first one! ✍️</p>'; return; } box.innerHTML=f.map(d=>`<div style="background:#fdf2f8;padding:12px;border-radius:12px;margin-bottom:8px;border-left:4px solid #ec4899"><b>${d.mood} ${d.title}</b> <span style="font-size:11px;color:#999">${d.date}</span><p style="margin:5px 0;white-space:pre-wrap">${d.text}</p><button onclick="sehDeleteDiary(${d.id})" style="background:#fee2e2;border:none;padding:4px 10px;border-radius:10px;cursor:pointer">🗑️ Delete</button></div>`).join(''); }
 window.sehUpdateShopUI = sehUpdateShopUI;
+window.sehUpdateSnakeLock = sehUpdateSnakeLock;
 updateUnlockUI(); updateStarsUI(); setTimeout(sehUpdateShopUI,800);
 </script>
 <script src="javascript"></script>

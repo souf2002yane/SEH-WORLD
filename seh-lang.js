@@ -1,5 +1,6 @@
 // SEH World - Language System | نظام الترجمة
 // Default: English | الافتراضي: الإنجليزية
+// RULE: EN is base, AR is Fusha | القاعدة: الإنجليزية هي الأساس و العربية الفصحى هي الترجمة
 const SEH_LANG = {
   current: localStorage.getItem('seh_lang') || 'en',
   dict: {
@@ -16,6 +17,7 @@ const SEH_LANG = {
     choose_sub: { en: 'Choose your world and start the adventure', ar: 'اختر عالمك وابدأ المغامرة' },
     level: { en: 'LEVEL:', ar: 'المستوى:' },
     points: { en: 'POINTS:', ar: 'النقاط:' },
+    points_word: { en: 'points', ar: 'نقطة' },
     game_world: { en: 'GAME WORLD', ar: 'عالم الألعاب' },
     game_world_desc: { en: 'Exciting Games - Challenge - Fun - Focus', ar: 'ألعاب مشوقة - تحدٍّ - متعة - تركيز' },
     enter_world: { en: 'ENTER WORLD →', ar: 'ادخل العالم ←' },
@@ -42,16 +44,7 @@ const SEH_LANG = {
     new_challenge: { en: '🎲 New Challenge', ar: '🎲 تحدٍّ جديد' },
     shop_title: { en: '🛒 Points Shop', ar: '🛒 متجر النقاط' },
     you_have: { en: 'You have', ar: 'لديك' },
-    points_word: { en: 'points', ar: 'نقطة' },
-    vip_badge: { en: 'VIP Badge - 100 Points', ar: 'شارة VIP - 100 نقطة' },
-    vip_desc: { en: 'Golden crown next to your name', ar: 'تاج ذهبي بجانب اسمك' },
-    color_theme: { en: 'Color Theme - 50 Points', ar: 'تغيير اللون - 50 نقطة' },
-    color_desc: { en: 'Special color for your profile', ar: 'لون خاص للملف الشخصي' },
-    gold_star: { en: 'Golden Star - 30 Points', ar: 'نجمة ذهبية - 30 نقطة' },
-    gold_desc: { en: 'Appears in Top 10', ar: 'تظهر في قائمة الأفضل' },
-    extra_game: { en: 'Extra Game - 80 Points', ar: 'لعبة إضافية - 80 نقطة' },
-    extra_desc: { en: 'Unlock a new game', ar: 'فتح لعبة جديدة' },
-    buy: { en: 'Buy', ar: 'شراء' },
+    your_points: { en: 'You have', ar: 'لديك' },
     invite_title: { en: '🔗 Invite & Earn', ar: '🔗 دعوة وربح' },
     invite_desc: { en: 'Send the link to your friends, each person who registers via your link = +20 Points for you', ar: 'أرسل الرابط إلى أصدقائك، كل شخص يسجّل عبر رابطك = +20 نقطة لك' },
     copy_link: { en: '📋 Copy Link', ar: '📋 نسخ الرابط' },
@@ -110,12 +103,12 @@ const SEH_LANG = {
     contact: { en: 'Contact Us', ar: 'اتصل بنا' },
     about_us: { en: 'About Us', ar: 'من نحن' },
     cookies: { en: 'Cookie settings', ar: 'إعدادات ملفات تعريف الارتباط' },
-        offline: { en: '📱 OFFLINE', ar: '📱 دون اتصال' },
+    offline: { en: '📱 OFFLINE', ar: '📱 دون اتصال' },
     online: { en: '🌐 ONLINE', ar: '🌐 عبر الإنترنت' },
     daily: { en: 'Daily Reward', ar: 'المكافأة اليومية' },
     claim: { en: 'Claim +5 ⭐ Today', ar: 'احصل على +5 ⭐ اليوم' },
     game_title: { en: '🎮 Choose Your Game', ar: '🎮 اختر لعبتك' },
-    game_sub: { en: 'Click on an image to play - 8 Games', ar: 'اضغط على صورة للعب - 8 ألعاب' },
+    game_sub: { en: 'Click on an image to play - 9 Games', ar: 'اضغط على صورة للعب - 9 ألعاب' },
     start_playing: { en: '🎮 START PLAYING', ar: '🎮 ابدأ اللعب' },
     challenge_party: { en: 'Challenge Party', ar: 'حفلة التحدي' },
     challenge_desc: { en: '2-6 Players • Challenges', ar: '2-6 لاعبين • تحديات' },
@@ -148,10 +141,7 @@ const SEH_LANG = {
     copy_link: { en: '📋 Copy Link & Send to Friend', ar: '📋 نسخ الرابط وإرساله إلى صديق' },
     home_link: { en: 'Home', ar: 'الرئيسية' },
     stories_title: { en: '📚 10 Stories', ar: '📚 10 قصص' },
-    read_now: { en: '📖 READ A STORY NOW', ar: '📖 اقرأ قصة الآن' },
-    points: { en: 'Points', ar: 'النقاط' },
-    home_link: { en: 'Home', ar: 'الرئيسية' },
-        info_title: { en: 'My Profile & Account – SEH World', ar: 'ملفي وحسابي – عالم SEH' },
+    info_title: { en: 'My Profile & Account – SEH World', ar: 'ملفي وحسابي – عالم SEH' },
     welcome_back: { en: 'Welcome Back 👋', ar: 'مرحباً بعودتك 👋' },
     signup_first: { en: 'Sign Up - First Time', ar: 'إنشاء حساب - أول مرة' },
     signup_sub: { en: 'Create your account, only one time', ar: 'أنشئ حسابك، مرة واحدة فقط' },
@@ -165,7 +155,6 @@ const SEH_LANG = {
     show_pass: { en: 'Show password', ar: 'إظهار كلمة السر' },
     forgot_pass: { en: 'Forgot password?', ar: 'نسيت كلمة السر؟' },
     login_btn: { en: 'LOGIN ➡️', ar: 'تسجيل الدخول ➡️' },
-    no_account: { en: 'No account yet?', ar: 'ليس لديك حساب بعد؟' },
     create_one: { en: 'Create one', ar: 'أنشئ واحداً' },
     more_info: { en: 'More information:', ar: 'معلومات إضافية:' },
     marital_label: { en: 'Marital status:', ar: 'الحالة العائلية:' },
@@ -193,13 +182,8 @@ const SEH_LANG = {
     click_photo: { en: 'Click on the photo to change it 📸', ar: 'اضغط على الصورة لتغييرها 📸' },
     days_label: { en: '📅 Days with us', ar: '📅 أيام معنا' },
     step1_title: { en: 'Personal Info', ar: 'المعلومات الشخصية' },
-    home_link: { en: 'Home', ar: 'الرئيسية' },
-    home_link: { en: 'Home', ar: 'الرئيسية' },
     // ===== SHOP + MY DIARY - EN is base, AR is Fusha =====
-    shop_title: { en: '🛒 Points Shop', ar: '🛒 متجر النقاط' },
     shop_sub: { en: 'Buy with your points - Real items, real effects', ar: 'اشترِ بنقاطك - عناصر حقيقية ذات تأثير فعلي' },
-    your_points: { en: 'You have', ar: 'لديك' },
-    points_word: { en: 'points', ar: 'نقطة' },
     my_items: { en: 'My Items', ar: 'عناصري' },
     choose_color: { en: 'Choose Site Color:', ar: 'اختر لون الموقع:' },
     enable_sounds: { en: 'Enable Sounds', ar: 'تفعيل الأصوات' },
@@ -211,8 +195,37 @@ const SEH_LANG = {
     diary_lock: { en: '🔒 Lock Diary', ar: '🔒 قفل المذكرات' },
     buy_btn: { en: 'Buy', ar: 'شراء' },
     shop_go_title: { en: '🛒 Points Shop', ar: '🛒 متجر النقاط' },
-    shop_go_desc: { en: 'Shop is now in GAME - VIP, Color, Dark Mode, Extra Game, My Diary, Sound Pack', ar: 'أصبح المتجر الآن في صفحة الألعاب - VIP، اللون، الوضع الداكن، لعبة إضافية، مذكراتي، حزمة الأصوات' },
+    shop_go_desc: { en: 'Shop is now in GAME - VIP, Color, Extra Game, My Diary, Sound Pack', ar: 'أصبح المتجر الآن في صفحة الألعاب - VIP، اللون، لعبة إضافية، مذكراتي، حزمة الأصوات' },
     shop_go_btn: { en: '🛒 Go to Shop in GAME →', ar: '🛒 الذهاب إلى المتجر في الألعاب →' },
+    // ===== SHOP PRICES - الحقيقيين ديال GAME =====
+    vip_badge: { en: 'VIP Badge - 500 Points', ar: 'شارة VIP - 500 نقطة' },
+    vip_desc: { en: 'Crown + 2x Points', ar: 'تاج + نقاط مضاعفة' },
+    color_theme: { en: 'Color Theme - 250 Points', ar: 'تغيير اللون - 250 نقطة' },
+    color_desc: { en: 'Change Site Color', ar: 'تغيير لون الموقع' },
+    extra_game: { en: 'Extra Game - 400 Points', ar: 'لعبة إضافية - 400 نقطة' },
+    extra_desc: { en: 'Snake Game', ar: 'لعبة الثعبان' },
+    diary_price: { en: 'My Diary - 600 Points', ar: 'مذكراتي - 600 نقطة' },
+    diary_price_desc: { en: 'Private Secret Diary + Lock', ar: 'مذكرات سرية خاصة + قفل' },
+    sound_price: { en: 'Sound Pack - 150 Points', ar: 'حزمة الأصوات - 150 نقطة' },
+    sound_price_desc: { en: 'Game Music + Sounds', ar: 'موسيقى الألعاب + الأصوات' },
+    // ===== SNAKE + MUSIC - NEW =====
+    snake_title: { en: '🐍 Snake Game', ar: '🐍 لعبة الثعبان' },
+    snake_desc: { en: 'Eat • Grow • Win Points', ar: 'كُل • انمُ • اربح النقاط' },
+    snake_play: { en: '▶ Play Snake', ar: '▶ العب الثعبان' },
+    snake_stop: { en: '⏹ Stop', ar: '⏹ توقف' },
+    snake_score: { en: 'Score:', ar: 'النتيجة:' },
+    snake_best: { en: 'Best:', ar: 'الأفضل:' },
+    snake_game_over: { en: 'Game Over! Press Play to try again', ar: 'انتهت اللعبة! اضغط على العب للمحاولة من جديد' },
+    snake_locked: { en: '🔒 Snake is locked! Buy Extra Game - 400 Points in Shop to unlock Snake', ar: '🔒 لعبة الثعبان مقفلة! اشترِ اللعبة الإضافية - 400 نقطة من المتجر لفتح لعبة الثعبان' },
+    snake_unlocked: { en: '✅ Unlocked', ar: '✅ مفتوحة' },
+    snake_controls: { en: 'PC: Use Arrow Keys | Phone: Use Buttons', ar: 'الحاسوب: استخدم الأسهم | الهاتف: استخدم الأزرار' },
+    music_title: { en: '🎵 Game Music', ar: '🎵 موسيقى الألعاب' },
+    music_desc: { en: 'Background music like real games - Needs Sound Pack', ar: 'موسيقى خلفية مثل الألعاب الحقيقية - تحتاج إلى حزمة الأصوات' },
+    music_play: { en: '🎵 Play Music', ar: '🎵 تشغيل الموسيقى' },
+    music_pause: { en: '⏸ Pause Music', ar: '⏸ إيقاف الموسيقى' },
+    music_playing: { en: '🎵 Music is playing...', ar: '🎵 الموسيقى تعمل الآن...' },
+    music_need_pack: { en: '🔒 Buy Sound Pack - 150 Points first to unlock Music', ar: '🔒 اشترِ حزمة الأصوات - 150 نقطة أولًا لفتح الموسيقى' },
+    unlock: { en: '🔒 2 New Games locked - Reach 1000 Points', ar: '🔒 لعبتان جديدتان مقفلتان - اجمع 1000 نقطة' },
   },
   apply() {
     document.documentElement.lang = this.current === 'ar' ? 'ar' : 'en';
@@ -243,22 +256,28 @@ const SEH_LANG = {
     if (authPass) authPass.placeholder = this.current==='ar' ? 'كلمة المرور' : 'Password';
     const inv = document.getElementById('inviteLink');
     if (inv && !inv.value.includes('http')) inv.value = this.current==='ar' ? 'سجّل الدخول لعرض رابط الدعوة الخاص بك' : 'Log in to show your invite link';
+    // Music button text
+    const musicBtn = document.getElementById('musicBtn');
+    if (musicBtn) {
+      let isPlaying = window.sehMusicOn || false;
+      // ما نبدلوش إلا كان كاين Sound Pack، نخليو GAME يتحكم
+    }
   },
   toggle() {
     this.current = this.current === 'en' ? 'ar' : 'en';
     localStorage.setItem('seh_lang', this.current);
     this.apply();
     if (typeof newChallenge === 'function') newChallenge();
+    if (typeof applyShopLang === 'function') applyShopLang(this.current);
   }
 };
 window.SEH_LANG = SEH_LANG;
 document.addEventListener('DOMContentLoaded', () => SEH_LANG.apply());
 
-
-// SHOP + DIARY - EN base, AR Fusha
+// SHOP + DIARY + SNAKE + MUSIC - EN base, AR Fusha
 const SEH_SHOP_DICT = {
-  en: { shop_title:"🛒 Points Shop", shop_sub:"Buy with your points - Real items, real effects", your_points:"You have", points_word:"points", my_items:"My Items", choose_color:"Choose Site Color:", enable_sounds:"Enable Sounds", diary_title:"📝 My Diary - Private", diary_sub:"Only you can see this. Saved on your phone.", diary_unlock:"🔓 Unlock", diary_pin_hint:"First time? Write a PIN and Unlock, it will be saved.", diary_save:"💾 Save in My Diary (+5 Points)", diary_lock:"🔒 Lock Diary", buy_btn:"Buy" },
-  ar: { shop_title:"🛒 متجر النقاط", shop_sub:"اشترِ بنقاطك - عناصر حقيقية ذات تأثير فعلي", your_points:"لديك", points_word:"نقطة", my_items:"عناصري", choose_color:"اختر لون الموقع:", enable_sounds:"تفعيل الأصوات", diary_title:"📝 مذكراتي - خاصة", diary_sub:"أنت فقط من يستطيع رؤيتها. محفوظة على هاتفك.", diary_unlock:"🔓 فتح", diary_pin_hint:"أول مرة؟ اكتب رمزًا ثم اضغط على فتح، وسيتم حفظه.", diary_save:"💾 حفظ في مذكراتي (+5 نقاط)", diary_lock:"🔒 قفل المذكرات", buy_btn:"شراء" }
+  en: { shop_title:"🛒 Points Shop", shop_sub:"Buy with your points - Real items, real effects", your_points:"You have", points_word:"points", my_items:"My Items", choose_color:"Choose Site Color:", enable_sounds:"Enable Sounds", diary_title:"📝 My Diary - Private", diary_sub:"Only you can see this. Saved on your phone.", diary_unlock:"🔓 Unlock", diary_pin_hint:"First time? Write a PIN and Unlock, it will be saved.", diary_save:"💾 Save in My Diary (+5 Points)", diary_lock:"🔒 Lock Diary", buy_btn:"Buy", snake_title:"🐍 Snake Game", music_title:"🎵 Game Music", music_play:"🎵 Play Music", music_pause:"⏸ Pause Music" },
+  ar: { shop_title:"🛒 متجر النقاط", shop_sub:"اشترِ بنقاطك - عناصر حقيقية ذات تأثير فعلي", your_points:"لديك", points_word:"نقطة", my_items:"عناصري", choose_color:"اختر لون الموقع:", enable_sounds:"تفعيل الأصوات", diary_title:"📝 مذكراتي - خاصة", diary_sub:"أنت فقط من يستطيع رؤيتها. محفوظة على هاتفك.", diary_unlock:"🔓 فتح", diary_pin_hint:"أول مرة؟ اكتب رمزًا ثم اضغط على فتح، وسيتم حفظه.", diary_save:"💾 حفظ في مذكراتي (+5 نقاط)", diary_lock:"🔒 قفل المذكرات", buy_btn:"شراء", snake_title:"🐍 لعبة الثعبان", music_title:"🎵 موسيقى الألعاب", music_play:"🎵 تشغيل الموسيقى", music_pause:"⏸ إيقاف الموسيقى" }
 };
 function applyShopLang(lang){
   let t = SEH_SHOP_DICT[lang] || SEH_SHOP_DICT.en;
@@ -267,8 +286,4 @@ function applyShopLang(lang){
     if(t[k]) el.textContent = t[k];
   });
 }
-if(window.SEH_LANG){
-  let _orig = window.SEH_LANG.toggle.bind(window.SEH_LANG);
-  window.SEH_LANG.toggle = function(){ _orig(); setTimeout(()=> applyShopLang(localStorage.getItem('seh_lang')||'en'), 100); };
-  setTimeout(()=> applyShopLang(localStorage.getItem('seh_lang')||'en'), 500);
-}
+setTimeout(()=> applyShopLang(localStorage.getItem('seh_lang')||'en'), 500);

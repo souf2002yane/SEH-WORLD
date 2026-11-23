@@ -35,63 +35,87 @@ fieldset{max-width:650px;margin:15px auto}
 .btn-login{width:100%;padding:15px;border:none;border-radius:13px;background:#0866ff;color:white;font-weight:900;font-size:17px;cursor:pointer;margin-top:10px}
 input.error{border:2px solid red !important}
 .err-msg{color:red;font-weight:bold;text-align:center;display:none}
-.profile-card{background:linear-gradient(135deg,#111,#3B2A1A);color:white;border-radius:22px;padding:22px;max-width:650px;margin:10px auto;border:1px solid #E9C46A;box-shadow:0 15px 40px rgba(0,0,0,.25)}
-.profile-top{display:flex;align-items:center;gap:15px}
-.profile-avatar{width:75px;height:75px;border-radius:50%;background:linear-gradient(135deg,#E9C46A,#B7791F);color:#111;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;border:3px solid white;overflow:hidden;cursor:pointer;flex-shrink:0}
+/* ===== NEW GAMER DESIGN - نفس الـ IDs، غير الـ CSS تبدل ===== */
+.profile-card{background:linear-gradient(180deg,#0f0f0f 0%,#1a1208 55%,#111 100%);color:white;border-radius:28px;padding:0;max-width:650px;margin:12px auto;border:2px solid #E9C46A;box-shadow:0 20px 50px rgba(0,0,0,.35);overflow:hidden}
+.profile-hero{background:linear-gradient(135deg,#E9C46A,#B7791F 55%,#00ff41 130%);padding:22px 18px 28px;text-align:center;position:relative}
+.profile-hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:22px;background:#111;border-radius:22px 22px 0 0}
+.profile-top{display:flex;flex-direction:column;align-items:center;gap:0;position:relative;z-index:2}
+.avatar-wrap{position:relative;width:96px;height:96px}
+.profile-avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#E9C46A,#B7791F);color:#111;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:900;border:4px solid #fff;overflow:hidden;cursor:pointer;flex-shrink:0;box-shadow:0 10px 25px rgba(0,0,0,.35)}
 .profile-avatar img{width:100%;height:100%;object-fit:cover}
-.level-badge{background:#E9C46A;color:#111;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:800;display:inline-block;margin-top:6px}
-.progress{background:rgba(255,255,255,.2);height:10px;border-radius:20px;margin-top:14px;overflow:hidden}
-.progress div{height:100%;background:#E9C46A}
+.crown-badge{position:absolute;top:-14px;right:-6px;background:#111;color:#E9C46A;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid #E9C46A;z-index:3}
+.level-badge{background:#111;color:#00ff41;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:900;display:inline-block;margin-top:8px;border:1px solid #00ff41;letter-spacing:.5px}
+.profile-body{padding:0 16px 18px}
+.progress{background:rgba(255,255,255,.15);height:14px;border-radius:20px;margin-top:14px;overflow:hidden;border:1px solid rgba(233,196,106,.4)}
+.progress div{height:100%;background:linear-gradient(90deg,#E9C46A,#00ff41);border-radius:20px;transition:.5s}
 .stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:15px 0}
-.stat-box{background:rgba(255,255,255,.08);border-radius:14px;padding:12px 5px;text-align:center}
-.stat-box b{font-size:19px;display:block;color:#E9C46A}
+.stat-box{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:16px;padding:14px 5px;text-align:center}
+.stat-box b{font-size:22px;display:block;color:#E9C46A}
 .stat-box span{font-size:12px;color:#ccc}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.info-item{background:rgba(255,255,255,.08);border-radius:12px;padding:10px}
-.info-item small{color:#bbb;font-size:11px}
-.info-item b{font-size:13px;display:block;margin-top:2px;word-break:break-word}
-.btn-pro{width:100%;padding:13px;border:none;border-radius:13px;font-size:15px;font-weight:800;cursor:pointer;margin-top:10px}
-.btn-gold{background:linear-gradient(135deg,#E9C46A,#B7791F);color:#111}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-item{border-radius:14px;padding:12px;border:1px solid transparent}
+.info-item small{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.info-item b{font-size:13px;display:block;margin-top:4px;word-break:break-word;color:#111}
+.info-item.c-blue{background:#e0f2fe;border-color:#93c5fd}.info-item.c-blue small{color:#1d4ed8}
+.info-item.c-purple{background:#ede9fe;border-color:#c4b5fd}.info-item.c-purple small{color:#6d28d9}
+.info-item.c-pink{background:#fce7f3;border-color:#f9a8d4}.info-item.c-pink small{color:#be185d}
+.info-item.c-green{background:#dcfce7;border-color:#86efac}.info-item.c-green small{color:#15803d}
+.info-item.c-orange{background:#ffedd5;border-color:#fdba74}.info-item.c-orange small{color:#c2410c}
+.info-item.c-red{background:#fee2e2;border-color:#fca5a5}.info-item.c-red small{color:#b91c1c}
+.info-item.c-cyan{background:#cffafe;border-color:#67e8f9}.info-item.c-cyan small{color:#0e7490}
+.info-item.c-gold{background:#fef3c7;border-color:#fcd34d}.info-item.c-gold small{color:#92400e}
+.btn-pro{width:100%;padding:13px;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;margin-top:10px}
+.btn-gold{background:linear-gradient(135deg,#E9C46A,#B7791F);color:#111;box-shadow:0 8px 20px rgba(233,196,106,.35)}
 .btn-white{background:white;color:#111}
 .btn-red{background:#ff3b30;color:white}
-.btn-dark{background:#333;color:white}
+.btn-dark{background:#2a2a2a;color:white;border:1px solid #444}
 </style>
 
-<!-- PROFILE -->
+<!-- PROFILE - NEW DESIGN -->
 <div id="profileBox" class="profile-card" style="display:none">
-  <div class="profile-top">
-    <div class="profile-avatar" id="dashAvatar" onclick="document.getElementById('photoInput').click()">S</div>
-    <div>
-      <h2 id="dashName" style="margin:0">Soufyane</h2>
-      <p id="dashCity" style="margin:3px 0;color:#E9C46A;font-size:13px">Martil • Morocco 🇲🇦</p>
-      <span class="level-badge" id="dashLevel">⭐ LEVEL 1</span>
+  <div class="profile-hero">
+    <div class="profile-top">
+      <div class="avatar-wrap">
+        <div class="profile-avatar" id="dashAvatar" onclick="document.getElementById('photoInput').click()">S</div>
+        <div class="crown-badge">👑</div>
+      </div>
+      <div style="margin-top:10px">
+        <h2 id="dashName" style="margin:0;color:#111;font-size:24px;line-height:1.1">Soufyane</h2>
+        <p id="dashCity" style="margin:4px 0 0;color:#3b2a1a;font-size:13px;font-weight:700">Martil • Morocco 🇲🇦</p>
+        <p style="margin:4px 0 0;color:#111;font-size:12px;font-weight:600;opacity:.75">🎮 SEH Gamer • Member of SEH World</p>
+        <span class="level-badge" id="dashLevel">⭐ LEVEL 1</span>
+      </div>
     </div>
   </div>
-  <div class="progress"><div id="levelBar" style="width:10%"></div></div>
-  <p id="levelText" style="font-size:12px;text-align:right;color:#E9C46A">10 / 100 points to next level</p>
-  <div class="stats-row">
-    <div class="stat-box"><b id="dashPoints">0</b><span data-i18n="points">⭐ Points</span></div>
-    <div class="stat-box"><b id="dashAge">--</b><span data-i18n="age_label">🎂 Age</span></div>
-    <div class="stat-box"><b id="dashDays">1</b><span data-i18n="days_label">📅 Days with us</span></div>
+  <div class="profile-body">
+    <div class="progress"><div id="levelBar" style="width:10%"></div></div>
+    <p id="levelText" style="font-size:12px;text-align:right;color:#E9C46A;margin-top:6px">10 / 100 points to next level</p>
+    <div class="stats-row">
+      <div class="stat-box"><b id="dashPoints">0</b><span data-i18n="points">⭐ Points</span></div>
+      <div class="stat-box"><b id="dashAge">--</b><span data-i18n="age_label">🎂 Age</span></div>
+      <div class="stat-box"><b id="dashDays">1</b><span data-i18n="days_label">📅 Days with us</span></div>
+    </div>
+    <div class="info-grid">
+      <div class="info-item c-blue"><small data-i18n="phone_label">📞 Phone</small><b id="infoPhone">-</b></div>
+      <div class="info-item c-purple"><small data-i18n="email_label">📧 Email</small><b id="infoEmail">-</b></div>
+      <div class="info-item c-pink"><small data-i18n="gender_label">👤 Gender</small><b id="infoGender">-</b></div>
+      <div class="info-item c-green"><small data-i18n="hobby_label">❤️ Hobby</small><b id="infoHobby">-</b></div>
+      <div class="info-item c-orange"><small data-i18n="address_label">📍 Address</small><b id="infoAddress">-</b></div>
+      <div class="info-item c-red"><small data-i18n="marital_label">💍 Marital Status</small><b id="infoMarital">-</b></div>
+      <div class="info-item c-cyan"><small data-i18n="time_label">🕒 Time</small><b id="infoTime">-</b></div>
+      <div class="info-item c-gold"><small data-i18n="language_label">🌍 Language</small><b id="infoLang">-</b></div>
+    </div>
+    <p id="infoAbout" style="background:#1e1e1e;border:1px solid #2a2a2a;padding:12px;border-radius:14px;font-size:13px;line-height:1.6;margin:12px 0 0;color:#eee">-</p>
+    <div id="badgesBox" style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"></div>
+    <button class="btn-pro btn-gold main-cta" onclick="location.href='GAME.html'" data-i18n="go_games">🎮 Go To Games</button>
+    <button class="btn-pro btn-white" onclick="editProfile()" data-i18n="edit_info">✏️ Edit My Info</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <button class="btn-pro btn-dark" onclick="logoutAccount()" data-i18n="logout_btn">🚪 Logout</button>
+      <button class="btn-pro btn-red" onclick="deleteAccount()" data-i18n="delete_btn">🗑️ Delete</button>
+    </div>
+    <p style="text-align:center;color:#aaa;font-size:12px" data-i18n="click_photo">Click on the photo to change it 📸</p>
+    <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="changePhoto(event)">
   </div>
-  <div class="info-grid">
-    <div class="info-item"><small data-i18n="phone_label">📞 Phone</small><b id="infoPhone">-</b></div>
-    <div class="info-item"><small data-i18n="email_label">📧 Email</small><b id="infoEmail">-</b></div>
-    <div class="info-item"><small data-i18n="gender_label">👤 Gender</small><b id="infoGender">-</b></div>
-    <div class="info-item"><small data-i18n="hobby_label">❤️ Hobby</small><b id="infoHobby">-</b></div>
-    <div class="info-item"><small data-i18n="address_label">📍 Address</small><b id="infoAddress">-</b></div>
-    <div class="info-item"><small data-i18n="marital_label">💍 Marital Status</small><b id="infoMarital">-</b></div>
-    <div class="info-item"><small data-i18n="time_label">🕒 Time</small><b id="infoTime">-</b></div>
-    <div class="info-item"><small data-i18n="language_label">🌍 Language</small><b id="infoLang">-</b></div>
-  </div>
-  <p id="infoAbout" style="background:rgba(255,255,255,.08);padding:12px;border-radius:12px;font-size:13px;line-height:1.6;margin:12px 0 0">-</p>
-  <div id="badgesBox" style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"></div>
-  <button class="btn-pro btn-white" onclick="editProfile()" data-i18n="edit_info">✏️ Edit My Info</button>
-  <button class="btn-pro btn-gold main-cta" onclick="location.href='GAME.html'" data-i18n="go_games">🎮 Go To Games</button>
-  <button class="btn-pro btn-dark" onclick="logoutAccount()" data-i18n="logout_btn">🚪 Logout</button>
-  <button class="btn-pro btn-red" onclick="deleteAccount()" data-i18n="delete_btn">🗑️ Delete My Account</button>
-  <p style="text-align:center;color:#aaa;font-size:12px" data-i18n="click_photo">Click on the photo to change it 📸</p>
-  <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="changePhoto(event)">
 </div>
 
 <div id="allSteps">
@@ -204,22 +228,31 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 window.__seh = { auth, db, getUser: ()=> auth.currentUser };
 
-// نفس النقاط ديال قاع الموقع - كيقراو من Firebase و من localStorage
+// ===== FIX: نفس النقاط ديال قاع الموقع - INFO هو الأصل =====
+function sehSyncPointsForAllPages(){
+  let oldShop = localStorage.getItem('shopPoints');
+  let cur = localStorage.getItem('seh_points');
+  if(oldShop && !cur) localStorage.setItem('seh_points', oldShop);
+  if(cur && !oldShop) localStorage.setItem('shopPoints', cur);
+  let p = localStorage.getItem('seh_points') || '0';
+  localStorage.setItem('seh_points', p);
+  localStorage.setItem('shopPoints', p);
+  return parseInt(p||'0');
+}
+
 async function syncPointsFromFirebase(user){
   if(!user) return;
-  try{ const s = await getDoc(doc(db,"users",user.uid)); if(s.exists() && typeof s.data().points==='number'){ const fbPoints = s.data().points; const localPoints = parseInt(localStorage.getItem('seh_points')||'0'); if(fbPoints > localPoints){ localStorage.setItem('seh_points', String(fbPoints)); } else if(localPoints > fbPoints){ await setDoc(doc(db,"users",user.uid), { points: localPoints }, {merge:true}); } } }catch(e){}
-  // عمر البروفيل من Firebase
-  try{ const s = await getDoc(doc(db,"users",user.uid)); if(s.exists()){ const d = s.data(); const acc = JSON.parse(localStorage.getItem('seh_account')||'{}'); const merged = {...d, ...acc, name: d.name || acc.name, email: user.email, photo: d.photo || acc.photo}; localStorage.setItem('seh_account', JSON.stringify(merged)); showProfile(merged); } }catch(e){}
+  try{ const s = await getDoc(doc(db,"users",user.uid)); if(s.exists() && typeof s.data().points==='number'){ const fbPoints = s.data().points; const localPoints = sehSyncPointsForAllPages(); if(fbPoints > localPoints){ localStorage.setItem('seh_points', String(fbPoints)); localStorage.setItem('shopPoints', String(fbPoints)); } else if(localPoints > fbPoints){ await setDoc(doc(db,"users",user.uid), { points: localPoints }, {merge:true}); } } }catch(e){}
+  try{ const s = await getDoc(doc(db,"users",user.uid)); if(s.exists()){ const d = s.data(); const acc = JSON.parse(localStorage.getItem('seh_account')||'{}'); const merged = {...d, ...acc, name: d.name || acc.name, email: user.email, photo: d.photo || acc.photo}; localStorage.setItem('seh_account', JSON.stringify(merged)); localStorage.setItem('seh_name', merged.name||''); sehSyncPointsForAllPages(); showProfile(merged); } }catch(e){}
 }
 
 onAuthStateChanged(auth, async (user)=>{
-  if(user){ await syncPointsFromFirebase(user); const acc = JSON.parse(localStorage.getItem('seh_account')||'{}'); if(acc.name) showProfile(acc); else { // جيب الاسم من Firebase
-    try{ const s = await getDoc(doc(db,"users",user.uid)); if(s.exists()) showProfile(s.data()); }catch(e){} } }
+  if(user){ await syncPointsFromFirebase(user); const acc = JSON.parse(localStorage.getItem('seh_account')||'{}'); if(acc.name) showProfile(acc); else { try{ const s = await getDoc(doc(db,"users",user.uid)); if(s.exists()) showProfile(s.data()); }catch(e){} } }
   else { const acc = JSON.parse(localStorage.getItem('seh_account')||'{}'); if(acc.name && localStorage.getItem('seh_logged')==='1') showProfile(acc); }
 });
 
 window.__doFirebaseLogin = async (email, pass)=> signInWithEmailAndPassword(auth, email, pass);
-window.__doFirebaseSignup = async (email, pass, profile)=>{ const cred = await createUserWithEmailAndPassword(auth, email, pass); if(profile.name) await updateProfile(cred.user, {displayName: profile.name}); const points = parseInt(localStorage.getItem('seh_points')||'0'); await setDoc(doc(db,"users",cred.user.uid), {...profile, email, points, createdAt: new Date()}, {merge:true}); return cred; };
+window.__doFirebaseSignup = async (email, pass, profile)=>{ const cred = await createUserWithEmailAndPassword(auth, email, pass); if(profile.name) await updateProfile(cred.user, {displayName: profile.name}); const points = sehSyncPointsForAllPages(); await setDoc(doc(db,"users",cred.user.uid), {...profile, email, points, createdAt: new Date()}, {merge:true}); return cred; };
 window.__doFirebaseLogout = ()=> signOut(auth);
 window.__sendReset = (email)=> sendPasswordResetEmail(auth, email);
 window.__saveProfileToFirebase = async (profile)=>{ const u = auth.currentUser; if(!u) return; await setDoc(doc(db,"users",u.uid), {...profile, email: u.email, updatedAt: new Date()}, {merge:true}); };
@@ -243,7 +276,6 @@ async function doLogin(){
     await window.__doFirebaseLogin(email, pass);
     localStorage.setItem('seh_logged','1');
     err.style.display='none';
-    // البروفيل غادي يجي من Firebase عبر onAuthStateChanged
     setTimeout(()=>{ let acc=JSON.parse(localStorage.getItem('seh_account')||'{}'); if(acc.name) showProfile(acc); }, 800);
   }catch(e){ err.style.display='block'; err.textContent = e.message; }
 }
@@ -266,7 +298,6 @@ function goToStep2(){
   err.style.display='none';
   let temp=JSON.parse(localStorage.getItem('seh_temp')||'{}');
   temp.name=name; temp.family=document.getElementById('userFamily').value.trim(); temp.phone=phone; temp.age=age; temp.email=email;
-  // مهم: الباسورد ما كيتسجلش فـ localStorage - كيبقى غير فـ Firebase
   temp._pass = pass;
   temp.about=document.getElementById('userAbout').value.trim(); temp.marital=document.getElementById('userMarital').value; temp.address=document.getElementById('userAddress').value.trim();
   localStorage.setItem('seh_temp', JSON.stringify(temp));
@@ -288,21 +319,22 @@ async function confirmAll(){
   temp.createdAt=old.createdAt||Date.now(); temp.photo=old.photo||'';
   if(!temp.about) temp.about='Member of SEH community, I want to improve myself and learn every day.';
   if(!temp.address) temp.address='Martil';
+  let keepPoints = localStorage.getItem('seh_points') || localStorage.getItem('shopPoints') || '0';
   try{
     const currentUser = window.__seh ? window.__seh.getUser() : null;
     if(currentUser){
-      // كيعدل البروفيل ديالو - ما كيعاودش يخلق حساب
       await window.__saveProfileToFirebase(temp);
       localStorage.setItem('seh_account', JSON.stringify(temp));
       localStorage.setItem('seh_name', temp.name);
       localStorage.setItem('seh_logged','1');
     } else {
-      // حساب جديد فـ Firebase
       await window.__doFirebaseSignup(temp.email, pass, temp);
       localStorage.setItem('seh_account', JSON.stringify(temp));
       localStorage.setItem('seh_name', temp.name);
       localStorage.setItem('seh_logged','1');
     }
+    localStorage.setItem('seh_points', keepPoints);
+    localStorage.setItem('shopPoints', keepPoints);
     localStorage.removeItem('seh_temp');
     alert('Congratulations '+temp.name+' ✅ Your profile is saved! Next time just login with your Email + Password');
     showProfile(temp);
@@ -313,7 +345,9 @@ function showProfile(acc){
   if(!acc.name) return;
   document.getElementById('profileBox').style.display='block';
   document.getElementById('allSteps').style.display='none';
-  let points=parseInt(localStorage.getItem('seh_points')||'0');
+  let points=parseInt(localStorage.getItem('seh_points')||localStorage.getItem('shopPoints')||'0');
+  localStorage.setItem('seh_points', String(points));
+  localStorage.setItem('shopPoints', String(points));
   let level=Math.floor(points/100)+1, rest=points%100;
   let days=1; if(acc.createdAt) days=Math.floor((Date.now()-acc.createdAt)/(1000*60*60*24))+1;
   let av=document.getElementById('dashAvatar');
@@ -378,7 +412,7 @@ async function logoutAccount(){
 async function deleteAccount(){
   if(!confirm('Are you sure you want to delete your account? This cannot be undone.')) return;
   try{ await window.__deleteFirebase(); }catch(e){}
-  localStorage.removeItem('seh_account'); localStorage.removeItem('seh_name'); localStorage.removeItem('seh_logged'); localStorage.removeItem('seh_points'); localStorage.removeItem('seh_temp');
+  localStorage.removeItem('seh_account'); localStorage.removeItem('seh_name'); localStorage.removeItem('seh_logged'); localStorage.removeItem('seh_points'); localStorage.removeItem('shopPoints'); localStorage.removeItem('seh_temp');
   alert('Deleted 🗑️'); location.reload();
 }
 ['Arabic','English','French','Spanish'].forEach(function(l){
@@ -386,6 +420,9 @@ async function deleteAccount(){
   if(r) r.addEventListener('input',function(){ document.getElementById('val'+l).textContent=this.value+'%'; });
 });
 (function(){
+  let p = localStorage.getItem('seh_points') || localStorage.getItem('shopPoints') || '0';
+  localStorage.setItem('seh_points', p);
+  localStorage.setItem('shopPoints', p);
   let acc=JSON.parse(localStorage.getItem('seh_account')||'{}');
   let logged=localStorage.getItem('seh_logged');
   if(acc.name && logged=='1'){ showProfile(acc); }

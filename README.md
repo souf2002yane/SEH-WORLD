@@ -1,4 +1,4 @@
-# 🎮 WIB SITE - Play, Fun & Challenges!
+# SEH WORLD - Play, Fun & Challenges!
 
 > Your daily dose of fun! Games, challenges, stories & more - all in one place.
 > Made with ❤️ by **Soufiane El Haddaoui**
@@ -35,7 +35,7 @@ Click the link and start playing! No download, no login, just fun! 🎉
 
 - 🏠 **MENU** - Clean and easy navigation
 - 👤 **INFO PERSONAL** - Know more about me
-- 📞 **CONTACT** - Press *CONTACT ME* on the ABOUT page to write to me
+- 📞 **CONTACT** - Press *CONTACT ME* on the ABOUT page to write to us
 - 🎮 **GAME** - 6 games in one place
 - 📚 **STORIES** - Read cool stories
 
@@ -125,6 +125,6 @@ If you like my website, please:
 ---
 
 <p align="center">
-  <b>🎮 WIB SITE - Made with ❤️ in Morocco 🇲🇦</b><br>
-  <b>© 2026 Soufiane El Haddaoui - All Rights Reserved</b>
+  <b>SEH WORLD - Made in Morocco 🇲🇦</b><br>
+  <b>© 2026 Soufyane El Haddaoui - All Rights Reserved</b>
 </p>

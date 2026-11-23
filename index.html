@@ -122,8 +122,8 @@ html[dir="rtl"] .world-detail{text-align:right}
 <span id="todayDate">📅 Loading...</span>
 <span id="userLabel">🔥 SEH WORLD</span>
 <button id="sehLangBtn" class="lang-btn" onclick="SEH_LANG.toggle()">🌐 عربي</button>
-<button> <a href="INFO.html"> Login / Sign Up </a></button>
-
+<!-- FIX: كان button بلا id و فيه a لداخل، دابا id="authBtn" و كيمشي لـ INFO -->
+<button id="authBtn" class="auth-btn" onclick="location.href='INFO.html'" data-i18n="login_signup">Login / Sign Up</button>
 </div>
 <div class="gold-header">
 <h2>Soufyane El Haddaoui</h2>
@@ -196,8 +196,6 @@ html[dir="rtl"] .world-detail{text-align:right}
     <div class="stat"><span class="num" data-target="97">0</span><small data-i18n="satisfaction">% Satisfaction</small></div>
     <div class="stat"><span class="num" data-target="21">0</span><small data-i18n="support">Hours Support</small></div>
   </div>
-
-  <!-- Shop moved to GAME - Link only -->
   <div class="seh-box" style="background:linear-gradient(135deg,#FFF8E1,#fff);border:2px solid #E9C46A">
     <h2>🛒 Points Shop</h2>
     <p style="color:#777;font-size:14px">Shop is now in GAME - VIP, Color, Dark Mode, Extra Game, My Diary, Sound Pack</p>
@@ -308,14 +306,25 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 let currentUser = null;
-let points = parseInt(localStorage.getItem('seh_points')||'0');
+// FIX: وحد النقاط - seh_points و shopPoints نفس القيمة
+let points = parseInt(localStorage.getItem('seh_points')||localStorage.getItem('shopPoints')||'0');
+localStorage.setItem('seh_points', String(points));
+localStorage.setItem('shopPoints', String(points));
 let isSignup = false;
 window.__seh = { auth, db, getUser: ()=>currentUser };
-function updatePointsUI(){ document.getElementById('pointsNum').innerText=points; document.getElementById('levelNum').innerText=Math.floor(points/10)+1; const sp=document.getElementById('shopPoints'); if(sp) sp.innerText=points; }
+// FIX: LEVEL نفس INFO: كل 100 نقطة = Level
+function sehCalcLevel(p){ return Math.floor(p/100)+1; }
+function sehGetLocalName(){
+  try{ let acc = JSON.parse(localStorage.getItem('seh_account')||'{}'); if(acc.name) return acc.name; }catch(e){}
+  let n = localStorage.getItem('seh_name'); if(n) return n;
+  return null;
+}
+function updatePointsUI(){ document.getElementById('pointsNum').innerText=points; document.getElementById('levelNum').innerText=sehCalcLevel(points); const sp=document.getElementById('shopPoints'); if(sp) sp.innerText=points; }
 async function savePoints(){
-  localStorage.setItem('seh_points', points);
+  localStorage.setItem('seh_points', String(points));
+  localStorage.setItem('shopPoints', String(points));
   if(currentUser){
-    try{ await setDoc(doc(db,"users",currentUser.uid), { points, name: currentUser.displayName||"", email: currentUser.email, updatedAt: new Date() }, { merge:true }); }catch(e){}
+    try{ await setDoc(doc(db,"users",currentUser.uid), { points, name: currentUser.displayName||sehGetLocalName()||"", email: currentUser.email, updatedAt: new Date() }, { merge:true }); }catch(e){}
   }
 }
 window.addPoints = async function(n){ points+=n; updatePointsUI(); await savePoints(); };
@@ -344,26 +353,38 @@ function msg(key){
   return m[key] ? m[key][lang] : key;
 }
 window._sehMsg = msg;
+// FIX: إلا كان مسجل فـ INFO (seh_logged=1) و Firebase مازال ما وصل، بين سميتو من localStorage باش ما يبانش SEH WORLD
+(function showLocalUserFirst(){
+  let accName = sehGetLocalName();
+  let logged = localStorage.getItem('seh_logged')==='1';
+  let label = document.getElementById('userLabel');
+  let btn = document.getElementById('authBtn');
+  if(logged && accName && label) label.innerText = "👋 " + accName;
+  if(logged && accName && btn){ btn.innerText = accName + " | " + msg('logout'); btn.classList.add('out'); }
+  updatePointsUI();
+})();
 onAuthStateChanged(auth, async (user)=>{
   currentUser = user;
   const btn = document.getElementById('authBtn');
   const label = document.getElementById('userLabel');
   const status = document.getElementById('signStatus');
   if(user){
-    localStorage.setItem('seh_currentUser', JSON.stringify({name:user.displayName||user.email.split('@')[0], email:user.email, uid:user.uid}));
-    btn.innerText = msg('logout'); btn.classList.add('out');
-    label.innerText = "👋 " + (user.displayName || user.email.split('@')[0]);
+    let localName = sehGetLocalName();
+    let displayName = user.displayName || localName || user.email.split('@')[0];
+    localStorage.setItem('seh_currentUser', JSON.stringify({name:displayName, email:user.email, uid:user.uid}));
+    if(btn){ btn.innerText = displayName + " | " + msg('logout'); btn.classList.add('out'); }
+    if(label) label.innerText = "👋 " + displayName;
     if(status) status.innerText = msg('logged_as') + user.email;
     const inv = document.getElementById('inviteLink');
     if(inv) inv.value = location.origin + location.pathname + "?ref=" + user.uid;
     try{
       const snap = await getDoc(doc(db,"users",user.uid));
       if(snap.exists() && typeof snap.data().points === 'number'){
-        if(snap.data().points > points){ points = snap.data().points; localStorage.setItem('seh_points', points); updatePointsUI(); }
+        if(snap.data().points > points){ points = snap.data().points; localStorage.setItem('seh_points', String(points)); localStorage.setItem('shopPoints', String(points)); updatePointsUI(); }
         else if(points > snap.data().points){ await savePoints(); }
       } else {
         const referrer = localStorage.getItem('seh_referrer');
-        await setDoc(doc(db,"users",user.uid), { name: user.displayName||"", email: user.email, points, createdAt: new Date(), referredBy: referrer||null }, { merge:true });
+        await setDoc(doc(db,"users",user.uid), { name: displayName, email: user.email, points, createdAt: new Date(), referredBy: referrer||null }, { merge:true });
         if(referrer && referrer !== user.uid){
           try{
             const refDoc = doc(db,"users",referrer);
@@ -375,16 +396,28 @@ onAuthStateChanged(auth, async (user)=>{
       }
     }catch(e){}
   } else {
+    // FIX: إلا ما كايناش Firebase ولكن كاين seh_logged=1 فـ INFO، ما ترجعش لـ SEH WORLD
+    let accName = sehGetLocalName();
+    let logged = localStorage.getItem('seh_logged')==='1';
+    if(logged && accName){
+      if(label) label.innerText = "👋 " + accName;
+      if(btn){ btn.innerText = accName + " | " + msg('logout'); btn.classList.add('out'); }
+      if(status) status.innerText = msg('logged_as') + accName;
+      return;
+    }
     localStorage.removeItem('seh_currentUser');
-    btn.innerText = msg('login_signup'); btn.classList.remove('out');
-    label.innerText = "🔥 SEH WORLD";
+    if(btn){ btn.innerText = msg('login_signup'); btn.classList.remove('out'); }
+    if(label) label.innerText = "🔥 SEH WORLD";
     if(status) status.innerText = msg('not_logged');
   }
 });
 document.getElementById('authBtn').onclick = ()=>{
-  if(currentUser){ signOut(auth); } else { document.getElementById('authModal').classList.add('show'); }
+  // FIX: زر واحد واضح - إلا مسجل كيخرج، إلا لا كيمشي لـ INFO (الأصل)
+  if(currentUser){ signOut(auth); localStorage.setItem('seh_logged','0'); location.reload(); }
+  else if(localStorage.getItem('seh_logged')==='1'){ localStorage.setItem('seh_logged','0'); location.reload(); }
+  else { location.href='INFO.html'; }
 };
-document.getElementById('signOutBtn').onclick = ()=>{ signOut(auth); hideAllBoxes(); };
+document.getElementById('signOutBtn').onclick = ()=>{ signOut(auth); localStorage.setItem('seh_logged','0'); hideAllBoxes(); location.reload(); };
 window.closeAuth = ()=> document.getElementById('authModal').classList.remove('show');
 document.getElementById('authToggle').onclick = ()=>{
   isSignup = !isSignup;
@@ -405,8 +438,12 @@ document.getElementById('authSubmit').onclick = async ()=>{
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
       if(name) await updateProfile(cred.user, { displayName: name });
       await setDoc(doc(db,"users",cred.user.uid), { name, email, points, createdAt: new Date() }, { merge:true });
+      localStorage.setItem('seh_account', JSON.stringify({name, email}));
+      localStorage.setItem('seh_name', name);
+      localStorage.setItem('seh_logged','1');
     } else {
       await signInWithEmailAndPassword(auth, email, pass);
+      localStorage.setItem('seh_logged','1');
     }
     closeAuth();
   }catch(e){ err.innerText = e.message; }
@@ -427,9 +464,9 @@ try{
 }catch(e){}
 window.setStars = async (n)=>{
   document.querySelectorAll('.seh-star').forEach((el,i)=>{ el.className = 'seh-star ' + (i < n ? 'on' : 'off'); });
-  if(!currentUser){ document.getElementById('starsMsg').innerText = msg('login_first_rate'); document.getElementById('authModal').classList.add('show'); return; }
+  if(!currentUser && localStorage.getItem('seh_logged')!=='1'){ document.getElementById('starsMsg').innerText = msg('login_first_rate'); location.href='INFO.html'; return; }
   try{
-    await addDoc(collection(db,"ratings"), { userId: currentUser.uid, userName: currentUser.displayName||currentUser.email, stars: n, createdAt: new Date().toISOString() });
+    await addDoc(collection(db,"ratings"), { userId: currentUser ? currentUser.uid : 'local', userName: currentUser ? (currentUser.displayName||currentUser.email) : (sehGetLocalName()||'Guest'), stars: n, createdAt: new Date().toISOString() });
     document.getElementById('starsMsg').innerText = msg('thanks_rate');
     await window.addPoints(5);
     loadAvg();
@@ -445,30 +482,30 @@ async function loadAvg(){
 }
 loadAvg();
 window.buyItem = async (name, price)=>{
-  if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; }
+  if(!currentUser && localStorage.getItem('seh_logged')!=='1'){ location.href='INFO.html'; return; }
   if(points < price){ document.getElementById('shopMsg').innerText = msg('not_enough'); document.getElementById('shopMsg').style.color="red"; return; }
   points -= price; updatePointsUI(); await savePoints();
-  try{ await addDoc(collection(db,"purchases"), { userId: currentUser.uid, userName: currentUser.displayName||currentUser.email, item: name, price, createdAt: new Date().toISOString() }); }catch(e){}
+  try{ await addDoc(collection(db,"purchases"), { userId: currentUser ? currentUser.uid : 'local', userName: currentUser ? (currentUser.displayName||currentUser.email) : (sehGetLocalName()||'Guest'), item: name, price, createdAt: new Date().toISOString() }); }catch(e){}
   document.getElementById('shopMsg').innerText = msg('bought')+name+" 🎉"; document.getElementById('shopMsg').style.color="green";
 };
 window.copyInvite = ()=>{
   const v = document.getElementById('inviteLink').value;
-  if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; }
+  if(!currentUser && localStorage.getItem('seh_logged')!=='1'){ location.href='INFO.html'; return; }
   navigator.clipboard.writeText(v).then(()=>{ document.getElementById('inviteMsg').innerText=msg('copied')+" 🔥"; });
 };
 window.shareInvite = ()=>{
   const v = document.getElementById('inviteLink').value;
-  if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; }
+  if(!currentUser && localStorage.getItem('seh_logged')!=='1'){ location.href='INFO.html'; return; }
   const lang = localStorage.getItem('seh_lang')||'en';
   if(navigator.share){ navigator.share({title:'SEH World', text: lang==='ar'?'ادخل إلى SEH World واجمع النقاط معي!':'Join SEH World and earn points with me!', url: v}); } else { copyInvite(); }
 };
 window.sendReport = async ()=>{
-  if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; }
+  if(!currentUser && localStorage.getItem('seh_logged')!=='1'){ location.href='INFO.html'; return; }
   const m = document.getElementById('reportMsg').value.trim();
   const where = document.getElementById('reportWhere').value;
   if(!m){ document.getElementById('reportMsgStatus').innerText=msg('write_problem'); return; }
   try{
-    await addDoc(collection(db,"reports"), { userId: currentUser.uid, userName: currentUser.displayName||currentUser.email, where, message: m, createdAt: new Date().toISOString() });
+    await addDoc(collection(db,"reports"), { userId: currentUser ? currentUser.uid : 'local', userName: currentUser ? (currentUser.displayName||currentUser.email) : (sehGetLocalName()||'Guest'), where, message: m, createdAt: new Date().toISOString() });
     document.getElementById('reportMsgStatus').innerText=msg('report_ok');
     document.getElementById('reportMsg').value="";
   }catch(e){ document.getElementById('reportMsgStatus').innerText=msg('error'); }
