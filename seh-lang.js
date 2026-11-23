@@ -194,6 +194,25 @@ const SEH_LANG = {
     days_label: { en: '📅 Days with us', ar: '📅 أيام معنا' },
     step1_title: { en: 'Personal Info', ar: 'المعلومات الشخصية' },
     home_link: { en: 'Home', ar: 'الرئيسية' },
+    home_link: { en: 'Home', ar: 'الرئيسية' },
+    // ===== SHOP + MY DIARY - EN is base, AR is Fusha =====
+    shop_title: { en: '🛒 Points Shop', ar: '🛒 متجر النقاط' },
+    shop_sub: { en: 'Buy with your points - Real items, real effects', ar: 'اشترِ بنقاطك - عناصر حقيقية ذات تأثير فعلي' },
+    your_points: { en: 'You have', ar: 'لديك' },
+    points_word: { en: 'points', ar: 'نقطة' },
+    my_items: { en: 'My Items', ar: 'عناصري' },
+    choose_color: { en: 'Choose Site Color:', ar: 'اختر لون الموقع:' },
+    enable_sounds: { en: 'Enable Sounds', ar: 'تفعيل الأصوات' },
+    diary_title: { en: '📝 My Diary - Private', ar: '📝 مذكراتي - خاصة' },
+    diary_sub: { en: 'Only you can see this. Saved on your phone.', ar: 'أنت فقط من يستطيع رؤيتها. محفوظة على هاتفك.' },
+    diary_unlock: { en: '🔓 Unlock', ar: '🔓 فتح' },
+    diary_pin_hint: { en: 'First time? Write a PIN and Unlock, it will be saved.', ar: 'أول مرة؟ اكتب رمزًا ثم اضغط على فتح، وسيتم حفظه.' },
+    diary_save: { en: '💾 Save in My Diary (+5 Points)', ar: '💾 حفظ في مذكراتي (+5 نقاط)' },
+    diary_lock: { en: '🔒 Lock Diary', ar: '🔒 قفل المذكرات' },
+    buy_btn: { en: 'Buy', ar: 'شراء' },
+    shop_go_title: { en: '🛒 Points Shop', ar: '🛒 متجر النقاط' },
+    shop_go_desc: { en: 'Shop is now in GAME - VIP, Color, Dark Mode, Extra Game, My Diary, Sound Pack', ar: 'أصبح المتجر الآن في صفحة الألعاب - VIP، اللون، الوضع الداكن، لعبة إضافية، مذكراتي، حزمة الأصوات' },
+    shop_go_btn: { en: '🛒 Go to Shop in GAME →', ar: '🛒 الذهاب إلى المتجر في الألعاب →' },
   },
   apply() {
     document.documentElement.lang = this.current === 'ar' ? 'ar' : 'en';
@@ -234,3 +253,22 @@ const SEH_LANG = {
 };
 window.SEH_LANG = SEH_LANG;
 document.addEventListener('DOMContentLoaded', () => SEH_LANG.apply());
+
+
+// SHOP + DIARY - EN base, AR Fusha
+const SEH_SHOP_DICT = {
+  en: { shop_title:"🛒 Points Shop", shop_sub:"Buy with your points - Real items, real effects", your_points:"You have", points_word:"points", my_items:"My Items", choose_color:"Choose Site Color:", enable_sounds:"Enable Sounds", diary_title:"📝 My Diary - Private", diary_sub:"Only you can see this. Saved on your phone.", diary_unlock:"🔓 Unlock", diary_pin_hint:"First time? Write a PIN and Unlock, it will be saved.", diary_save:"💾 Save in My Diary (+5 Points)", diary_lock:"🔒 Lock Diary", buy_btn:"Buy" },
+  ar: { shop_title:"🛒 متجر النقاط", shop_sub:"اشترِ بنقاطك - عناصر حقيقية ذات تأثير فعلي", your_points:"لديك", points_word:"نقطة", my_items:"عناصري", choose_color:"اختر لون الموقع:", enable_sounds:"تفعيل الأصوات", diary_title:"📝 مذكراتي - خاصة", diary_sub:"أنت فقط من يستطيع رؤيتها. محفوظة على هاتفك.", diary_unlock:"🔓 فتح", diary_pin_hint:"أول مرة؟ اكتب رمزًا ثم اضغط على فتح، وسيتم حفظه.", diary_save:"💾 حفظ في مذكراتي (+5 نقاط)", diary_lock:"🔒 قفل المذكرات", buy_btn:"شراء" }
+};
+function applyShopLang(lang){
+  let t = SEH_SHOP_DICT[lang] || SEH_SHOP_DICT.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    let k = el.getAttribute('data-i18n');
+    if(t[k]) el.textContent = t[k];
+  });
+}
+if(window.SEH_LANG){
+  let _orig = window.SEH_LANG.toggle.bind(window.SEH_LANG);
+  window.SEH_LANG.toggle = function(){ _orig(); setTimeout(()=> applyShopLang(localStorage.getItem('seh_lang')||'en'), 100); };
+  setTimeout(()=> applyShopLang(localStorage.getItem('seh_lang')||'en'), 500);
+}

@@ -117,12 +117,13 @@ section{background:#f6f5f2;color:#3B2A1A;border:5px solid #E8C99A;margin:20px 10
 html[dir="rtl"] .hero-gold-text{right:auto;left:18px;text-align:left}
 html[dir="rtl"] .world-detail{text-align:right}
 </style>
-<body>
+<body>  
 <div class="top-bar">
 <span id="todayDate">📅 Loading...</span>
 <span id="userLabel">🔥 SEH WORLD</span>
 <button id="sehLangBtn" class="lang-btn" onclick="SEH_LANG.toggle()">🌐 عربي</button>
-<button id="authBtn" class="auth-btn" data-i18n="login_signup">Login / Sign Up</button>
+<button> <a href="INFO.html"> Login / Sign Up </a></button>
+
 </div>
 <div class="gold-header">
 <h2>Soufyane El Haddaoui</h2>
@@ -177,28 +178,6 @@ html[dir="rtl"] .world-detail{text-align:right}
     <p id="dailyChallenge">...</p>
     <button onclick="newChallenge()" data-i18n="new_challenge">🎲 New Challenge</button>
   </div>
-
-  <div class="seh-box">
-    <h3 data-i18n="shop_title">🛒 Points Shop</h3>
-    <p style="color:#777;font-size:13px"><span data-i18n="you_have">You have</span> <b id="shopPoints">0</b> <span data-i18n="points_word">points</span></p>
-    <div class="shop-grid">
-      <div class="shop-item"><span style="font-size:28px">👑</span><b data-i18n="vip_badge">VIP Badge - 100 Points</b><small data-i18n="vip_desc">Golden crown next to your name</small><br><button class="seh-btn gold" style="margin-top:8px" onclick="buyItem('VIP Badge',100)" data-i18n="buy">Buy</button></div>
-      <div class="shop-item"><span style="font-size:28px">🎨</span><b data-i18n="color_theme">Color Theme - 50 Points</b><small data-i18n="color_desc">Special color for your profile</small><br><button class="seh-btn gold" style="margin-top:8px" onclick="buyItem('Color Theme',50)" data-i18n="buy">Buy</button></div>
-      <div class="shop-item"><span style="font-size:28px">⭐</span><b data-i18n="gold_star">Golden Star - 30 Points</b><small data-i18n="gold_desc">Appears in Top 10</small><br><button class="seh-btn gold" style="margin-top:8px" onclick="buyItem('Golden Star',30)" data-i18n="buy">Buy</button></div>
-      <div class="shop-item"><span style="font-size:28px">🎮</span><b data-i18n="extra_game">Extra Game - 80 Points</b><small data-i18n="extra_desc">Unlock a new game</small><br><button class="seh-btn gold" style="margin-top:8px" onclick="buyItem('Extra Game',80)" data-i18n="buy">Buy</button></div>
-    </div>
-    <p id="shopMsg" style="color:green;font-size:13px"></p>
-  </div>
-
-  <div class="seh-box">
-    <h3 data-i18n="invite_title">🔗 Invite & Earn</h3>
-    <p style="color:#777;font-size:13px" data-i18n="invite_desc">Send the link to your friends, each person who registers via your link = +20 Points for you</p>
-    <input class="seh-input" id="inviteLink" readonly value="Log in to show your invite link">
-    <button class="seh-btn" onclick="copyInvite()" data-i18n="copy_link">📋 Copy Link</button>
-    <button class="seh-btn gold" onclick="shareInvite()" data-i18n="share">📤 Share</button>
-    <p id="inviteMsg" style="color:green;font-size:13px"></p>
-  </div>
-
   <div class="news-box">
     <h3 data-i18n="news_title">📢 Website News</h3>
     <p style="font-size:15px;line-height:1.8"><b data-i18n="news_1">You are ready to read a story 🔥</b><br><span data-i18n="news_1_desc">True stories that inspire you and push you forward</span> &nbsp;<a href="STORIES.html" style="color:#8a6d1a;font-weight:bold" data-i18n="read_now">READ NOW →</a></p>
@@ -216,6 +195,23 @@ html[dir="rtl"] .world-detail{text-align:right}
     <div class="stat"><span class="num" id="realVisitors" data-target="0">0</span><small data-i18n="visitors">Real Visitors</small></div>
     <div class="stat"><span class="num" data-target="97">0</span><small data-i18n="satisfaction">% Satisfaction</small></div>
     <div class="stat"><span class="num" data-target="21">0</span><small data-i18n="support">Hours Support</small></div>
+  </div>
+
+  <!-- Shop moved to GAME - Link only -->
+  <div class="seh-box" style="background:linear-gradient(135deg,#FFF8E1,#fff);border:2px solid #E9C46A">
+    <h2>🛒 Points Shop</h2>
+    <p style="color:#777;font-size:14px">Shop is now in GAME - VIP, Color, Dark Mode, Extra Game, My Diary, Sound Pack</p>
+    <p style="font-weight:bold">You have <b id="shopPoints">0</b> points</p>
+    <a href="GAME.html" style="display:inline-block;background:#E9C46A;color:#111;padding:12px 30px;border-radius:20px;font-weight:bold;text-decoration:none;margin-top:8px">🛒 Go to Shop in GAME →</a>
+    <p id="shopMsg" style="color:green;font-size:13px"></p>
+  </div>
+    <div class="seh-box">
+    <h2 data-i18n="invite_title">🔗 Invite & Earn</h2><br>
+    <p style="color:#777;font-size:13px" data-i18n="invite_desc">Send the link to your friends, each person who registers via your link = +20 Points for you</p>
+    <input class="seh-input" id="inviteLink" readonly value="Log in to show your invite link">
+    <button class="seh-btn" onclick="copyInvite()" data-i18n="copy_link">📋 Copy Link</button>
+    <button class="seh-btn gold" onclick="shareInvite()" data-i18n="share">📤 Share</button>
+    <p id="inviteMsg" style="color:green;font-size:13px"></p>
   </div>
   <div style="background:rgb(187,185,185);border-radius:20px;margin:0 10px">
     <h2 style="text-align:center;color:whitesmoke;background:#0f0f0f;border-radius:20px;padding:12px;margin:20px 0;letter-spacing:2px" data-i18n="why_diff">Why we are different</h2>
@@ -252,7 +248,6 @@ html[dir="rtl"] .world-detail{text-align:right}
     <h3 data-i18n="your_account">🚪 Your Account</h3><p id="signStatus" data-i18n="not_logged">You are not logged in - Log in to save your points</p><button id="signOutBtn" style="padding:10px 25px;border-radius:20px;border:none;background:#e53935;color:white;font-weight:bold;cursor:pointer" data-i18n="sign_out_btn">Sign Out</button> <button onclick="hideAllBoxes()" style="padding:10px 25px;border-radius:20px;border:none;background:#111;color:white;cursor:pointer" data-i18n="back">Back</button>
   </div>
 </div>
-
   <div class="seh-box">
     <h3 data-i18n="rate_title">⭐ Rate the Website</h3>
     <p style="color:#777;font-size:13px" data-i18n="rate_desc">Did you like SEH? Give us your rating</p>
@@ -266,7 +261,6 @@ html[dir="rtl"] .world-detail{text-align:right}
     <p id="starsMsg" style="color:green;font-size:13px"></p>
     <p style="font-size:12px;color:#999"><span data-i18n="avg_rating">Average Rating:</span> <span id="avgRating">...</span></p>
   </div>
-
   <div class="seh-box" style="text-align:right">
     <h3 style="text-align:center" data-i18n="report_title">🚨 Report a Problem</h3>
     <select id="reportWhere" class="seh-input"><option value="index" data-i18n="rep_home">Home Page</option><option value="game" data-i18n="rep_game">Games</option><option value="stories" data-i18n="rep_stories">Stories</option><option value="info" data-i18n="rep_info">INFO</option><option value="login" data-i18n="rep_login">Login</option><option value="other" data-i18n="rep_other">Other</option></select>
@@ -274,7 +268,6 @@ html[dir="rtl"] .world-detail{text-align:right}
     <div style="text-align:center"><button class="seh-btn" onclick="sendReport()" data-i18n="send_report">Send Report</button></div>
     <p id="reportMsgStatus" style="text-align:center;color:green;font-size:13px"></p>
   </div>
-
   <form style="padding:20px;text-align:center">
     <input type="search" id="siteSearch" aria-label="Search in the site" maxlength="60" placeholder="Search in the site" style="width:80%;padding:12px;border-radius:20px;border:1px solid #333;background:#111;color:#fff">
     <div style="margin-top:15px"><a href="https://google.com" data-i18n="visit_google">Visit google</a><br><a href="https://facebook.com" data-i18n="visit_fb">Visit facebook</a></div>

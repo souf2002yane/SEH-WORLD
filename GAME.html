@@ -112,9 +112,9 @@
   .word-letter{padding:12px 14px;background:#f3f0ff;border:2px solid #d6c9ff;border-radius:12px;font-size:20px;font-weight:800;cursor:pointer}
   .word-answer{display:flex;gap:8px;justify-content:center;min-height:50px;margin:10px 0}
   .word-slot{width:48px;height:48px;border:2px dashed #764ba2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;background:white}
+  .shop-buy-btn{background:#fbbf24;border:none;padding:8px 20px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:8px}
 </style>
 
-<!-- MODE + PROGRESS + DAILY - حيدنا أزرار اللغة القدام -->
 <div style="max-width:500px;margin:0 auto">
   <div class="seg"><button id="offlineBtn" class="active" onclick="setGameMode('offline')" data-i18n="offline">📱 OFFLINE</button><button id="onlineBtn" onclick="setGameMode('online')" data-i18n="online">🌐 ONLINE</button></div>
   <div class="progress-box"><b id="unlockText" data-i18n="unlock">🔒 2 New Games locked - Reach 1000 Points</b><div class="progress-bar"><div class="progress-fill" id="unlockFill"></div></div><small id="unlockSub">0 / 1000</small></div>
@@ -194,6 +194,64 @@
 <div style="max-width:500px;margin:20px auto"><button class="btn-secondary" onclick="showMoreGames()" id="moreGamesBtn" style="width:100%; padding:13px; border:1px solid #382201; background:white; color:black; border-radius:8px; cursor:pointer;" data-i18n="more_games_btn"><b>Click here for more games →</b></button></div>
 <div id="moreGames" style="display:none;max-width:500px;margin:0 auto"><h1 style="margin-bottom:20px" data-i18n="more_games_title">🔥 More Games - Coming Soon</h1><div class="container" style="text-align:center"><p data-i18n="more_games_p1">🎲 A new game is coming soon...</p><p style="color:#888;margin-top:10px" data-i18n="more_games_p2">Stay with us, we add new games every week</p></div></div>
 
+<!-- ===== SEH POINTS SHOP + MY DIARY - ONLY IN GAME ===== -->
+<div style="max-width:500px;margin:20px auto;padding:0 10px">
+  <div style="background:white;border-radius:22px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.12)">
+    <h2 style="text-align:center;font-size:24px" data-i18n="shop_title">🛒 Points Shop</h2>
+    <p style="text-align:center;color:#888;font-size:14px" data-i18n="shop_sub">Buy with your points - Real items, real effects</p>
+    <p style="text-align:center;margin:10px 0"><b data-i18n="your_points">You have</b> <b id="shopPoints" style="color:#B7791F;font-size:20px">0</b> <span data-i18n="points_word">points</span> <span id="shopVipBadge"></span></p>
+    <div id="shopInventory" style="display:none;background:#FFF8E1;border:2px solid #E9C46A;border-radius:16px;padding:14px;margin-bottom:14px">
+      <b>🎒 <span data-i18n="my_items">My Items</span></b>
+      <div id="shopInventoryList" style="font-size:13px;margin-top:6px"></div>
+      <div id="shopColorBox" style="display:none;margin-top:12px">
+        <b>🎨 <span data-i18n="choose_color">Choose Site Color:</span></b><br>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+          <button onclick="sehSetTheme('#764ba2')" style="background:#764ba2;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Purple</button>
+          <button onclick="sehSetTheme('#dc2626')" style="background:#dc2626;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Red</button>
+          <button onclick="sehSetTheme('#16a34a')" style="background:#16a34a;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Green</button>
+          <button onclick="sehSetTheme('#ea580c')" style="background:#ea580c;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Orange</button>
+          <button onclick="sehSetTheme('#111')" style="background:#111;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Black</button>
+        </div>
+      </div>
+      <div id="shopSoundBox" style="display:none;margin-top:12px">
+        <label style="cursor:pointer"><input type="checkbox" id="shopSoundToggle" onchange="sehToggleSound()"> 🔊 <span data-i18n="enable_sounds">Enable Sounds</span></label>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">👑</div><b>VIP Badge - 500</b><br><small style="color:#888">Crown + 2x Points</small><br><button onclick="sehBuy('vip',500)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
+      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🎨</div><b>Color Theme - 250</b><br><small style="color:#888">Change Site Color</small><br><button onclick="sehBuy('color',250)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
+      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🌙</div><b>Dark Mode Pro - 200</b><br><small style="color:#888">Real Dark Mode</small><br><button onclick="sehBuy('dark',200)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
+      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🎮</div><b>Extra Game - 400</b><br><small style="color:#888">Hidden Snake Game</small><br><button onclick="sehBuy('game',400)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
+      <div style="background:#FFF8E1;padding:14px;border-radius:16px;text-align:center;border:2px solid #E9C46A"><div style="font-size:32px">📝</div><b>My Diary - 600</b><br><small style="color:#888">Private Secret Diary + Lock</small><br><button onclick="sehBuy('diary',600)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
+      <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🔊</div><b>Sound Pack - 150</b><br><small style="color:#888">Sounds in Games</small><br><button onclick="sehBuy('sound',150)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
+    </div>
+    <div id="shopSecretGame" style="display:none;background:#111;color:#fff;padding:16px;border-radius:16px;margin-top:14px;text-align:center">
+      <h3>🎮 Secret Game - Snake VIP</h3><p style="font-size:13px;color:#ccc">Unlocked! You bought Extra Game</p>
+      <button onclick="alert('Snake is in More Games - Coming Soon!')" style="background:#22c55e;color:#fff;padding:10px 20px;border:none;border-radius:10px;font-weight:bold;cursor:pointer">▶️ Play Now</button>
+    </div>
+    <div id="shopDiary" style="display:none;background:#fff;padding:16px;border-radius:16px;margin-top:14px;border:2px solid #ec4899">
+      <h3 style="text-align:center" data-i18n="diary_title">📝 My Diary - Private</h3>
+      <p style="text-align:center;font-size:12px;color:#888" data-i18n="diary_sub">Only you can see this. Saved on your phone.</p>
+      <div id="diaryLockBox" style="text-align:center">
+        <input id="diaryPinInput" type="password" placeholder="Set PIN or Enter PIN" style="width:70%;padding:10px;border-radius:10px;border:1px solid #ddd">
+        <button onclick="sehUnlockDiary()" style="padding:10px 16px;background:#ec4899;color:#fff;border:none;border-radius:10px;font-weight:bold;cursor:pointer" data-i18n="diary_unlock">🔓 Unlock</button>
+        <p style="font-size:11px;color:#999;margin-top:6px" data-i18n="diary_pin_hint">First time? Write a PIN and Unlock, it will be saved.</p>
+      </div>
+      <div id="diaryWriteBox" style="display:none">
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <select id="diaryMood" style="padding:8px;border-radius:10px;border:1px solid #ddd"><option value="😊">😊 Happy</option><option value="😢">😢 Sad</option><option value="😡">😡 Angry</option><option value="😍">😍 Love</option><option value="🤔">🤔 Thinking</option><option value="🔥">🔥 Excited</option></select>
+          <input id="diaryTitle" placeholder="Title..." style="flex:1;padding:8px;border-radius:10px;border:1px solid #ddd">
+        </div>
+        <textarea id="diaryText" placeholder="Write what happened today... Your secrets are safe here ❤️" style="width:100%;height:90px;padding:10px;border-radius:12px;border:1px solid #ddd"></textarea>
+        <button onclick="sehSaveDiary()" style="width:100%;padding:12px;background:#ec4899;color:#fff;border:none;border-radius:12px;font-weight:bold;margin-top:8px;cursor:pointer" data-i18n="diary_save">💾 Save in My Diary (+5 Points)</button>
+        <input id="diarySearch" oninput="sehRenderDiary()" placeholder="🔍 Search in my diary..." style="width:100%;padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:12px">
+        <div id="diaryList" style="margin-top:10px"></div>
+        <button onclick="sehLockDiary()" style="width:100%;padding:8px;background:#eee;border:none;border-radius:10px;margin-top:8px;cursor:pointer" data-i18n="diary_lock">🔒 Lock Diary</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="lb-wrap"><h1 style="margin-bottom:5px" data-i18n="lb_title">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px" data-i18n="lb_sub">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2><p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p><p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div><div id="leaderList"></div></div>
 
 <script src="seh-lang.js"></script>
@@ -206,10 +264,10 @@ const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db =
 window.sehAuth = auth; window.sehDb = db; window.sehUser = null; window.sehPoints = 0; window.sehOnSnap = onSnapshot; window.sehDoc = doc; window.sehSetDoc = setDoc; window.sehUpdateDoc = updateDoc;
 onAuthStateChanged(auth, async (user) => {
   if (user) { window.sehUser = user; const ref = doc(db, "users", user.uid); const snap = await getDoc(ref); if (!snap.exists()) { await setDoc(ref, { name: user.displayName || "Player", email: user.email || "", points: 0, createdAt: new Date() }); window.sehPoints = 0; } else { window.sehPoints = snap.data().points || 0; } localStorage.setItem('seh_points', window.sehPoints); } else { window.sehUser = null; window.sehPoints = 0; localStorage.setItem('seh_points', '0'); }
-  renderLeaderboardReal(); updateUnlockUI(); updateStarsUI();
+  renderLeaderboardReal(); updateUnlockUI(); updateStarsUI(); if(window.sehUpdateShopUI) sehUpdateShopUI();
 });
-window.addPoints = async function(n) { let p = parseInt(localStorage.getItem('seh_points')||'0') + n; if(p<0) p=0; localStorage.setItem('seh_points', p); window.sehPoints = p; if (window.sehUser) { try { await updateDoc(doc(db, "users", window.sehUser.uid), { points: increment(n) }); } catch(e){ console.log(e); } } renderLeaderboardReal(); updateUnlockUI(); };
-window.renderLeaderboardReal = async function() { const listEl = document.getElementById('leaderList'); if (!listEl) return; let myPoints = parseInt(localStorage.getItem('seh_points')||'0'); if (!window.sehUser) { document.getElementById('myNameLB').textContent = "Guest"; document.getElementById('myRankLB').textContent = "Guest - 0 Points"; document.getElementById('myLevelLB').textContent = "LEVEL 1"; listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">سجل دخول لترى لوحة الصدارة الحقيقية<br><a href="index.html"> log in</a></div></div>`; return; } let myName = window.sehUser.displayName || window.sehUser.email || "Player"; try { const q = query(collection(db, "users"), orderBy("points", "desc"), limit(10)); const snap = await getDocs(q); let players = []; snap.forEach(d => players.push({ id: d.id, ...d.data() })); players.sort((a,b)=> (b.points||0) - (a.points||0)); let medals = ['🥇','🥈','🥉']; let html = ''; players.forEach((p, i)=>{ let medal = medals[i] || ('#' + (i+1)); let level = Math.floor((p.points||0)/100)+1; let letter = (p.name||"P").charAt(0).toUpperCase(); let isMe = p.id === window.sehUser.uid; html += `<div class="lb-row ${isMe ? 'me' : ''}"><div style="font-size:22px;font-weight:900;width:38px;text-align:center">${medal}</div><div class="lb-avatar">${letter}</div><div style="flex:1"><b style="display:block;font-size:15px">${p.name||"Player"} ${isMe ? ' (You) ⭐' : ''}</b><small style="color:#888;font-size:12px">⭐ LEVEL ${level}</small></div>
+window.addPoints = async function(n) { let p = parseInt(localStorage.getItem('seh_points')||'0') + n; if(p<0) p=0; localStorage.setItem('seh_points', p); window.sehPoints = p; if (window.sehUser) { try { await updateDoc(doc(db, "users", window.sehUser.uid), { points: increment(n) }); } catch(e){ console.log(e); } } renderLeaderboardReal(); updateUnlockUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); };
+window.renderLeaderboardReal = async function() { const listEl = document.getElementById('leaderList'); if (!listEl) return; let myPoints = parseInt(localStorage.getItem('seh_points')||'0'); if (!window.sehUser) { document.getElementById('myNameLB').textContent = "Guest"; document.getElementById('myRankLB').textContent = "Guest - 0 Points"; document.getElementById('myLevelLB').textContent = "LEVEL 1"; listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">سجل دخول لترى لوحة الصدارة الحقيقية<br><a href="INFO.html"> log in</a></div></div>`; return; } let myName = window.sehUser.displayName || window.sehUser.email || "Player"; try { const q = query(collection(db, "users"), orderBy("points", "desc"), limit(10)); const snap = await getDocs(q); let players = []; snap.forEach(d => players.push({ id: d.id, ...d.data() })); players.sort((a,b)=> (b.points||0) - (a.points||0)); let medals = ['🥇','🥈','🥉']; let html = ''; players.forEach((p, i)=>{ let medal = medals[i] || ('#' + (i+1)); let level = Math.floor((p.points||0)/100)+1; let letter = (p.name||"P").charAt(0).toUpperCase(); let isMe = p.id === window.sehUser.uid; html += `<div class="lb-row ${isMe ? 'me' : ''}"><div style="font-size:22px;font-weight:900;width:38px;text-align:center">${medal}</div><div class="lb-avatar">${letter}</div><div style="flex:1"><b style="display:block;font-size:15px">${p.name||"Player"} ${isMe ? ' (You) ⭐' : ''}</b><small style="color:#888;font-size:12px">⭐ LEVEL ${level}</small></div>
 <div style="font-weight:900;color:#B7791F;font-size:16px;text-align:right">${p.points||0}<small style="display:block;color:#888;font-size:11px;font-weight:400">points</small></div></div>`; }); listEl.innerHTML = html || "لا يوجد لاعبون بعد"; let myRank = players.findIndex(p=>p.id===window.sehUser.uid) + 1; if (myRank === 0) myRank = players.length + 1; let myLevel = Math.floor(myPoints/100)+1; document.getElementById('myNameLB').textContent = myName; document.getElementById('myRankLB').textContent = 'Your Rank: #' + myRank + ' • ⭐ ' + myPoints + ' Points'; document.getElementById('myLevelLB').textContent = '⭐ LEVEL ' + myLevel; } catch(e){ console.log("Leaderboard error", e); } };
 </script>
 
@@ -217,12 +275,7 @@ window.renderLeaderboardReal = async function() { const listEl = document.getEle
 document.getElementById('todayDate').innerText = "📅 " + new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 let gameMode='offline';
 function setGameMode(m){ gameMode=m; document.getElementById('offlineBtn').classList.toggle('active',m=='offline'); document.getElementById('onlineBtn').classList.toggle('active',m=='online'); document.querySelectorAll('.game-card').forEach(c=>{ let modes=(c.dataset.mode||'offline').split(' '); c.style.display = modes.includes(m) ? 'block' : 'none'; }); if(m=='online'){ openGame('xo',document.querySelector('[onclick*="xo"]')); setXoMode('online'); } }
-// النظام الجديد: هاد الفونكسيون كتخلي الترجمة القديمة تخدم مع النظام الجديد
-function setGameLang(l){
-  localStorage.setItem('seh_lang', l);
-  localStorage.setItem('seh_game_lang', l);
-  if(window.SEH_LANG){ SEH_LANG.current = l; SEH_LANG.apply(); }
-}
+function setGameLang(l){ localStorage.setItem('seh_lang', l); localStorage.setItem('seh_game_lang', l); if(window.SEH_LANG){ SEH_LANG.current = l; SEH_LANG.apply(); } }
 function getPoints(){ return parseInt(localStorage.getItem('seh_points')||'0'); }
 function updateUnlockUI(){ let p=getPoints(); let fill=document.getElementById('unlockFill'); if(fill) fill.style.width=Math.min(100,p/10)+'%'; let sub=document.getElementById('unlockSub'); if(sub) sub.textContent=p+' / 1000'; let txt=document.getElementById('unlockText'); if(txt) txt.textContent = p>=1000 ? '✅ New Games Unlocked! 🎉' : `🔒 2 New Games locked - ${1000-p} Points left`; document.querySelectorAll('[data-locked="1"]').forEach(c=>{ if(p>=1000){ c.classList.remove('locked'); c.querySelector('.lock-badge').style.display='none'; } }); }
 function tryOpenLocked(name,el){ if(getPoints()<1000){ alert('🔒 You need 1000 Points to unlock this game!\nYou have '+getPoints()+' Points.\nPlay more to unlock!'); return; } openGame(name,el); }
@@ -259,8 +312,7 @@ function resetRPS(){ps=0;cs=0;rpsWinStreak=0;pScore.textContent=0;cScore.textCon
 let damaBoard=[], damaSelected=null, damaTurn='red'; let damaMode = 'friend';
 function setDamaMode(m){ damaMode = m; document.getElementById('damaFriendBtn').classList.toggle('active', m=='friend'); document.getElementById('damaCompBtn').classList.toggle('active', m=='computer'); document.getElementById('damaSub').textContent = m=='friend' ? '2 players on same phone - Red starts' : 'You are Red 🔴 - Computer is Black ⚫'; initDama(); }
 function initDama(){ damaBoard=[]; damaSelected=null; damaTurn='red'; for(let r=0;r<8;r++){ let row=[]; for(let c=0;c<8;c++){ let piece=null; if((r+c)%2==1){ if(r<3) piece={color:'black',king:false}; if(r>4) piece={color:'red',king:false}; } row.push(piece); } damaBoard.push(row); } drawDama(); }
-function drawDama(){ let el=document.getElementById('damaBoard'); if(!el) return; el.innerHTML=''; document.getElementById('damaTurn').innerHTML = damaTurn=='red' ? 'Turn: 🔴 Red' : 'Turn: ⚫ Black'; for(let r=0;r<8;r++) for(let c=0;c<8;c++){ let div=document.createElement('div'); div.className='dama-cell '+((r+c)%2==0?'dama-light':'dama-dark'); if(damaSelected && damaSelected.r==r && damaSelected.c==c) div.classList.add('dama-selected'); let p=damaBoard[r][c]; if(p){ let pd=document.createElement('div'); pd.className='dama-piece '+(p.color=='red'?'dama-red':'dama-black')+(p.king?' dama-king':''); pd.innerText=p.king?'👑':''; div.appendChild(pd); } div.onclick=()=>clickDama(r,c); el.appendChild(div); } }
-function clickDama(r,c){ if(damaMode=='computer' && damaTurn=='black') return; let p=damaBoard[r][c]; if(p && p.color==damaTurn){ damaSelected={r,c}; drawDama(); return; } if(damaSelected){ let sr=damaSelected.r, sc=damaSelected.c; let piece=damaBoard[sr][sc]; if(!piece) return; let dr=r-sr, dc=c-sc; if(Math.abs(dr)==1 && Math.abs(dc)==1 && !p){ if(!piece.king){ if(piece.color=='red' && dr!=-1) return; if(piece.color=='black' && dr!=1) return; } moveDama(sr,sc,r,c); return; } if(Math.abs(dr)==2 && Math.abs(dc)==2 && !p){ let mr=(sr+r)/2, mc=(sc+c)/2; let mid=damaBoard[mr][mc]; if(mid && mid.color!=damaTurn){ damaBoard[mr][mc]=null; moveDama(sr,sc,r,c); return; } } } }
+function drawDama(){ let el=document.getElementById('damaBoard'); if(!el) return; el.innerHTML=''; document.getElementById('damaTurn').innerHTML = damaTurn=='red' ? 'Turn: 🔴 Red' : 'Turn: ⚫ Black'; for(let r=0;r<8;r++) for(let c=0;c<8;c++){ let div=document.createElement('div'); div.className='dama-cell '+((r+c)%2==0?'dama-light':'dama-dark'); if(damaSelected && damaSelected.r==r && damaSelected.c==c) div.classList.add('dama-selected'); let p=damaBoard[r][c]; if(p){ let pd=document.createElement('div'); pd.className='dama-piece '+(p.color=='red'?'dama-red':'dama-black')+(p.king?' dama-king':''); pd.innerText=p.king?'👑':''; div.appendChild(pd); } div.onclick=()=>clickDama(r,c); el.appendChild(div); } }function clickDama(r,c){ if(damaMode=='computer' && damaTurn=='black') return; let p=damaBoard[r][c]; if(p && p.color==damaTurn){ damaSelected={r,c}; drawDama(); return; } if(damaSelected){ let sr=damaSelected.r, sc=damaSelected.c; let piece=damaBoard[sr][sc]; if(!piece) return; let dr=r-sr, dc=c-sc; if(Math.abs(dr)==1 && Math.abs(dc)==1 && !p){ if(!piece.king){ if(piece.color=='red' && dr!=-1) return; if(piece.color=='black' && dr!=1) return; } moveDama(sr,sc,r,c); return; } if(Math.abs(dr)==2 && Math.abs(dc)==2 && !p){ let mr=(sr+r)/2, mc=(sc+c)/2; let mid=damaBoard[mr][mc]; if(mid && mid.color!=damaTurn){ damaBoard[mr][mc]=null; moveDama(sr,sc,r,c); return; } } } }
 function moveDama(sr,sc,r,c){ let piece=damaBoard[sr][sc]; damaBoard[r][c]=piece; damaBoard[sr][sc]=null; if((piece.color=='red' && r==0)||(piece.color=='black' && r==7)) piece.king=true; damaSelected=null; damaTurn=damaTurn=='red'?'black':'red'; drawDama(); let reds=0, blacks=0; for(let r2=0;r2<8;r2++) for(let c2=0;c2<8;c2++){ if(damaBoard[r2][c2]?.color=='red') reds++; if(damaBoard[r2][c2]?.color=='black') blacks++; } if(reds==0) setTimeout(()=>alert('🏆 Black wins!'),100); if(blacks==0){ setTimeout(()=>alert('🏆 Red wins! +30 Points'),100); addPoints(30); } if(damaMode=='computer' && damaTurn=='black' && reds>0 && blacks>0){ setTimeout(()=>damaComputerMove(), 700); } }
 function damaComputerMove(){ if(damaTurn!='black') return; for(let r=0;r<8;r++) for(let c=0;c<8;c++){ let p=damaBoard[r][c]; if(p && p.color=='black'){ let dirs=[[2,2],[2,-2]]; if(p.king) dirs=[[2,2],[2,-2],[-2,2],[-2,-2]]; for(let [dr,dc] of dirs){ let nr=r+dr, nc=c+dc, mr=r+dr/2, mc=c+dc/2; if(nr>=0&&nr<8&&nc>=0&&nc<8 && !damaBoard[nr][nc] && damaBoard[mr][mc] && damaBoard[mr][mc].color=='red'){ damaBoard[mr][mc]=null; moveDama(r,c,nr,nc); return; } } } } let moves=[]; for(let r=0;r<8;r++) for(let c=0;c<8;c++){ let p=damaBoard[r][c]; if(p && p.color=='black'){ let dirs=[[1,1],[1,-1]]; if(p.king) dirs=[[1,1],[1,-1],[-1,1],[-1,-1]]; for(let [dr,dc] of dirs){ let nr=r+dr, nc=c+dc; if(nr>=0&&nr<8&&nc>=0&&nc<8 && !damaBoard[nr][nc]) moves.push([r,c,nr,nc]); } } } if(moves.length>0){ let m=moves[Math.floor(Math.random()*moves.length)]; moveDama(m[0],m[1],m[2],m[3]); } }
 let memCards=[], memFirst=null, memLock=false, memTries=0, memFound=0;
@@ -317,7 +369,45 @@ function startSimon(){ simonSeq=[]; simonLevel=0; document.getElementById('simon
 function nextSimon(){ simonLevel++; document.getElementById('simonLevel').textContent=simonLevel+' / 5'; simonSeq.push(Math.floor(Math.random()*4)); simonIdx=0; document.getElementById('simonMsg').textContent='Watch... 👀'; simonPlaying=false; let i=0; let timer=setInterval(()=>{ if(i>=simonSeq.length){ clearInterval(timer); document.getElementById('simonMsg').textContent='Your turn! Repeat'; simonPlaying=true; return; } flashSimon(simonSeq[i]); i++; },700); }
 function flashSimon(n){ let btns=document.querySelectorAll('.simon-btn'); btns[n].classList.add('lit'); setTimeout(()=>btns[n].classList.remove('lit'),400); }
 function simonClick(n){ if(!simonPlaying) return; flashSimon(n); if(n==simonSeq[simonIdx]){ simonIdx++; if(simonIdx==simonSeq.length){ simonPlaying=false; if(simonLevel>=5){ document.getElementById('simonMsg').textContent='🏆 5 Levels! +10 Points!'; addPoints(10); simonLevel=0; } else { document.getElementById('simonMsg').textContent='✅ Good! Next level...'; setTimeout(nextSimon,800); } } } else { document.getElementById('simonMsg').textContent='❌ Wrong! Press Start again'; simonPlaying=false; } }
-updateUnlockUI(); updateStarsUI();
+// ===== SHOP + DIARY LOGIC =====
+let sehInv = JSON.parse(localStorage.getItem('seh_inventory')||'[]');
+let sehDiaries = JSON.parse(localStorage.getItem('seh_diary')||'[]');
+function sehUpdateShopUI(){
+  let p = parseInt(localStorage.getItem('seh_points')||'0');
+  let el = document.getElementById('shopPoints'); if(el) el.textContent = p;
+  if(sehInv.length>0){ let inv=document.getElementById('shopInventory'); if(inv) inv.style.display='block'; let l=document.getElementById('shopInventoryList'); if(l) l.innerHTML = sehInv.map(i=>'✅ '+i).join(' • '); }
+  if(sehInv.includes('vip')){ let b=document.getElementById('shopVipBadge'); if(b){ b.textContent='👑 VIP'; b.style.color='gold'; } }
+  if(sehInv.includes('color')){ let c=document.getElementById('shopColorBox'); if(c) c.style.display='block'; }
+  if(sehInv.includes('sound')){ let s=document.getElementById('shopSoundBox'); if(s) s.style.display='block'; }
+  if(sehInv.includes('game')){ let g=document.getElementById('shopSecretGame'); if(g) g.style.display='block'; }
+  if(sehInv.includes('diary')){ let d=document.getElementById('shopDiary'); if(d) d.style.display='block'; }
+  if(sehInv.includes('dark')){ document.body.style.background='#111'; document.body.style.color='#fff'; }
+  let th = localStorage.getItem('seh_theme'); if(th && sehInv.includes('color')) sehApplyTheme(th);
+  if(localStorage.getItem('seh_sound')==='on'){ let t=document.getElementById('shopSoundToggle'); if(t) t.checked=true; }
+}
+function sehBuy(id, price){
+  if(sehInv.includes(id)) return alert('You already bought this! Go to My Items');
+  let p = parseInt(localStorage.getItem('seh_points')||'0');
+  if(p < price) return alert('Not enough points! You need '+price+' and you have '+p+'\nPlay more to earn points!');
+  if(!confirm('Are you sure you want to buy this for '+price+' points?')) return;
+  sehInv.push(id); localStorage.setItem('seh_inventory', JSON.stringify(sehInv));
+  if(window.addPoints) window.addPoints(-price); else { localStorage.setItem('seh_points', p-price); }
+  setTimeout(sehUpdateShopUI, 300);
+  if(id==='diary') alert('🎉 Congrats! My Diary Unlocked!\nSet a PIN below and start writing!');
+  if(id==='vip') alert('🎉 Congrats! You are VIP 👑');
+  if(id==='color') alert('🎉 Congrats! Color Panel Unlocked!');
+  if(id==='game') alert('🎉 Congrats! Secret Game Unlocked!');
+}
+function sehSetTheme(c){ localStorage.setItem('seh_theme', c); sehApplyTheme(c); }
+function sehApplyTheme(c){ document.querySelectorAll('.shop-buy-btn').forEach(b=> b.style.background=c); }
+function sehToggleSound(){ let on=document.getElementById('shopSoundToggle').checked; localStorage.setItem('seh_sound', on?'on':'off'); }
+function sehUnlockDiary(){ let pin=document.getElementById('diaryPinInput').value; if(!pin) return alert('Enter your PIN first!'); let saved=localStorage.getItem('seh_diary_pin'); if(!saved){ localStorage.setItem('seh_diary_pin', pin); alert('✅ PIN Saved!'); } else if(pin!==saved) return alert('❌ Wrong PIN!'); document.getElementById('diaryLockBox').style.display='none'; document.getElementById('diaryWriteBox').style.display='block'; sehRenderDiary(); }
+function sehLockDiary(){ document.getElementById('diaryLockBox').style.display='block'; document.getElementById('diaryWriteBox').style.display='none'; document.getElementById('diaryPinInput').value=''; }
+function sehSaveDiary(){ let title=document.getElementById('diaryTitle').value.trim(); let text=document.getElementById('diaryText').value.trim(); let mood=document.getElementById('diaryMood').value; if(!text) return alert('Write something first!'); sehDiaries.unshift({id:Date.now(), title:title||'No Title', text:text, mood:mood, date:new Date().toLocaleString()}); localStorage.setItem('seh_diary', JSON.stringify(sehDiaries)); document.getElementById('diaryTitle').value=''; document.getElementById('diaryText').value=''; if(window.addPoints) window.addPoints(5); alert('💾 Saved! +5 points ❤️'); sehRenderDiary(); sehUpdateShopUI(); }
+function sehDeleteDiary(id){ if(!confirm('Delete this entry?')) return; sehDiaries=sehDiaries.filter(d=>d.id!==id); localStorage.setItem('seh_diary', JSON.stringify(sehDiaries)); sehRenderDiary(); }
+function sehRenderDiary(){ let q=(document.getElementById('diarySearch')?.value||'').toLowerCase(); let f=sehDiaries.filter(d=>(d.title+d.text).toLowerCase().includes(q)); let box=document.getElementById('diaryList'); if(!box) return; if(f.length===0){ box.innerHTML='<p style="text-align:center;color:#999">No entries yet. Write your first one! ✍️</p>'; return; } box.innerHTML=f.map(d=>`<div style="background:#fdf2f8;padding:12px;border-radius:12px;margin-bottom:8px;border-left:4px solid #ec4899"><b>${d.mood} ${d.title}</b> <span style="font-size:11px;color:#999">${d.date}</span><p style="margin:5px 0;white-space:pre-wrap">${d.text}</p><button onclick="sehDeleteDiary(${d.id})" style="background:#fee2e2;border:none;padding:4px 10px;border-radius:10px;cursor:pointer">🗑️ Delete</button></div>`).join(''); }
+window.sehUpdateShopUI = sehUpdateShopUI;
+updateUnlockUI(); updateStarsUI(); setTimeout(sehUpdateShopUI,800);
 </script>
 <script src="javascript"></script>
 <script src="seh-extra.js" defer></script>
