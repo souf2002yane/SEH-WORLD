@@ -3,73 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>لوحة الأدمن - SEH</title>
+<title>لوحة تحكم الإدارة - SEH-WORLD</title>
 <style>
-  body{font-family:Arial;background:#111;color:#fff;padding:20px}
-  .card{background:#222;padding:15px;border-radius:12px;margin:10px 0}
-  .stat{display:inline-block;background:#333;padding:15px;margin:5px;border-radius:10px;min-width:140px;text-align:center}
-  .stat b{font-size:24px;color:#ffd700;display:block}
-  button{background:#ffd700;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:bold}
-  input{padding:10px;border-radius:8px;border:1px solid #444;background:#222;color:#fff;width:100%;box-sizing:border-box;margin:5px 0}
-  .row{border-bottom:1px solid #444;padding:8px}
+  *{box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Arial;background:#0f1220;color:#fff;padding:18px;margin:0}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .top h1{margin:0;font-size:24px}
+  .top p{color:#aaa;margin:4px 0 0}
+  .badge{background:#ffd700;color:#111;padding:6px 12px;border-radius:20px;font-weight:bold;font-size:13px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+  .stat{background:linear-gradient(135deg,#1e2340,#191c33);padding:16px;border-radius:16px;border:1px solid #2a2f55;text-align:center}
+  .stat b{font-size:28px;color:#ffd700;display:block}
+  .stat span{color:#bbb;font-size:13px}
+  .card{background:#1a1e35;padding:16px;border-radius:16px;margin:14px 0;border:1px solid #2a2f55}
+  .card h3{margin:0 0 12px;font-size:18px}
+  input,textarea{padding:11px;border-radius:10px;border:1px solid #333;background:#0f1220;color:#fff;width:100%;margin:6px 0;font-family:inherit}
+  button{border:0;padding:9px 14px;border-radius:10px;cursor:pointer;font-weight:bold}
+  .btn-gold{background:#ffd700;color:#111}
+  .btn-red{background:#ff3b30;color:#fff}
+  .btn-green{background:#22c55e;color:#fff}
+  .btn-gray{background:#333;color:#fff}
+  .btn-blue{background:#3b82f6;color:#fff}
+  .item{background:#0f1220;border:1px solid #2a2f55;border-radius:14px;padding:12px;margin:8px 0}
+  .item-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+  .name{font-weight:bold}
+  .muted{color:#aaa;font-size:12px}
+  .text{margin:8px 0;line-height:1.6}
+  .reply-box{background:#fff8d6;color:#111;border-radius:10px;padding:10px;margin-top:8px;font-size:14px}
+  .reply-box b{color:#b45309}
+  .actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .blocked{border-color:#ff3b30;background:#2a1212}
+  .search{position:sticky;top:0;z-index:2}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .tabs button{background:#222752;color:#fff}
+  .tabs button.active{background:#ffd700;color:#111}
+  .hidden{display:none!important}
 </style>
 </head>
 <body>
 
-<h1>👑 لوحة الأدمن SEH</h1>
-<p id="adminInfo">كيتأكد... تسنى شوية</p>
+<div class="top">
+  <div>
+    <h1>👑 لوحة تحكم الإدارة</h1>
+    <p id="adminInfo">يتم التحقق من الحساب... يرجى الانتظار</p>
+  </div>
+  <div class="badge">SEH-WORLD • الإدارة</div>
+</div>
 
-<div id="loginBox" style="display:none;background:#222;padding:20px;border-radius:12px;max-width:400px">
-  <h3>دخول الأدمن</h3>
-  <p style="color:#aaa;font-size:13px">دخل بالإيميل ديال الأدمن باش تبان ليك اللوحة</p>
-  <input type="email" id="adminEmail" placeholder="souf2002yane@gmail.com">
-  <input type="password" id="adminPass" placeholder="كلمة السر">
-  <button onclick="adminLogin()" style="width:100%;margin-top:10px">دخول</button>
+<div id="loginBox" style="display:none;background:#1a1e35;padding:20px;border-radius:16px;max-width:420px;margin:20px auto">
+  <h3 style="margin-top:0">دخول المدير</h3>
+  <p style="color:#aaa;font-size:13px">قم بتسجيل الدخول بالبريد الإلكتروني الخاص بالإدارة لعرض لوحة التحكم</p>
+  <input type="email" id="adminEmail" placeholder="البريد الإلكتروني">
+  <input type="password" id="adminPass" placeholder="كلمة المرور">
+  <button onclick="adminLogin()" class="btn-gold" style="width:100%;margin-top:10px">دخول</button>
   <p id="loginErr" style="color:#ff5555"></p>
 </div>
 
 <div id="adminContent" style="display:none">
-  <div>
-    <div class="stat"><b id="totalUsers">0</b>مجموع المسجلين</div>
-    <div class="stat"><b id="todayUsers">0</b>تسجلو اليوم</div>
-    <div class="stat"><b id="avgStars">0</b>معدل النجوم ⭐</div>
-    <div class="stat"><b id="totalReports">0</b>تبليغات</div>
-    <div class="stat"><b id="totalPoints">0</b>مجموع النقط</div>
+
+  <div class="stats">
+    <div class="stat"><b id="totalUsers">0</b><span>إجمالي المستخدمين</span></div>
+    <div class="stat"><b id="todayUsers">0</b><span>سجلوا اليوم</span></div>
+    <div class="stat"><b id="avgStars">0</b><span>متوسط التقييم</span></div>
+    <div class="stat"><b id="totalReports">0</b><span>عدد التبليغات</span></div>
+    <div class="stat"><b id="totalComments">0</b><span>عدد التعليقات</span></div>
+    <div class="stat"><b id="totalPoints">0</b><span>إجمالي النقاط</span></div>
   </div>
 
-  <div class="card">
-    <h3>🔍 قلب على مستخدم</h3>
-    <input type="text" id="searchInput" placeholder="قلب بالاسم ولا الإيميل..." oninput="filterUsers()">
+  <div class="tabs">
+    <button class="active" onclick="showTab('users',this)">👥 المستخدمون</button>
+    <button onclick="showTab('comments',this)">💬 التعليقات</button>
+    <button onclick="showTab('reports',this)">🚨 التبليغات</button>
+    <button onclick="showTab('ratings',this)">⭐ التقييمات</button>
+    <button onclick="showTab('top',this)">🏆 أفضل النقاط</button>
+  </div>
+
+  <div id="tab-users" class="card">
+    <h3>👥 قائمة المستخدمين</h3>
+    <input type="text" id="searchInput" placeholder="ابحث بالاسم أو البريد الإلكتروني..." oninput="filterUsers()">
     <div id="searchResult"></div>
+    <h4>آخر التسجيلات</h4>
+    <div id="lastUsers">جارٍ التحميل...</div>
   </div>
 
-  <div class="card">
-    <h3>🏆 Top 10 النقط</h3>
-    <div id="top10">كيتشارجا...</div>
+  <div id="tab-comments" class="card hidden">
+    <h3>💬 قائمة التعليقات</h3>
+    <p class="muted">هنا يمكنك حذف أي تعليق مسيء، والرد على أي مستخدم.</p>
+    <div id="commentsList">جارٍ التحميل...</div>
   </div>
 
-  <div class="card">
-    <h3>🆕 آخر التسجيلات</h3>
-    <div id="lastUsers">كيتشارجا...</div>
+  <div id="tab-reports" class="card hidden">
+    <h3>🚨 قائمة التبليغات عن المشاكل</h3>
+    <div id="reportsList">جارٍ التحميل...</div>
   </div>
 
-  <div class="card">
-    <h3>🚨 التبليغات على المشاكل</h3>
-    <div id="reportsList">كيتشارجا...</div>
+  <div id="tab-ratings" class="card hidden">
+    <h3>⭐ قائمة التقييمات</h3>
+    <div id="ratingsList">جارٍ التحميل...</div>
   </div>
 
-  <div class="card">
-    <h3>⭐ آخر التقييمات</h3>
-    <div id="ratingsList">كيتشارجا...</div>
+  <div id="tab-top" class="card hidden">
+    <h3>🏆 أفضل 10 في النقاط</h3>
+    <div id="top10">جارٍ التحميل...</div>
   </div>
 
-  <button onclick="adminLogout()" style="background:#ff3b30;color:#fff;width:100%;margin-top:20px">🚪 خروج</button>
+  <button onclick="adminLogout()" class="btn-red" style="width:100%;margin-top:10px">🚪 تسجيل الخروج</button>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg",
@@ -86,7 +130,10 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 let allUsers = [];
+let allComments = [];
+let allReports = [];
 
+function esc(s){ return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
 function fmtDate(v){
   if(!v) return '';
   if(v.toDate) return v.toDate().toLocaleString('ar-MA');
@@ -102,6 +149,14 @@ function dateKey(v){
   return '';
 }
 
+window.showTab = (id,btn)=>{
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['users','comments','reports','ratings','top'].forEach(t=>{
+    document.getElementById('tab-'+t).classList.toggle('hidden', t!==id);
+  });
+};
+
 window.adminLogin = async ()=>{
   const email = document.getElementById('adminEmail').value.trim();
   const pass = document.getElementById('adminPass').value;
@@ -109,22 +164,86 @@ window.adminLogin = async ()=>{
   catch(e){ document.getElementById('loginErr').textContent = e.message; }
 };
 window.adminLogout = async ()=>{ await signOut(auth); location.reload(); };
+
 window.filterUsers = ()=>{
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
   if(!q){ document.getElementById('searchResult').innerHTML=''; return; }
   const found = allUsers.filter(u => (u.name||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q));
-  document.getElementById('searchResult').innerHTML = found.slice(0,20).map(u=>`<div class="row">${u.name||'-'} - ${u.email||'-'} - ${u.points||0} نقطة - ${u.phone||''}</div>`).join('') || 'ما لقيت والو';
+  document.getElementById('searchResult').innerHTML = found.slice(0,20).map(u=>userItem(u)).join('') || 'لم يتم العثور على أي نتيجة';
+};
+
+function userItem(u){
+  const isBlocked = !!u.blocked;
+  return `<div class="item ${isBlocked?'blocked':''}">
+    <div class="item-head"><span class="name">${esc(u.name||'-')} ${isBlocked?'🚫 محظور':''}</span><span class="muted">${esc(u.email||'')}</span></div>
+    <div class="muted">النقاط: ${u.points||0} • الهاتف: ${esc(u.phone||'-')} • التسجيل: ${fmtDate(u.createdAt)}</div>
+    <div class="actions">
+      <button class="${isBlocked?'btn-green':'btn-red'}" onclick="toggleBlock('${u.uid||u.id}','${isBlocked}')">${isBlocked?'✅ إلغاء الحظر':'🚫 حظر المستخدم'}</button>
+      <button class="btn-blue" onclick="replyToUser('${esc(u.name||'')}', '${esc(u.email||'')}')">💬 الرد عليه</button>
+    </div>
+    <div id="reply-user-${u.uid||u.id}" class="hidden">
+      <textarea id="txt-user-${u.uid||u.id}" placeholder="اكتب ردك لهذا المستخدم..."></textarea>
+      <button class="btn-gold" onclick="sendReply('users','${u.uid||u.id}','${esc(u.name||'')}')">إرسال الرد</button>
+    </div>
+  </div>`;
+}
+
+window.toggleBlock = async (uid, isBlocked)=>{
+  if(!uid) return alert('لا يوجد معرف لهذا المستخدم');
+  const wantBlock = isBlocked === 'false' || isBlocked === false;
+  if(!confirm(wantBlock ? 'هل تريد حظر هذا المستخدم؟ لن يستطيع التعليق أو التقييم أو التبليغ.' : 'هل تريد إلغاء حظر هذا المستخدم؟')) return;
+  try{
+    await updateDoc(doc(db,"users",uid), { blocked: wantBlock });
+    alert(wantBlock ? 'تم حظر المستخدم بنجاح' : 'تم إلغاء الحظر بنجاح');
+    load();
+  }catch(e){ alert('خطأ: '+e.message+' - تأكد أن قواعد Firestore تسمح للأدمن بالتعديل'); }
+};
+
+window.replyToUser = (name,email)=>{
+  alert('سيتم إرسال الرد إلى: '+name+' - يمكنك استخدام قسم التبليغات والتعليقات للرد المباشر');
+};
+
+window.toggleReplyBox = (id)=>{ document.getElementById(id).classList.toggle('hidden'); };
+
+window.sendReply = async (type, docId, userName)=>{
+  const input = document.getElementById('txt-'+type+'-'+docId) || document.getElementById('txt-user-'+docId);
+  const text = input?.value.trim();
+  if(!text) return alert('اكتب الرد أولا');
+  try{
+    await updateDoc(doc(db, type === 'reports' ? 'reports' : type === 'comments' ? 'comments' : 'users', docId), { adminReply: text, adminReplyAt: serverTimestamp(), adminReplyBy: 'الإدارة' });
+    await addDoc(collection(db,"replies"), { type, targetId: docId, userName, text, createdAt: serverTimestamp() });
+    alert('تم إرسال الرد بنجاح');
+    load();
+  }catch(e){ alert('خطأ: '+e.message); }
+};
+
+window.deleteComment = async (id)=>{
+  if(!confirm('هل تريد حذف هذا التعليق نهائيا؟')) return;
+  try{ await deleteDoc(doc(db,"comments",id)); alert('تم حذف التعليق'); load(); }
+  catch(e){ alert('خطأ: '+e.message); }
+};
+
+window.deleteReport = async (id)=>{
+  if(!confirm('هل تريد حذف هذا التبليغ؟')) return;
+  try{ await deleteDoc(doc(db,"reports",id)); alert('تم حذف التبليغ'); load(); }
+  catch(e){ alert('خطأ: '+e.message); }
+};
+
+window.deleteRating = async (id)=>{
+  if(!confirm('هل تريد حذف هذا التقييم؟')) return;
+  try{ await deleteDoc(doc(db,"ratings",id)); alert('تم حذف التقييم'); load(); }
+  catch(e){ alert('خطأ: '+e.message); }
 };
 
 onAuthStateChanged(auth, (user)=>{
   if(!user || user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()){
-    document.getElementById('adminInfo').textContent = 'خاصك تدخل بحساب الأدمن';
+    document.getElementById('adminInfo').textContent = 'يجب عليك الدخول بحساب الإدارة';
     document.getElementById('loginBox').style.display = 'block';
     document.getElementById('adminContent').style.display = 'none';
     if(user) document.getElementById('adminEmail').value = user.email;
     return;
   }
-  document.getElementById('adminInfo').textContent = 'مرحبا بيك ' + (user.displayName || user.email) + ' 👑';
+  document.getElementById('adminInfo').textContent = 'مرحباً بك 👑 ' + (user.displayName || user.email);
   document.getElementById('loginBox').style.display = 'none';
   document.getElementById('adminContent').style.display = 'block';
   load();
@@ -134,7 +253,7 @@ async function load(){
   try{
     const usersSnap = await getDocs(collection(db, "users"));
     let users = [];
-    usersSnap.forEach(d => users.push(d.data()));
+    usersSnap.forEach(d => users.push({id:d.id, uid:d.id, ...d.data()}));
     allUsers = users;
     document.getElementById('totalUsers').textContent = users.length;
     document.getElementById('totalPoints').textContent = users.reduce((s,u)=>s+(u.points||0),0);
@@ -142,21 +261,55 @@ async function load(){
     document.getElementById('todayUsers').textContent = users.filter(u => dateKey(u.createdAt) === today).length;
 
     users.sort((a,b) => (b.points||0) - (a.points||0));
-    document.getElementById('top10').innerHTML = users.slice(0,10).map((u,i) => `<div class="row">${i+1}. ${u.name||'-'} - ${u.points||0} نقطة - ${u.email||'-'}</div>`).join('') || 'باقي مكاين والو';
-    document.getElementById('lastUsers').innerHTML = [...users].reverse().slice(0,10).map(u => `<div class="row">${u.name||'-'} - ${u.email||'-'} - ${fmtDate(u.createdAt)}</div>`).join('') || 'باقي مكاين والو';
+    document.getElementById('top10').innerHTML = users.slice(0,10).map((u,i) => `<div class="item">${i+1}. ${esc(u.name||'-')} - ${u.points||0} نقطة - ${esc(u.email||'-')}</div>`).join('') || 'لا يوجد مستخدمون بعد';
+    document.getElementById('lastUsers').innerHTML = [...users].reverse().slice(0,10).map(u => userItem(u)).join('') || 'لا يوجد مستخدمون بعد';
 
     const rateSnap = await getDocs(collection(db, "ratings"));
     let rates = [];
-    rateSnap.forEach(d => rates.push(d.data()));
+    rateSnap.forEach(d => rates.push({id:d.id, ...d.data()}));
     let avg = rates.length ? (rates.reduce((s,r)=>s+(r.stars||0),0)/rates.length).toFixed(1) : 0;
     document.getElementById('avgStars').textContent = avg + ' ⭐ ('+rates.length+')';
-    document.getElementById('ratingsList').innerHTML = rates.slice(-10).reverse().map(r => `<div class="row">${r.userName||'مجهول'} عطا ${r.stars||0} ⭐ - ${r.comment||''}</div>`).join('') || 'باقي مكاين والو';
+    document.getElementById('ratingsList').innerHTML = rates.slice(-10).reverse().map(r => `<div class="item"><div class="item-head"><span class="name">${esc(r.userName||'مجهول')}</span><span>أعطى ${r.stars||0} ⭐</span></div><div class="text">${esc(r.comment||'بدون تعليق')}</div><div class="muted">${fmtDate(r.createdAt)}</div><div class="actions"><button class="btn-red" onclick="deleteRating('${r.id}')">حذف التقييم</button></div></div>`).join('') || 'لا توجد تقييمات بعد';
 
     const repSnap = await getDocs(collection(db, "reports"));
     let reps = [];
     repSnap.forEach(d => reps.push({id:d.id, ...d.data()}));
+    allReports = reps;
     document.getElementById('totalReports').textContent = reps.length;
-    document.getElementById('reportsList').innerHTML = reps.reverse().map(r => `<div class="row">${r.userName||'-'} - ${r.where||''} - ${r.message||''} <br><small>${fmtDate(r.createdAt)}</small></div>`).join('') || 'مكاين حتى تبليغ';
+    document.getElementById('reportsList').innerHTML = reps.reverse().map(r => `<div class="item">
+      <div class="item-head"><span class="name">${esc(r.userName||'-')}</span><span class="muted">${fmtDate(r.createdAt)}</span></div>
+      <div class="muted">المكان: ${esc(r.where||'')}</div>
+      <div class="text">${esc(r.message||'')}</div>
+      ${r.adminReply ? `<div class="reply-box"><b>رد الإدارة:</b> ${esc(r.adminReply)}</div>` : ''}
+      <div class="actions">
+        <button class="btn-blue" onclick="toggleReplyBox('reply-reports-${r.id}')">💬 الرد</button>
+        <button class="btn-red" onclick="deleteReport('${r.id}')">🗑️ حذف</button>
+      </div>
+      <div id="reply-reports-${r.id}" class="hidden">
+        <textarea id="txt-reports-${r.id}" placeholder="اكتب ردك على هذا التبليغ..."></textarea>
+        <button class="btn-gold" onclick="sendReply('reports','${r.id}','${esc(r.userName||'')}')">إرسال الرد</button>
+      </div>
+    </div>`).join('') || 'لا توجد تبليغات';
+
+    const comSnap = await getDocs(collection(db, "comments"));
+    let comments = [];
+    comSnap.forEach(d => comments.push({id:d.id, ...d.data()}));
+    allComments = comments;
+    document.getElementById('totalComments').textContent = comments.length;
+    document.getElementById('commentsList').innerHTML = comments.reverse().slice(0,50).map(c => `<div class="item">
+      <div class="item-head"><span class="name">${esc(c.userName||c.name||'مجهول')}</span><span class="muted">${fmtDate(c.createdAt)} • القصة: ${esc(c.storyId||'')}</span></div>
+      <div class="text">${esc(c.text||c.comment||'')}</div>
+      ${c.adminReply ? `<div class="reply-box"><b>رد الإدارة:</b> ${esc(c.adminReply)}</div>` : ''}
+      <div class="actions">
+        <button class="btn-blue" onclick="toggleReplyBox('reply-comments-${c.id}')">💬 الرد</button>
+        <button class="btn-red" onclick="deleteComment('${c.id}')">🗑️ حذف التعليق</button>
+      </div>
+      <div id="reply-comments-${c.id}" class="hidden">
+        <textarea id="txt-comments-${c.id}" placeholder="اكتب ردك على هذا التعليق..."></textarea>
+        <button class="btn-gold" onclick="sendReply('comments','${c.id}','${esc(c.userName||'')}')">إرسال الرد</button>
+      </div>
+    </div>`).join('') || 'لا توجد تعليقات بعد';
+
   }catch(e){
     document.getElementById('adminInfo').textContent = 'خطأ: ' + e.message;
     console.error(e);

@@ -116,13 +116,17 @@ section{background:#f6f5f2;color:#3B2A1A;border:5px solid #E8C99A;margin:20px 10
 .shop-item b{display:block;margin:6px 0}
 html[dir="rtl"] .hero-gold-text{right:auto;left:18px;text-align:left}
 html[dir="rtl"] .world-detail{text-align:right}
+/* تحسين فقط: رد الإدارة + تنبيه الحظر */
+.admin-reply-box{background:#FFF8E1;border:1px solid #E9C46A;border-right:4px solid #E9C46A;border-radius:12px;padding:12px;margin:10px 0;text-align:right;font-size:14px;line-height:1.7;color:#111}
+.admin-reply-box b{color:#8a6d1a}
+.blocked-banner{background:#ff3b30;color:#fff;padding:12px;border-radius:12px;text-align:center;font-weight:bold;display:none;margin:10px}
+.my-replies-box{background:white;border-radius:15px;padding:15px;margin:18px 10px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 </style>
 <body>  
 <div class="top-bar">
 <span id="todayDate">📅 Loading...</span>
 <span id="userLabel">🔥 SEH WORLD</span>
 <button id="sehLangBtn" class="lang-btn" onclick="SEH_LANG.toggle()">🌐 عربي</button>
-<!-- FIX: كان button بلا id و فيه a لداخل، دابا id="authBtn" و كيمشي لـ INFO -->
 <button id="authBtn" class="auth-btn" onclick="location.href='INFO.html'" data-i18n="login_signup">Login / Sign Up</button>
 </div>
 <div class="gold-header">
@@ -266,6 +270,12 @@ html[dir="rtl"] .world-detail{text-align:right}
     <div style="text-align:center"><button class="seh-btn" onclick="sendReport()" data-i18n="send_report">Send Report</button></div>
     <p id="reportMsgStatus" style="text-align:center;color:green;font-size:13px"></p>
   </div>
+  <!-- تحسين فقط: ردود الإدارة للمستخدم -->
+  <div id="blockedBanner" class="blocked-banner">🚫 حسابك محظور حالياً من طرف الإدارة. لا يمكنك التعليق أو التقييم أو التبليغ.</div>
+  <div class="my-replies-box" id="myRepliesBox" style="display:none">
+    <h3 style="text-align:center">💬 ردود الإدارة عليك</h3>
+    <div id="myRepliesList"></div>
+  </div>
   <form style="padding:20px;text-align:center">
     <input type="search" id="siteSearch" aria-label="Search in the site" maxlength="60" placeholder="Search in the site" style="width:80%;padding:12px;border-radius:20px;border:1px solid #333;background:#111;color:#fff">
     <div style="margin-top:15px"><a href="https://google.com" data-i18n="visit_google">Visit google</a><br><a href="https://facebook.com" data-i18n="visit_fb">Visit facebook</a></div>
@@ -306,13 +316,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 let currentUser = null;
-// FIX: وحد النقاط - seh_points و shopPoints نفس القيمة
 let points = parseInt(localStorage.getItem('seh_points')||localStorage.getItem('shopPoints')||'0');
 localStorage.setItem('seh_points', String(points));
 localStorage.setItem('shopPoints', String(points));
 let isSignup = false;
 window.__seh = { auth, db, getUser: ()=>currentUser };
-// FIX: LEVEL نفس INFO: كل 100 نقطة = Level
 function sehCalcLevel(p){ return Math.floor(p/100)+1; }
 function sehGetLocalName(){
   try{ let acc = JSON.parse(localStorage.getItem('seh_account')||'{}'); if(acc.name) return acc.name; }catch(e){}
@@ -353,7 +361,6 @@ function msg(key){
   return m[key] ? m[key][lang] : key;
 }
 window._sehMsg = msg;
-// FIX: إلا كان مسجل فـ INFO (seh_logged=1) و Firebase مازال ما وصل، بين سميتو من localStorage باش ما يبانش SEH WORLD
 (function showLocalUserFirst(){
   let accName = sehGetLocalName();
   let logged = localStorage.getItem('seh_logged')==='1';
@@ -395,8 +402,9 @@ onAuthStateChanged(auth, async (user)=>{
         }
       }
     }catch(e){}
+    // تحسين فقط: فحص الحظر وردود الإدارة بعد الدخول
+    setTimeout(()=> sehCheckBlockedAndReplies(), 800);
   } else {
-    // FIX: إلا ما كايناش Firebase ولكن كاين seh_logged=1 فـ INFO، ما ترجعش لـ SEH WORLD
     let accName = sehGetLocalName();
     let logged = localStorage.getItem('seh_logged')==='1';
     if(logged && accName){
@@ -412,7 +420,6 @@ onAuthStateChanged(auth, async (user)=>{
   }
 });
 document.getElementById('authBtn').onclick = ()=>{
-  // FIX: زر واحد واضح - إلا مسجل كيخرج، إلا لا كيمشي لـ INFO (الأصل)
   if(currentUser){ signOut(auth); localStorage.setItem('seh_logged','0'); location.reload(); }
   else if(localStorage.getItem('seh_logged')==='1'){ localStorage.setItem('seh_logged','0'); location.reload(); }
   else { location.href='INFO.html'; }
@@ -463,6 +470,7 @@ try{
   onSnapshot(vRef, (s)=>{ if(s.exists()){ document.getElementById('realVisitors').innerText = s.data().count; } });
 }catch(e){}
 window.setStars = async (n)=>{
+  if(sehIsBlocked){ alert('أنت محظور حالياً، لا يمكنك التقييم'); return; }
   document.querySelectorAll('.seh-star').forEach((el,i)=>{ el.className = 'seh-star ' + (i < n ? 'on' : 'off'); });
   if(!currentUser && localStorage.getItem('seh_logged')!=='1'){ document.getElementById('starsMsg').innerText = msg('login_first_rate'); location.href='INFO.html'; return; }
   try{
@@ -500,6 +508,7 @@ window.shareInvite = ()=>{
   if(navigator.share){ navigator.share({title:'SEH World', text: lang==='ar'?'ادخل إلى SEH World واجمع النقاط معي!':'Join SEH World and earn points with me!', url: v}); } else { copyInvite(); }
 };
 window.sendReport = async ()=>{
+  if(sehIsBlocked){ alert('أنت محظور حالياً، لا يمكنك إرسال تبليغ'); return; }
   if(!currentUser && localStorage.getItem('seh_logged')!=='1'){ location.href='INFO.html'; return; }
   const m = document.getElementById('reportMsg').value.trim();
   const where = document.getElementById('reportWhere').value;
@@ -510,6 +519,42 @@ window.sendReport = async ()=>{
     document.getElementById('reportMsg').value="";
   }catch(e){ document.getElementById('reportMsgStatus').innerText=msg('error'); }
 };
+// ===== تحسين فقط: الحظر + إظهار رد الإدارة =====
+let sehIsBlocked = false;
+async function sehCheckBlockedAndReplies(){
+  if(!currentUser) return;
+  try{
+    const snap = await getDoc(doc(db,"users",currentUser.uid));
+    if(snap.exists() && snap.data().blocked){
+      sehIsBlocked = true;
+      const b = document.getElementById('blockedBanner');
+      if(b) b.style.display = 'block';
+    }
+    const all = [];
+    const repSnap = await getDocs(collection(db,"reports"));
+    repSnap.forEach(d=>{
+      const r = d.data();
+      if(r.userId === currentUser.uid && r.adminReply){
+        all.push({type:'تبليغ', msg:r.message, reply:r.adminReply});
+      }
+    });
+    const comSnap = await getDocs(collection(db,"comments"));
+    comSnap.forEach(d=>{
+      const c = d.data();
+      if(c.userId === currentUser.uid && c.adminReply){
+        all.push({type:'تعليق', msg:c.text||c.comment, reply:c.adminReply});
+      }
+    });
+    if(all.length){
+      document.getElementById('myRepliesBox').style.display = 'block';
+      document.getElementById('myRepliesList').innerHTML = all.map(a=>`
+        <div class="admin-reply-box">
+          <div><b>${a.type} الخاص بك:</b> ${a.msg||''}</div>
+          <div style="margin-top:6px"><b>👑 رد الإدارة:</b> ${a.reply}</div>
+        </div>`).join('');
+    }
+  }catch(e){}
+}
 updatePointsUI();
 </script>
 <script>
