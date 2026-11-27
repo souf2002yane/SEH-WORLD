@@ -115,8 +115,8 @@
   .shop-buy-btn{background:#fbbf24;border:none;padding:8px 20px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:8px}
   .snake-btn{background:#333;color:#fff;border:none;padding:12px 20px;border-radius:12px;font-size:20px;cursor:pointer}
   .snake-btn:active{background:#00ff41;color:#111}
+  .lb-toggle-btn{width:100%;padding:12px;background:#111;color:#fff;border:none;border-radius:14px;font-weight:800;cursor:pointer;margin-bottom:14px;font-size:15px}
 </style>
-
 <div style="max-width:500px;margin:0 auto">
   <div class="seg"><button id="offlineBtn" class="active" onclick="setGameMode('offline')" data-i18n="offline">📱 OFFLINE</button><button id="onlineBtn" onclick="setGameMode('online')" data-i18n="online">🌐 ONLINE</button></div>
   <div class="progress-box"><b id="unlockText" data-i18n="unlock">🔒 2 New Games locked - Reach 1000 Points</b><div class="progress-bar"><div class="progress-fill" id="unlockFill"></div></div><small id="unlockSub">0 / 1000</small></div>
@@ -128,10 +128,8 @@
     <p id="musicStatus" style="font-size:12px;color:green;margin-top:6px"></p>
   </div>
 </div>
-
 <h2 class="games-title" data-i18n="game_title">🎮 Choose Your Game</h2>
 <p class="games-sub" data-i18n="game_sub">Click on an image to play - 9 Games</p>
-
 <div class="games-grid" id="gamesMenu">
   <div class="game-card" data-mode="offline" onclick="openGame('challenge',this)">
     <img src="https://psycatgames.com/cdn-cgi/image/f=auto,fit=cover,w=960,h=540,q=60/magazine/party-games/most-likely-to/funny-questions-illustration.jpg" alt="Challenge Party" loading="lazy" decoding="async" referrerpolicy="no-referrer">
@@ -174,62 +172,23 @@
   </div>
 </div>
 <button class="back-btn" id="backBtn" onclick="backToMenu()" style="display:none" data-i18n="back_games">⬅ Back to Games</button>
-
-<div id="view-challenge" class="game-view"><div class="container"><h1 data-i18n="challenge_party_full">🎮 Challenge Party</h1><p class="subtitle" data-i18n="challenge_sub">Choose players, random challenges, test your luck!</p><div id="setup"><p style="text-align:center;font-weight:600;margin-bottom:10px" data-i18n="how_many">🎉 How many players?</p><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:15px"><button class="party-count-btn" onclick="setPartyPlayers(2,this)">2 Players</button><button class="party-count-btn" onclick="setPartyPlayers(3,this)">3 Players</button><button class="party-count-btn" onclick="setPartyPlayers(4,this)">4 Players</button><button class="party-count-btn" onclick="setPartyPlayers(5,this)">5 Players</button><button class="party-count-btn" onclick="setPartyPlayers(6,this)">6 Players</button></div><div class="players" id="partyInputs"><input id="p1" placeholder="Player 1"><input id="p2" placeholder="Player 2"><input id="p3" placeholder="Player 3"><input id="p4" placeholder="Player 4"></div><button class="btn" onclick="startFirstGame()" data-i18n="start_first">Start The First Game →</button></div><div id="firstCard" class="card"><div>The player is: </div><div id="chosenPlayer" class="player-name"></div><div>The challenge is: </div><div id="chosenChallenge" class="challenge"></div><div class="actions"><button class="btn btn-yes" onclick="didChallenge(true)" data-i18n="done">Done ✅</button><button class="btn btn-no" onclick="didChallenge(false)" data-i18n="skip">Skip ❌</button></div></div><div id="secondCard" class="card"><h3 id="secondTitle">SECOND GAME</h3><p id="secondDesc"></p><input type="number" id="guess" placeholder="Your guess..."><button class="btn" onclick="checkGuess()" data-i18n="guess_btn">Guess!</button>
-  <p id="secondResult" style="margin-top:10px;font-weight:600"></p></div><div id="totalBox" class="total"></div></div></div>
-
-<div id="view-xo" class="game-view"><div class="container"><h1>❌⭕ Tic Tac Toe</h1>
-<div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px;flex-wrap:wrap"><button class="mode-btn active" id="xoFriendBtn" onclick="setXoMode('friend')" data-i18n="vs_friend">👤 VS Friend</button><button class="mode-btn" id="xoCompBtn" onclick="setXoMode('computer')" data-i18n="vs_comp">🤖 VS Computer</button><button class="mode-btn" id="xoOnlineBtn" onclick="setXoMode('online')" data-i18n="vs_online">🌐 ONLINE</button></div>
-<div id="xoOnlineBox" style="display:none;background:#FFF8E1;border:2px solid #E9C46A;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center">
-  <b data-i18n="xo_online_title">🌐 Play Online with Friend - Winner takes +5 Points</b>
-  <p id="xoOnlineStatus" style="font-size:13px;margin:6px 0">Choose Host or Guest</p>
-  <div style="display:flex;gap:8px"><button class="btn" style="margin:0;background:#111" onclick="createOnlineRoom()" data-i18n="host">👑 I am Host - Create Link</button><button class="btn" style="margin:0;background:#00c896" onclick="joinOnlineRoom()" data-i18n="guest">👤 I am Guest - Join</button></div>
-  <input id="xoRoomInput" placeholder="Paste room link / code here..." style="width:100%;padding:10px;margin-top:8px;border-radius:10px;border:1px solid #ccc;display:none">
-  <button class="btn" id="xoJoinBtn" onclick="doJoinOnline()" style="display:none;background:#00c896" data-i18n="join_room">Join Room →</button>
-  <div id="xoShareBox" style="display:none;margin-top:10px"><input id="xoShareLink" readonly style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc"><button class="btn" onclick="copyXoLink()" data-i18n="copy_link">📋 Copy Link & Send to Friend</button><small>Send this link to your friend, he clicks Guest</small></div>
-  <p id="xoOnlineInfo" style="font-size:12px;color:#666;margin-top:6px"></p>
-</div>
-<div class="status" id="xoStatus">Turn : X</div><div class="xo-board"><div class="xo-cell" onclick="playXO(0)" id="c0"></div><div class="xo-cell" onclick="playXO(1)" id="c1"></div><div class="xo-cell" onclick="playXO(2)" id="c2"></div><div class="xo-cell" onclick="playXO(3)" id="c3"></div><div class="xo-cell" onclick="playXO(4)" id="c4"></div><div class="xo-cell" onclick="playXO(5)" id="c5"></div><div class="xo-cell" onclick="playXO(6)" id="c6"></div><div class="xo-cell" onclick="playXO(7)" id="c7"></div><div class="xo-cell" onclick="playXO(8)" id="c8"></div></div><button class="btn" onclick="resetXO()" data-i18n="play_again">Play Again</button></div></div>
-
+<div id="view-challenge" class="game-view"><div class="container"><h1 data-i18n="challenge_party_full">🎮 Challenge Party</h1><p class="subtitle" data-i18n="challenge_sub">Choose players, random challenges, test your luck!</p><div id="setup"><p style="text-align:center;font-weight:600;margin-bottom:10px" data-i18n="how_many">🎉 How many players?</p><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:15px"><button class="party-count-btn" onclick="setPartyPlayers(2,this)">2 Players</button><button class="party-count-btn" onclick="setPartyPlayers(3,this)">3 Players</button><button class="party-count-btn" onclick="setPartyPlayers(4,this)">4 Players</button><button class="party-count-btn" onclick="setPartyPlayers(5,this)">5 Players</button><button class="party-count-btn" onclick="setPartyPlayers(6,this)">6 Players</button></div><div class="players" id="partyInputs"><input id="p1" placeholder="Player 1"><input id="p2" placeholder="Player 2"><input id="p3" placeholder="Player 3"><input id="p4" placeholder="Player 4"></div><button class="btn" onclick="startFirstGame()" data-i18n="start_first">Start The First Game →</button></div><div id="firstCard" class="card"><div>The player is: </div><div id="chosenPlayer" class="player-name"></div><div>The challenge is: </div><div id="chosenChallenge" class="challenge"></div><div class="actions"><button class="btn btn-yes" onclick="didChallenge(true)" data-i18n="done">Done ✅</button><button class="btn btn-no" onclick="didChallenge(false)" data-i18n="skip">Skip ❌</button></div></div><div id="secondCard" class="card"><h3 id="secondTitle">SECOND GAME</h3><p id="secondDesc"></p><input type="number" id="guess" placeholder="Your guess..."><button class="btn" onclick="checkGuess()" data-i18n="guess_btn">Guess!</button><p id="secondResult" style="margin-top:10px;font-weight:600"></p></div><div id="totalBox" class="total"></div></div></div>
+<div id="view-xo" class="game-view"><div class="container"><h1>❌⭕ Tic Tac Toe</h1><div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px;flex-wrap:wrap"><button class="mode-btn active" id="xoFriendBtn" onclick="setXoMode('friend')" data-i18n="vs_friend">👤 VS Friend</button><button class="mode-btn" id="xoCompBtn" onclick="setXoMode('computer')" data-i18n="vs_comp">🤖 VS Computer</button><button class="mode-btn" id="xoOnlineBtn" onclick="setXoMode('online')" data-i18n="vs_online">🌐 ONLINE</button></div><div id="xoOnlineBox" style="display:none;background:#FFF8E1;border:2px solid #E9C46A;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center"><b data-i18n="xo_online_title">🌐 Play Online with Friend - Winner takes +5 Points</b><p id="xoOnlineStatus" style="font-size:13px;margin:6px 0">Choose Host or Guest</p><div style="display:flex;gap:8px"><button class="btn" style="margin:0;background:#111" onclick="createOnlineRoom()" data-i18n="host">👑 I am Host - Create Link</button><button class="btn" style="margin:0;background:#00c896" onclick="joinOnlineRoom()" data-i18n="guest">👤 I am Guest - Join</button></div><input id="xoRoomInput" placeholder="Paste room link / code here..." style="width:100%;padding:10px;margin-top:8px;border-radius:10px;border:1px solid #ccc;display:none"><button class="btn" id="xoJoinBtn" onclick="doJoinOnline()" style="display:none;background:#00c896" data-i18n="join_room">Join Room →</button><div id="xoShareBox" style="display:none;margin-top:10px"><input id="xoShareLink" readonly style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc"><button class="btn" onclick="copyXoLink()" data-i18n="copy_link">📋 Copy Link & Send to Friend</button><small>Send this link to your friend, he clicks Guest</small></div><p id="xoOnlineInfo" style="font-size:12px;color:#666;margin-top:6px"></p></div><div class="status" id="xoStatus">Turn : X</div><div class="xo-board"><div class="xo-cell" onclick="playXO(0)" id="c0"></div><div class="xo-cell" onclick="playXO(1)" id="c1"></div><div class="xo-cell" onclick="playXO(2)" id="c2"></div><div class="xo-cell" onclick="playXO(3)" id="c3"></div><div class="xo-cell" onclick="playXO(4)" id="c4"></div><div class="xo-cell" onclick="playXO(5)" id="c5"></div><div class="xo-cell" onclick="playXO(6)" id="c6"></div><div class="xo-cell" onclick="playXO(7)" id="c7"></div><div class="xo-cell" onclick="playXO(8)" id="c8"></div></div><button class="btn" onclick="resetXO()" data-i18n="play_again">Play Again</button></div></div>
 <div id="view-rps" class="game-view"><div class="container"><h1>✊✋✌️ Rock Paper Scissors</h1><p style="text-align:center;color:#888"><span data-i18n="rps_win">Win 5 rounds = +5 Points 🏆</span> | <span data-i18n="rps_streak">Wins in row:</span> <b id="rpsStreak">0 / 5</b></p><div class="rps-choices"><button class="rps-btn" onclick="playRPS('Rock')">✊</button><button class="rps-btn" onclick="playRPS('Paper')">✋</button><button class="rps-btn" onclick="playRPS('Scissors')">✌️</button></div><div class="rps-result" id="rpsResult">Choose one to play:</div><div style="display:flex;justify-content:space-around;font-weight:600;margin-top:10px"><span>You: <b id="pScore">0</b></span><span>Computer: <b id="cScore">0</b></span></div><button class="btn" onclick="resetRPS()" data-i18n="play_again">Play Again</button></div></div>
-
 <div id="view-dama" class="game-view"><div class="container"><h1>♟️ Checkers</h1><div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px"><button class="mode-btn active" id="damaFriendBtn" onclick="setDamaMode('friend')">👤 VS Friend</button><button class="mode-btn" id="damaCompBtn" onclick="setDamaMode('computer')">🤖 VS Computer</button></div><p style="text-align:center;color:#888;font-size:14px" id="damaSub">2 players on same phone - Red starts</p><div id="damaTurn">Turn: 🔴 Red</div><div id="damaBoard"></div><button class="btn" onclick="initDama()">New Game 🔄</button><p style="text-align:center;font-size:13px;color:#666;margin-top:10px">Click your piece, then click where you want to move<br>If you reach the end you become 👑 King</p></div></div>
-
 <div id="view-memory" class="game-view"><div class="container"><h1>🧠 Memory Game</h1><p style="text-align:center;color:#888;font-size:14px">Find all matching pairs - Tries: <b id="memTries">0</b></p><div class="mem-board" id="memBoard"></div><p id="memMsg" style="text-align:center;font-weight:600;margin:10px 0"></p><button class="btn" onclick="initMemory()">New Game 🔄</button></div></div>
-
 <div id="view-quiz" class="game-view"><div class="container"><h1>🧠❓ Quiz</h1><p style="text-align:center;color:#888">Score: <b id="quizScore">0</b> | Question: <b id="quizNum">1/5</b> | Group: <b id="quizGroup">-</b></p><div class="quiz-q" id="quizQ"></div><div id="quizOpts"></div><p id="quizMsg" style="text-align:center;font-weight:600;margin-top:10px"></p><button class="btn" onclick="initQuiz()" style="display:none" id="quizRestart">Play Again 🔄</button></div></div>
-
 <div id="view-word" class="game-view"><div class="container"><h1>🔤 <span data-i18n="wordTitle">Guess Word</span></h1><p style="text-align:center;color:#888"><span data-i18n="wordSub">Arrange letters - 5 words = +5 Points</span> | ✅ <b id="wordScore">0 / 5</b></p><p id="wordHint" style="text-align:center;font-weight:600;margin:12px 0"></p><div class="word-answer" id="wordAnswer"></div><div class="word-letters" id="wordLetters"></div><p id="wordMsg" style="text-align:center;font-weight:600"></p><div style="display:flex;gap:8px"><button class="btn" onclick="checkWord()">Check ✅</button><button class="btn" style="background:#ff5a6a" onclick="resetWordLetters()">Reset 🔄</button></div><button class="btn" onclick="initWord()" style="background:#111">Next Word →</button></div></div>
-
 <div id="view-simon" class="game-view"><div class="container"><h1>🎵 <span data-i18n="simonTitle">Fast Memory</span></h1><p style="text-align:center;color:#888"><span data-i18n="simonSub">Repeat the colors - 5 Levels = +5 Points</span> | Level: <b id="simonLevel">0 / 5</b></p><p id="simonMsg" style="text-align:center;font-weight:600;margin:10px 0">Press Start</p><div class="simon-grid"><button class="simon-btn" style="background:#ff5a6a" onclick="simonClick(0)">🔴</button><button class="simon-btn" style="background:#00c896" onclick="simonClick(1)">🟢</button><button class="simon-btn" style="background:#667eea" onclick="simonClick(2)">🔵</button><button class="simon-btn" style="background:#E9C46A" onclick="simonClick(3)">🟡</button></div><button class="btn" onclick="startSimon()">Start ▶️</button></div></div>
-
 <div id="view-snake" class="game-view"><div class="container" style="text-align:center"><h1>🐍 Snake Game</h1><p style="color:#888;font-size:14px">Eat to grow - Don't hit wall or yourself</p><p style="margin:10px 0;font-weight:bold">Score: <b id="snakeScore" style="color:#00c896">0</b> | Best: <b id="snakeBest">0</b> | Points: <b id="snakePoints">0</b></p><canvas id="snakeCanvas" width="300" height="300" style="background:#000;border-radius:12px;max-width:100%;border:2px solid #00ff41"></canvas><br><br><div style="display:flex;gap:8px"><button class="btn" onclick="startSnake()" style="margin:0;background:#00c896">▶ Play Snake</button><button class="btn" onclick="stopSnake()" style="margin:0;background:#111">⏹ Stop</button></div><div style="margin-top:14px"><button class="snake-btn" onclick="sehSnakeDir(0,-1)">⬆️</button><br><button class="snake-btn" onclick="sehSnakeDir(-1,0)">⬅️</button><button class="snake-btn" onclick="sehSnakeDir(1,0)">➡️</button><br><button class="snake-btn" onclick="sehSnakeDir(0,1)">⬇️</button></div><p style="font-size:12px;color:#888;margin-top:10px">PC: Use Arrow Keys | Phone: Use Buttons</p><p id="snakeMsg" style="font-weight:600;margin-top:8px"></p></div></div>
-
 <div style="max-width:500px;margin:20px auto"><button class="btn-secondary" onclick="showMoreGames()" id="moreGamesBtn" style="width:100%; padding:13px; border:1px solid #382201; background:white; color:black; border-radius:8px; cursor:pointer;" data-i18n="more_games_btn"><b>Click here for more games →</b></button></div>
 <div id="moreGames" style="display:none;max-width:500px;margin:0 auto"><h1 style="margin-bottom:20px" data-i18n="more_games_title">🔥 More Games - Coming Soon</h1><div class="container" style="text-align:center"><p data-i18n="more_games_p1">🎲 A new game is coming soon...</p><p style="color:#888;margin-top:10px" data-i18n="more_games_p2">Stay with us, we add new games every week</p></div></div>
-
 <div style="max-width:500px;margin:20px auto;padding:0 10px">
   <div style="background:white;border-radius:22px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.12)">
     <h2 style="text-align:center;font-size:24px" data-i18n="shop_title">🛒 Points Shop</h2>
     <p style="text-align:center;color:#888;font-size:14px" data-i18n="shop_sub">Buy with your points - Real items, real effects</p>
     <p style="text-align:center;margin:10px 0"><b data-i18n="your_points">You have</b> <b id="shopPoints" style="color:#B7791F;font-size:20px">0</b> <span data-i18n="points_word">points</span> <span id="shopVipBadge"></span></p>
-    <div id="shopInventory" style="display:none;background:#FFF8E1;border:2px solid #E9C46A;border-radius:16px;padding:14px;margin-bottom:14px">
-      <b>🎒 <span data-i18n="my_items">My Items</span></b>
-      <div id="shopInventoryList" style="font-size:13px;margin-top:6px"></div>
-      <div id="shopColorBox" style="display:none;margin-top:12px">
-        <b>🎨 <span data-i18n="choose_color">Choose Site Color:</span></b><br>
-        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-          <button onclick="sehSetTheme('#764ba2')" style="background:#764ba2;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Purple</button>
-          <button onclick="sehSetTheme('#dc2626')" style="background:#dc2626;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Red</button>
-          <button onclick="sehSetTheme('#16a34a')" style="background:#16a34a;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Green</button>
-          <button onclick="sehSetTheme('#ea580c')" style="background:#ea580c;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Orange</button>
-          <button onclick="sehSetTheme('#111')" style="background:#111;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Black</button>
-        </div>
-      </div>
-      <div id="shopSoundBox" style="display:none;margin-top:12px">
-        <label style="cursor:pointer"><input type="checkbox" id="shopSoundToggle" onchange="sehToggleSound()"> 🔊 <span data-i18n="enable_sounds">Enable Sounds</span></label>
-      </div>
-    </div>
+    <div id="shopInventory" style="display:none;background:#FFF8E1;border:2px solid #E9C46A;border-radius:16px;padding:14px;margin-bottom:14px"><b>🎒 <span data-i18n="my_items">My Items</span></b><div id="shopInventoryList" style="font-size:13px;margin-top:6px"></div><div id="shopColorBox" style="display:none;margin-top:12px"><b>🎨 <span data-i18n="choose_color">Choose Site Color:</span></b><br><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button onclick="sehSetTheme('#764ba2')" style="background:#764ba2;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Purple</button><button onclick="sehSetTheme('#dc2626')" style="background:#dc2626;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Red</button><button onclick="sehSetTheme('#16a34a')" style="background:#16a34a;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Green</button><button onclick="sehSetTheme('#ea580c')" style="background:#ea580c;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Orange</button><button onclick="sehSetTheme('#111')" style="background:#111;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Black</button></div></div><div id="shopSoundBox" style="display:none;margin-top:12px"><label style="cursor:pointer"><input type="checkbox" id="shopSoundToggle" onchange="sehToggleSound()"> 🔊 <span data-i18n="enable_sounds">Enable Sounds</span></label></div></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">👑</div><b>VIP Badge - 500</b><br><small style="color:#888">Crown + 2x Points</small><br><button onclick="sehBuy('vip',500)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🎨</div><b>Color Theme - 250</b><br><small style="color:#888">Change Site Color</small><br><button onclick="sehBuy('color',250)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
@@ -237,35 +196,11 @@
       <div style="background:#FFF8E1;padding:14px;border-radius:16px;text-align:center;border:2px solid #E9C46A"><div style="font-size:32px">📝</div><b>My Diary - 600</b><br><small style="color:#888">Private Secret Diary + Lock</small><br><button onclick="sehBuy('diary',600)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🔊</div><b>Sound Pack - 150</b><br><small style="color:#888">Game Music + Sounds</small><br><button onclick="sehBuy('sound',150)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
     </div>
-    <div id="shopSecretGame" style="display:none;background:#111;color:#fff;padding:16px;border-radius:16px;margin-top:14px;text-align:center">
-      <h3>🎮 Snake Unlocked!</h3><p style="font-size:13px;color:#ccc">You bought Extra Game - Snake is now in Games</p>
-      <button onclick="openGame('snake',document.getElementById('card-snake'))" style="background:#22c55e;color:#fff;padding:10px 20px;border:none;border-radius:10px;font-weight:bold;cursor:pointer">▶️ Play Snake Now</button>
-    </div>
-    <div id="shopDiary" style="display:none;background:#fff;padding:16px;border-radius:16px;margin-top:14px;border:2px solid #ec4899">
-      <h3 style="text-align:center" data-i18n="diary_title">📝 My Diary - Private</h3>
-      <p style="text-align:center;font-size:12px;color:#888" data-i18n="diary_sub">Only you can see this. Saved on your phone.</p>
-      <div id="diaryLockBox" style="text-align:center">
-        <input id="diaryPinInput" type="password" placeholder="Set PIN or Enter PIN" style="width:70%;padding:10px;border-radius:10px;border:1px solid #ddd">
-        <button onclick="sehUnlockDiary()" style="padding:10px 16px;background:#ec4899;color:#fff;border:none;border-radius:10px;font-weight:bold;cursor:pointer" data-i18n="diary_unlock">🔓 Unlock</button>
-        <p style="font-size:11px;color:#999;margin-top:6px" data-i18n="diary_pin_hint">First time? Write a PIN and Unlock, it will be saved.</p>
-      </div>
-      <div id="diaryWriteBox" style="display:none">
-        <div style="display:flex;gap:8px;margin-bottom:8px">
-          <select id="diaryMood" style="padding:8px;border-radius:10px;border:1px solid #ddd"><option value="😊">😊 Happy</option><option value="😢">😢 Sad</option><option value="😡">😡 Angry</option><option value="😍">😍 Love</option><option value="🤔">🤔 Thinking</option><option value="🔥">🔥 Excited</option></select>
-          <input id="diaryTitle" placeholder="Title..." style="flex:1;padding:8px;border-radius:10px;border:1px solid #ddd">
-        </div>
-        <textarea id="diaryText" placeholder="Write what happened today... Your secrets are safe here ❤️" style="width:100%;height:90px;padding:10px;border-radius:12px;border:1px solid #ddd"></textarea>
-        <button onclick="sehSaveDiary()" style="width:100%;padding:12px;background:#ec4899;color:#fff;border:none;border-radius:12px;font-weight:bold;margin-top:8px;cursor:pointer" data-i18n="diary_save">💾 Save in My Diary (+5 Points)</button>
-        <input id="diarySearch" oninput="sehRenderDiary()" placeholder="🔍 Search in my diary..." style="width:100%;padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:12px">
-        <div id="diaryList" style="margin-top:10px"></div>
-        <button onclick="sehLockDiary()" style="width:100%;padding:8px;background:#eee;border:none;border-radius:10px;margin-top:8px;cursor:pointer" data-i18n="diary_lock">🔒 Lock Diary</button>
-      </div>
-    </div>
+    <div id="shopSecretGame" style="display:none;background:#111;color:#fff;padding:16px;border-radius:16px;margin-top:14px;text-align:center"><h3>🎮 Snake Unlocked!</h3><p style="font-size:13px;color:#ccc">You bought Extra Game - Snake is now in Games</p><button onclick="openGame('snake',document.getElementById('card-snake'))" style="background:#22c55e;color:#fff;padding:10px 20px;border:none;border-radius:10px;font-weight:bold;cursor:pointer">▶️ Play Snake Now</button></div>
+    <div id="shopDiary" style="display:none;background:#fff;padding:16px;border-radius:16px;margin-top:14px;border:2px solid #ec4899"><h3 style="text-align:center" data-i18n="diary_title">📝 My Diary - Private</h3><p style="text-align:center;font-size:12px;color:#888" data-i18n="diary_sub">Only you can see this. Saved on your phone.</p><div id="diaryLockBox" style="text-align:center"><input id="diaryPinInput" type="password" placeholder="Set PIN or Enter PIN" style="width:70%;padding:10px;border-radius:10px;border:1px solid #ddd"><button onclick="sehUnlockDiary()" style="padding:10px 16px;background:#ec4899;color:#fff;border:none;border-radius:10px;font-weight:bold;cursor:pointer" data-i18n="diary_unlock">🔓 Unlock</button><p style="font-size:11px;color:#999;margin-top:6px" data-i18n="diary_pin_hint">First time? Write a PIN and Unlock, it will be saved.</p></div><div id="diaryWriteBox" style="display:none"><div style="display:flex;gap:8px;margin-bottom:8px"><select id="diaryMood" style="padding:8px;border-radius:10px;border:1px solid #ddd"><option value="😊">😊 Happy</option><option value="😢">😢 Sad</option><option value="😡">😡 Angry</option><option value="😍">😍 Love</option><option value="🤔">🤔 Thinking</option><option value="🔥">🔥 Excited</option></select><input id="diaryTitle" placeholder="Title..." style="flex:1;padding:8px;border-radius:10px;border:1px solid #ddd"></div><textarea id="diaryText" placeholder="Write what happened today... Your secrets are safe here ❤️" style="width:100%;height:90px;padding:10px;border-radius:12px;border:1px solid #ddd"></textarea><button onclick="sehSaveDiary()" style="width:100%;padding:12px;background:#ec4899;color:#fff;border:none;border-radius:12px;font-weight:bold;margin-top:8px;cursor:pointer" data-i18n="diary_save">💾 Save in My Diary (+5 Points)</button><input id="diarySearch" oninput="sehRenderDiary()" placeholder="🔍 Search in my diary..." style="width:100%;padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:12px"><div id="diaryList" style="margin-top:10px"></div><button onclick="sehLockDiary()" style="width:100%;padding:8px;background:#eee;border:none;border-radius:10px;margin-top:8px;cursor:pointer" data-i18n="diary_lock">🔒 Lock Diary</button></div></div>
   </div>
 </div>
-
-<div class="lb-wrap"><h1 style="margin-bottom:5px" data-i18n="lb_title">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px" data-i18n="lb_sub">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2><p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p><p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div><div id="leaderList"></div></div>
-
+<div class="lb-wrap"><h1 style="margin-bottom:5px" data-i18n="lb_title">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px" data-i18n="lb_sub">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2><p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p><p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div><button id="lbToggleBtn" class="lb-toggle-btn" onclick="toggleLeaderboardView()" data-i18n="lb_show_all">👀 Show All</button><div id="leaderList"></div></div>
 <script src="seh-lang.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -274,7 +209,6 @@ import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, orderB
 const firebaseConfig = { apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg", authDomain: "seh-world.firebaseapp.com", projectId: "seh-world", storageBucket: "seh-world.firebasestorage.app", messagingSenderId: "888057068574", appId: "1:888057068574:web:796fdde71679597931020f", measurementId: "G-KESK983LBH" };
 const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 window.sehAuth = auth; window.sehDb = db; window.sehUser = null;
-// ===== نظام النقاط الآمن - GAME.html - +5 فقط، 700 فالنهار =====
 window.sehPoints = 0;
 let sehDailyPoints = 0;
 let sehDailyDate = new Date().toDateString();
@@ -300,7 +234,6 @@ onAuthStateChanged(auth, async (user) => {
   } else { window.sehUser = null; }
   renderLeaderboardReal(); updateUnlockUI(); updateStarsUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); if(window.sehUpdateSnakeLock) sehUpdateSnakeLock();
 });
-// الوحيدة اللي كتزيد النقاط
 window.addPoints = async function(n) {
   sehCheckDay();
   if(!window.sehUser) return false;
@@ -319,9 +252,6 @@ window.addPoints = async function(n) {
     return true;
   } catch(e){ console.log('Points blocked', e.message); return false; }
 };
-
-// وضع الصيانة - صفحة الألعاب
-// إذا كانت الصفحة متوقفة، لا يدخل إليها إلا المدير
 async function checkMaintenanceGame(user){
   try{
     const s = await getDoc(doc(db, "config", "site"));
@@ -333,12 +263,22 @@ async function checkMaintenanceGame(user){
   }catch(e){}
   return false;
 }
-
-// النقصان فقط للشوب - ماشي addPoints(-x)
 window.spendPoints = async function(price){
   if(!window.sehUser) return false;
   if(window.sehPoints < price) return false;
   try{ await updateDoc(doc(db, "users", window.sehUser.uid), { points: increment(-price) }); window.sehPoints -= price; updateUnlockUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); return true; }catch(e){ return false; }
+};
+// ===== Leaderboard Show All / Show 10 Only =====
+let sehShowAllLB = false;
+window.toggleLeaderboardView = function(){
+  sehShowAllLB = !sehShowAllLB;
+  const btn = document.getElementById('lbToggleBtn');
+  if(btn){
+    if(sehShowAllLB){ btn.textContent = '🔙 Show 10 Only'; btn.setAttribute('data-i18n','lb_show_10'); }
+    else { btn.textContent = '👀 Show All'; btn.setAttribute('data-i18n','lb_show_all'); }
+    if(window.SEH_LANG) SEH_LANG.apply();
+  }
+  renderLeaderboardReal();
 };
 window.renderLeaderboardReal = async function() {
   const listEl = document.getElementById('leaderList'); if (!listEl) return;
@@ -350,11 +290,12 @@ window.renderLeaderboardReal = async function() {
   }
   let myName = window.sehUser.displayName || window.sehUser.email || "Player";
   try {
-    const q = query(collection(db, "users"), orderBy("points", "desc"), limit(10));
+    const q = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
     const snap = await getDocs(q); let players = []; snap.forEach(d => players.push({ id: d.id, ...d.data() }));
     players.sort((a,b)=> (b.points||0) - (a.points||0));
+    const playersToShow = sehShowAllLB ? players : players.slice(0, 10);
     let medals = ['🥇','🥈','🥉']; let html = '';
-    players.forEach((p, i)=>{ let medal = medals[i] || ('#' + (i+1)); let level = Math.floor((p.points||0)/100)+1; let letter = (p.name||"P").charAt(0).toUpperCase(); let isMe = p.id === window.sehUser.uid; html += `<div class="lb-row ${isMe ? 'me' : ''}"><div style="font-size:22px;font-weight:900;width:38px;text-align:center">${medal}</div><div class="lb-avatar">${letter}</div><div style="flex:1"><b style="display:block;font-size:15px">${p.name||"Player"} ${isMe ? ' (You) ⭐' : ''}</b><small style="color:#888;font-size:12px">⭐ LEVEL ${level}</small></div><div style="font-weight:900;color:#B7791F;font-size:16px;text-align:right">${p.points||0}<small style="display:block;color:#888;font-size:11px;font-weight:400">points</small></div></div>`; });
+    playersToShow.forEach((p, i)=>{ let medal = medals[i] || ('#' + (i+1)); let level = Math.floor((p.points||0)/100)+1; let letter = (p.name||"P").charAt(0).toUpperCase(); let isMe = p.id === window.sehUser.uid; html += `<div class="lb-row ${isMe ? 'me' : ''}"><div style="font-size:22px;font-weight:900;width:38px;text-align:center">${medal}</div><div class="lb-avatar">${letter}</div><div style="flex:1"><b style="display:block;font-size:15px">${p.name||"Player"} ${isMe ? ' (You) ⭐' : ''}</b><small style="color:#888;font-size:12px">⭐ LEVEL ${level}</small></div><div style="font-weight:900;color:#B7791F;font-size:16px;text-align:right">${p.points||0}<small style="display:block;color:#888;font-size:11px;font-weight:400">points</small></div></div>`; });
     listEl.innerHTML = html || "No players yet";
     let myRank = players.findIndex(p=>p.id===window.sehUser.uid) + 1; if (myRank === 0) myRank = players.length + 1;
     let myLevel = Math.floor(myPoints/100)+1;
@@ -362,7 +303,6 @@ window.renderLeaderboardReal = async function() {
   } catch(e){ console.log("Leaderboard error", e); }
 };
 </script>
-
 <script>
 document.getElementById('todayDate').innerText = "📅 " + new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 let gameMode='offline';
