@@ -71,10 +71,8 @@ body{font-family:sans-serif; padding:20px; padding-bottom:110px; max-width:999px
 
 <div class="top-auth"><span id="userLabel">🔥 SEH WORLD - STORIES</span><span>⭐ <span data-i18n="points">Points</span>: <b id="pointsNum">0</b></span><div style="display:flex;gap:6px"><button id="authBtn">Login / Sign Up</button><button id="sehLangBtn" onclick="SEH_LANG.toggle()" style="background:#fff;color:#111">🌐 عربي</button></div></div>
 
-<!-- FIX ANTI-AUTOFILL: البحث ولا readonly حتى تبرك عليه، باش Chrome ما يعمروش بالإيميل -->
 <form autocomplete="off" onsubmit="return false;" style="margin:0">
   <input type="text" name="seh_search_xyz_987" id="searchBox" placeholder="🔍 Search stories (e.g. lion, honest, phone...)" onkeyup="searchStory()" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly')" onblur="this.setAttribute('readonly','readonly')" style="width:100%; padding:12px 18px; border-radius:25px; border:2px solid #ddd; outline:none; font-size:15px; margin-bottom:20px;">
-  <!-- حقول وهمية باش Chrome يعمرهم هما ماشي البحث -->
   <input type="text" name="prevent_autofill_username" style="display:none" tabindex="-1" autocomplete="off">
   <input type="password" name="prevent_autofill_password" style="display:none" tabindex="-1" autocomplete="off">
 </form>
@@ -106,36 +104,110 @@ body{font-family:sans-serif; padding:20px; padding-bottom:110px; max-width:999px
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, collection, addDoc, query, where, orderBy, onSnapshot, getDocs, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, orderBy, onSnapshot, getDocs, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg", authDomain: "seh-world.firebaseapp.com", projectId: "seh-world", storageBucket: "seh-world.firebasestorage.app", messagingSenderId: "888057068574", appId: "1:888057068574:web:796fdde71679597931020f", measurementId: "G-KESK983LBH" };
 const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
-let currentUser = null; let points = parseInt(localStorage.getItem('seh_points')||'0'); let isSignup = false;
+let currentUser = null;
+// ===== نظام النقاط الآمن - STORIES - +5 فقط، 700 فالنهار =====
+let points = 0;
+let dailyPoints = 0;
+let dailyDate = new Date().toDateString();
+let lastAddTime = 0;
+const MAX_PER_CLICK = 5, MAX_PER_DAY = 700, MAX_TOTAL = 50000;
+function sehCheckDay(){ const t=new Date().toDateString(); if(dailyDate!==t){ dailyDate=t; dailyPoints=0; } }
+let isSignup = false;
 window.__seh = { auth, db, getUser: ()=>currentUser };
 function updatePointsUI(){ const el=document.getElementById('pointsNum'); if(el) el.innerText=points; }
-async function savePoints(){ localStorage.setItem('seh_points', points); if(currentUser){ try{ await setDoc(doc(db,"users",currentUser.uid), { points, updatedAt: new Date() }, { merge:true }); }catch(e){} } }
-window.addPoints = async function(n){ points+=n; updatePointsUI(); await savePoints(); };
+// الوحيدة اللي كتزيد النقاط
+window.addPoints = async function(n){
+  sehCheckDay();
+  if(!currentUser) return false;
+  if(!n || n<=0) return false;
+  if(n>MAX_PER_CLICK) n=MAX_PER_CLICK;
+  if(dailyPoints>=MAX_PER_DAY) return false;
+  if(Date.now()-lastAddTime<2000) return false;
+  if(dailyPoints+n>MAX_PER_DAY) n=MAX_PER_DAY-dailyPoints;
+  if(points+n>MAX_TOTAL) n=MAX_TOTAL-points;
+  if(n<=0) return false;
+  lastAddTime=Date.now();
+  try{
+    await updateDoc(doc(db,"users",currentUser.uid), { points: increment(n), dailyPoints: increment(n), dailyDate: dailyDate });
+    points+=n; dailyPoints+=n; updatePointsUI(); return true;
+  }catch(e){ console.log('Points blocked', e.message); return false; }
+};
 updatePointsUI();
 onAuthStateChanged(auth, async (user)=>{
+  await checkMaintenanceStories(user);
   currentUser=user; const btn=document.getElementById('authBtn'); const label=document.getElementById('userLabel');
-  if(user){ if(btn) btn.innerText="Logout"; if(label) label.innerText="👋 "+(user.displayName||user.email.split('@')[0]); try{ const s=await getDoc(doc(db,"users",user.uid)); if(s.exists()&&typeof s.data().points==='number'){ if(s.data().points>points){ points=s.data().points; localStorage.setItem('seh_points',points); updatePointsUI(); } } }catch(e){} }
+  if(user){
+    if(btn) btn.innerText="Logout";
+    if(label) label.innerText="👋 "+(user.displayName||user.email.split('@')[0]);
+    try{
+      const s=await getDoc(doc(db,"users",user.uid));
+      if(s.exists()){
+        points=s.data().points||0;
+        const today=new Date().toDateString();
+        if(s.data().dailyDate!==today){ dailyPoints=0; dailyDate=today; }
+        else { dailyPoints=s.data().dailyPoints||0; dailyDate=today; }
+        updatePointsUI();
+      }
+    }catch(e){}
+  }
   else{ if(btn) btn.innerText="Login / Sign Up"; if(label) label.innerText="🔥 SEH WORLD - STORIES"; }
   for(let i=1;i<=15;i++){ loadLikes(i); loadUserLike(i); loadReadStatus(i); }
 });
+// وضع الصيانة - صفحة القصص
+// إذا كانت الصفحة متوقفة، لا يدخل إليها إلا المدير
+async function checkMaintenanceStories(user){
+  try{
+    const s = await getDoc(doc(db, "config", "site"));
+    const isAdmin = user && user.email && user.email.toLowerCase() === "souf2002yane@gmail.com";
+    if(s.exists() && s.data().maintenanceStories && !isAdmin){
+      document.body.innerHTML = '<div style="text-align:center;padding:60px 20px;font-family:sans-serif"><h1>🚧 صفحة القصص تحت الصيانة</h1><p>نقوم حالياً بإجراء بعض التحسينات، يرجى العودة لاحقاً.</p><a href="index.html" style="background:#111;color:#fff;padding:12px 24px;border-radius:20px;text-decoration:none">🏠 الصفحة الرئيسية</a></div>';
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
+
 const authBtnEl = document.getElementById('authBtn');
 if(authBtnEl){ authBtnEl.onclick=()=>{ if(currentUser) signOut(auth); else document.getElementById('authModal').classList.add('show'); }; }
 window.closeAuth=()=>document.getElementById('authModal').classList.remove('show');
 window.requireLogin=()=>{ if(!currentUser){ document.getElementById('authModal').classList.add('show'); } else { alert('This story will be unlocked soon. Thank you for logging in.'); } };
 document.getElementById('authToggle').onclick=()=>{ isSignup=!isSignup; document.getElementById('authTitle').innerText=isSignup?"Create Account":"Login"; document.getElementById('authSubmit').innerText=isSignup?"Sign Up":"Login"; document.getElementById('authToggle').innerText=isSignup?"You already have an account? Login":"You do not have an account? Create an account"; document.getElementById('authName').style.display=isSignup?"block":"none"; };
-document.getElementById('authSubmit').onclick=async()=>{ const email=document.getElementById('authEmail').value.trim(); const pass=document.getElementById('authPass').value; const name=document.getElementById('authName').value.trim(); const err=document.getElementById('authError'); err.innerText=""; try{ if(isSignup){ const cred=await createUserWithEmailAndPassword(auth,email,pass); if(name) await updateProfile(cred.user,{displayName:name}); await setDoc(doc(db,"users",cred.user.uid),{name,email,points,createdAt:new Date()},{merge:true}); } else { await signInWithEmailAndPassword(auth,email,pass); } closeAuth(); }catch(e){ err.innerText=e.message; } };
+document.getElementById('authSubmit').onclick=async()=>{ const email=document.getElementById('authEmail').value.trim(); const pass=document.getElementById('authPass').value; const name=document.getElementById('authName').value.trim(); const err=document.getElementById('authError'); err.innerText=""; try{ if(isSignup){ const cred=await createUserWithEmailAndPassword(auth,email,pass); if(name) await updateProfile(cred.user,{displayName:name}); await setDoc(doc(db,"users",cred.user.uid),{name,email,points:0,dailyPoints:0,dailyDate:new Date().toDateString(),createdAt:new Date()},{merge:true}); } else { await signInWithEmailAndPassword(auth,email,pass); } closeAuth(); }catch(e){ err.innerText=e.message; } };
 document.getElementById('forgotPass').onclick = async () => { const email=document.getElementById('authEmail').value.trim(); const err=document.getElementById('authError'); const msg=document.getElementById('resetMsg'); err.innerText=""; msg.innerText=""; if(!email){ err.innerText="Please write your email first"; return; } try{ await sendPasswordResetEmail(auth, email); msg.innerText="Check your email. We sent you a link to reset your password."; }catch(e){ err.innerText=e.message; } };
 async function loadComments(n){ const list=document.getElementById('commentsList'+n); if(!list) return; try{ const q=query(collection(db,"comments"), where("storyId","==",String(n)), orderBy("createdAt","desc")); onSnapshot(q,(snap)=>{ if(snap.empty){ list.innerHTML='<p style="color:#888;font-size:13px">No comments yet. Be the first to comment.</p>'; return; } list.innerHTML=""; snap.forEach(d=>{ const c=d.data(); const div=document.createElement('div'); div.className='comment-item'; const date=c.createdAt?.toDate?c.createdAt.toDate().toLocaleDateString('en-GB'):""; div.innerHTML='<b>'+(c.name||'User')+'</b><span>'+date+'</span><p></p>'; div.querySelector('p').textContent=c.text; list.appendChild(div); }); }); }catch(e){} }
 window.__loadComments = loadComments;
 async function loadLikes(n){ try{ const snap=await getDoc(doc(db,"storyLikes",String(n))); const el=document.getElementById('likeCount'+n); if(el) el.innerText=snap.exists()?(snap.data().count||0):0; }catch(e){} }
 window.toggleLike=async function(n){ if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; } const key='seh_like_'+n+'_'+currentUser.uid; const liked=localStorage.getItem(key)==='1'; try{ const ref=doc(db,"storyLikes",String(n)); if(liked){ await setDoc(ref,{count:increment(-1)},{merge:true}); localStorage.removeItem(key); } else{ await setDoc(ref,{count:increment(1)},{merge:true}); localStorage.setItem(key,'1'); } loadLikes(n); loadUserLike(n); }catch(e){} };
 async function loadUserLike(n){ const btn=document.getElementById('like'+n); if(!btn||!currentUser) return; const liked=localStorage.getItem('seh_like_'+n+'_'+currentUser.uid)==='1'; btn.classList.toggle('liked',liked); }
-window.markAsRead=async function(n){ const key='seh_read_'+n; if(localStorage.getItem(key)==='1'){ alert('You have already received points for this story.'); return; } localStorage.setItem(key,'1'); await window.addPoints(10); const btn=document.getElementById('read'+n); if(btn){ btn.innerText='✓ Completed - Thank You'; btn.classList.add('done'); } if(currentUser){ try{ await setDoc(doc(db,"users",currentUser.uid),{['read_'+n]:true},{merge:true}); }catch(e){} } };
-function loadReadStatus(n){ const btn=document.getElementById('read'+n); if(btn&&localStorage.getItem('seh_read_'+n)==='1'){ btn.innerText='✓ Completed - Thank You'; btn.classList.add('done'); } }
-window.postComment=async function(n){ if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; } const input=document.getElementById('commentInput'+n); const text=input.value.trim(); if(!text) return; try{ await addDoc(collection(db,"comments"),{ storyId:String(n), text, name: currentUser.displayName||currentUser.email.split('@')[0], email: currentUser.email, uid: currentUser.uid, createdAt: serverTimestamp() }); input.value=""; }catch(e){ alert(e.message); } };
+window.markAsRead=async function(n){
+  if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; }
+  const today=new Date().toDateString();
+  const key='seh_read_'+n+'_'+today;
+  if(localStorage.getItem(key)==='1'){ alert('You have already received points for this story today.'); return; }
+  try{
+    const snap=await getDoc(doc(db,"users",currentUser.uid));
+    const readKey='read_'+n+'_'+today;
+    if(snap.exists() && snap.data()[readKey]){
+      localStorage.setItem(key,'1');
+      const btn=document.getElementById('read'+n); if(btn){ btn.innerText='✓ Completed - Thank You'; btn.classList.add('done'); }
+      alert('You have already received points for this story today.'); return;
+    }
+    localStorage.setItem(key,'1');
+    const ok=await window.addPoints(5);
+    if(!ok){ localStorage.removeItem(key); alert('Daily limit reached (700). Come back tomorrow!'); return; }
+    const btn=document.getElementById('read'+n); if(btn){ btn.innerText='✓ Completed - Thank You (+5)'; btn.classList.add('done'); }
+    await updateDoc(doc(db,"users",currentUser.uid),{ [readKey]: true });
+  }catch(e){ alert('Error, try again'); }
+};
+function loadReadStatus(n){
+  const btn=document.getElementById('read'+n);
+  const today=new Date().toDateString();
+  if(btn && localStorage.getItem('seh_read_'+n+'_'+today)==='1'){ btn.innerText='✓ Completed - Thank You'; btn.classList.add('done'); }
+}
+window.postComment=async function(n){ if(!currentUser){ document.getElementById('authModal').classList.add('show'); return; } const input=document.getElementById('commentInput'+n); const text=input.value.trim(); if(!text) return; try{ await addDoc(collection(db,"comments"),{ storyId:String(n), text, name: currentUser.displayName||currentUser.email.split('@')[0], email: currentUser.email, uid: currentUser.uid, userId: currentUser.uid, createdAt: serverTimestamp() }); input.value=""; }catch(e){ alert(e.message); } };
 </script>
 
 <script>
@@ -156,7 +228,7 @@ function renderStories(){
     <div class="story-title" onclick="toggleStory(${s.id})"><div class="title-left"><img src="${s.img}" alt="${isAr ? s.title_ar : s.title_en}" loading="lazy" onerror="this.style.display='none'"><b>${isAr ? s.title_ar : s.title_en}</b></div><div class="story-icon" id="icon${s.id}">+</div></div>
     <div class="story-content" id="story${s.id}">
       <div class="story-text" id="text${s.id}-main" style="${isAr ? 'direction:rtl;text-align:right' : ''}">${isAr ? s.body_ar : s.body_en}<div class="moral">${isAr ? s.moral_ar : s.moral_en}</div></div>
-      <div class="like-row"><button class="like-btn" id="like${s.id}" onclick="toggleLike(${s.id})">❤️ Like (<span id="likeCount${s.id}">0</span>)</button><button class="read-btn" id="read${s.id}" onclick="markAsRead(${s.id})">✓ Mark as Read +10 Points</button></div>
+      <div class="like-row"><button class="like-btn" id="like${s.id}" onclick="toggleLike(${s.id})">❤️ Like (<span id="likeCount${s.id}">0</span>)</button><button class="read-btn" id="read${s.id}" onclick="markAsRead(${s.id})">✓ Mark as Read +5 Points</button></div>
       <div class="share-row"><button class="share-btn share-wa" onclick="shareStory(${s.id},'wa')">📤 WhatsApp</button><button class="share-btn share-fb" onclick="shareStory(${s.id},'fb')">📘 Facebook</button></div>
       <div class="comments-box"><h4>💬 Comments - Visible to Everyone</h4><div id="commentsList${s.id}"><p style="color:#888;font-size:13px">Loading comments...</p></div><div class="comment-form"><input id="commentInput${s.id}" placeholder="Write your comment..." autocomplete="off"><button onclick="postComment(${s.id})">Send</button></div></div>
     </div>`;
@@ -177,8 +249,6 @@ function renderStories(){
   }
 }
 renderStories();
-
-// FIX ANTI-AUTOFILL: مسح الإيميل إلا Chrome عمرو فالبحث + تجاهل الإيميل فالبحث
 function clearAutofillEmail(){
   var s = document.getElementById('searchBox');
   if(!s) return;
@@ -188,17 +258,13 @@ function clearAutofillEmail(){
   }
 }
 window.addEventListener('load', function(){ setTimeout(clearAutofillEmail, 400); setTimeout(clearAutofillEmail, 1200); setTimeout(clearAutofillEmail, 2500); });
-// مراقبة كل ثانية فأول 5 ثواني، إلا Chrome عاود عمرو
 var _autofillGuard = 0;
 var _autofillTimer = setInterval(function(){ clearAutofillEmail(); _autofillGuard++; if(_autofillGuard > 5) clearInterval(_autofillTimer); }, 1000);
-
 const oldApply = window.SEH_LANG ? window.SEH_LANG.apply : null;
 if(window.SEH_LANG){ const orig = window.SEH_LANG.apply.bind(window.SEH_LANG); window.SEH_LANG.apply = function(){ orig(); renderStories(); }; }
-
 function searchStory(){
   var box = document.getElementById('searchBox');
   var input = box ? box.value.toLowerCase().trim() : '';
-  // إلا بقا فيه إيميل، اعتبرو بحث خاوي و بين كلشي
   if(input.indexOf('@') !== -1) input = '';
   document.querySelectorAll('.story-item').forEach(item => {
     let title = item.querySelector('.story-title b').textContent.toLowerCase();

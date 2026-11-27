@@ -20,10 +20,11 @@
   input,textarea{padding:11px;border-radius:10px;border:1px solid #333;background:#0f1220;color:#fff;width:100%;margin:6px 0;font-family:inherit}
   button{border:0;padding:9px 14px;border-radius:10px;cursor:pointer;font-weight:bold}
   .btn-gold{background:#ffd700;color:#111}
-  .btn-red{background:#ff3b30;color:#fff}
+  .btn-red{background:#f65951;color:#fff}
   .btn-green{background:#22c55e;color:#fff}
   .btn-gray{background:#333;color:#fff}
   .btn-blue{background:#3b82f6;color:#fff}
+  .btn-orange{background:#f59e0b;color:#111}
   .item{background:#0f1220;border:1px solid #2a2f55;border-radius:14px;padding:12px;margin:8px 0}
   .item-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
   .name{font-weight:bold}
@@ -38,13 +39,17 @@
   .tabs button{background:#222752;color:#fff}
   .tabs button.active{background:#ffd700;color:#111}
   .hidden{display:none!important}
+  .maint-box{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .maint-box button{flex:1;min-width:160px;padding:14px;font-size:15px}
+  .maint-off{background:#22c55e;color:#fff}
+  .maint-on{background:#ef4444;color:#fff}
 </style>
 </head>
 <body>
 
 <div class="top">
   <div>
-    <h1>👑 لوحة تحكم الإدارة</h1>
+    <h1> لوحة التحكم 👑 الإدارة </h1><hr><h1></h1><hr>
     <p id="adminInfo">يتم التحقق من الحساب... يرجى الانتظار</p>
   </div>
   <div class="badge">SEH-WORLD • الإدارة</div>
@@ -76,6 +81,7 @@
     <button onclick="showTab('reports',this)">🚨 التبليغات</button>
     <button onclick="showTab('ratings',this)">⭐ التقييمات</button>
     <button onclick="showTab('top',this)">🏆 أفضل النقاط</button>
+    <button onclick="showTab('control',this)">🛠️ النقاط + الصيانة</button>
   </div>
 
   <div id="tab-users" class="card">
@@ -107,13 +113,40 @@
     <div id="top10">جارٍ التحميل...</div>
   </div>
 
+  <!-- ===== جديد: النقاط + الصيانة ===== -->
+  <div id="tab-control" class="card hidden">
+    <h3>⭐ إدارة النقاط</h3>
+    <p class="muted">قلب على المستخدم بالاسم ولا البريد، ومن بعد زيد ولا نقص. ولا كتب UID نيشان.</p>
+    <input type="text" id="pointsSearch" placeholder="🔍 قلب بالاسم / البريد / UID..." oninput="filterPointsUsers()">
+    <div id="pointsSearchResult"></div>
+    <hr style="border-color:#2a2f55;margin:16px 0">
+    <h4>زيد / نقص بـ UID مباشرة</h4>
+    <input type="text" id="adminUid" placeholder="UID ديال اللاعب">
+    <input type="number" id="adminPoints" placeholder="شحال؟ مثلا 100">
+    <div class="actions">
+      <button class="btn-green" onclick="adminAddPoints()">➕ زيد النقاط</button>
+      <button class="btn-red" onclick="adminRemovePoints()">➖ نقص النقاط</button>
+      <button class="btn-gray" onclick="adminResetPoints()">🔄 صفر النقاط</button>
+    </div>
+    <p id="adminPointsMsg" style="color:#ffd700;font-size:13px"></p>
+
+    <hr style="border-color:#2a2f55;margin:20px 0">
+    <h3>🚧 حبس الصفحات - Maintenance</h3>
+    <p class="muted">إلا حبستي صفحة، الناس كيشوفو "قيد الإصلاح"، ونتا كتبقى خدامة عندك. ملي تسالي، عاود برك باش تطلقها.</p>
+    <div class="maint-box">
+      <button id="btnGameMaint" class="maint-off" onclick="adminToggleMaint('maintenanceGame')">🎮 GAME: ...</button>
+      <button id="btnStoriesMaint" class="maint-off" onclick="adminToggleMaint('maintenanceStories')">📚 STORIES: ...</button>
+    </div>
+    <p id="maintMsg" style="color:#ffd700;font-size:13px;margin-top:10px"></p>
+  </div>
+
   <button onclick="adminLogout()" class="btn-red" style="width:100%;margin-top:10px">🚪 تسجيل الخروج</button>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, updateDoc, deleteDoc, addDoc, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg",
@@ -132,6 +165,7 @@ const db = getFirestore(app);
 let allUsers = [];
 let allComments = [];
 let allReports = [];
+let maintState = { maintenanceGame: false, maintenanceStories: false };
 
 function esc(s){ return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
 function fmtDate(v){
@@ -152,7 +186,7 @@ function dateKey(v){
 window.showTab = (id,btn)=>{
   document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  ['users','comments','reports','ratings','top'].forEach(t=>{
+  ['users','comments','reports','ratings','top','control'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('hidden', t!==id);
   });
 };
@@ -172,6 +206,84 @@ window.filterUsers = ()=>{
   document.getElementById('searchResult').innerHTML = found.slice(0,20).map(u=>userItem(u)).join('') || 'لم يتم العثور على أي نتيجة';
 };
 
+// ===== جديد: البحث فالنقاط =====
+window.filterPointsUsers = ()=>{
+  const q = document.getElementById('pointsSearch').value.toLowerCase().trim();
+  const box = document.getElementById('pointsSearchResult');
+  if(!q){ box.innerHTML=''; return; }
+  const found = allUsers.filter(u => (u.name||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q) || (u.uid||'').toLowerCase().includes(q));
+  box.innerHTML = found.slice(0,20).map(u=>`
+    <div class="item">
+      <div class="item-head"><span class="name">${esc(u.name||'-')}</span><span class="muted">${esc(u.email||'')} • ${u.points||0} نقطة</span></div>
+      <div class="muted" style="word-break:break-all">UID: ${esc(u.uid)}</div>
+      <div class="actions">
+        <button class="btn-green" onclick="quickPoints('${u.uid}',100)">+100</button>
+        <button class="btn-green" onclick="quickPoints('${u.uid}',500)">+500</button>
+        <button class="btn-red" onclick="quickPoints('${u.uid}',-100)">-100</button>
+        <button class="btn-red" onclick="quickPoints('${u.uid}',-500)">-500</button>
+        <button class="btn-gray" onclick="resetUserPoints('${u.uid}')">صفر</button>
+      </div>
+    </div>`).join('') || 'لم يتم العثور على أي نتيجة';
+};
+
+// ===== جديد: النقاط =====
+window.quickPoints = async (uid, n)=>{
+  if(!uid) return;
+  if(!confirm((n>0?'تزيد ':'تنقص ') + Math.abs(n) + ' نقطة؟')) return;
+  try{
+    await updateDoc(doc(db,"users",uid), { points: increment(n) });
+    document.getElementById('adminPointsMsg').textContent = '✅ تم ' + (n>0?'زيادة ':'نقص ') + Math.abs(n) + ' نقطة';
+    load();
+  }catch(e){ alert('خطأ: '+e.message); }
+};
+window.resetUserPoints = async (uid)=>{
+  if(!confirm('تصفر النقاط ديال هاد المستخدم؟')) return;
+  try{ await updateDoc(doc(db,"users",uid), { points: 0, dailyPoints: 0 }); alert('✅ تصفرات النقاط'); load(); }catch(e){ alert(e.message); }
+};
+window.adminAddPoints = async ()=>{
+  const uid = document.getElementById('adminUid').value.trim();
+  const n = parseInt(document.getElementById('adminPoints').value);
+  if(!uid || !n) return alert('عمر UID وشحال');
+  await quickPoints(uid, Math.abs(n));
+};
+window.adminRemovePoints = async ()=>{
+  const uid = document.getElementById('adminUid').value.trim();
+  const n = parseInt(document.getElementById('adminPoints').value);
+  if(!uid || !n) return alert('عمر UID وشحال');
+  await quickPoints(uid, -Math.abs(n));
+};
+window.adminResetPoints = async ()=>{
+  const uid = document.getElementById('adminUid').value.trim();
+  if(!uid) return alert('عمر UID');
+  await resetUserPoints(uid);
+};
+
+// ===== جديد: الصيانة =====
+async function loadMaint(){
+  try{
+    const s = await getDoc(doc(db, "config", "site"));
+    if(s.exists()) maintState = { ...maintState, ...s.data() };
+    updateMaintBtns();
+  }catch(e){}
+}
+function updateMaintBtns(){
+  const g = document.getElementById('btnGameMaint');
+  const st = document.getElementById('btnStoriesMaint');
+  if(g){ g.textContent = '🎮 GAME: ' + (maintState.maintenanceGame ? '🔴 محبوسة - برك باش تطلقها' : '🟢 خدامة - برك باش تحبسها'); g.className = maintState.maintenanceGame ? 'maint-on' : 'maint-off'; }
+  if(st){ st.textContent = '📚 STORIES: ' + (maintState.maintenanceStories ? '🔴 محبوسة - برك باش تطلقها' : '🟢 خدامة - برك باش تحبسها'); st.className = maintState.maintenanceStories ? 'maint-on' : 'maint-off'; }
+}
+window.adminToggleMaint = async (field)=>{
+  const newVal = !maintState[field];
+  const name = field === 'maintenanceGame' ? 'GAME' : 'STORIES';
+  if(!confirm(newVal ? 'تحبس '+name+' ؟ الناس غادي يشوفو قيد الإصلاح' : 'تطلق '+name+' ؟ غادي ترجع خدامة لكلشي')) return;
+  try{
+    await setDoc(doc(db, "config", "site"), { [field]: newVal }, { merge: true });
+    maintState[field] = newVal;
+    updateMaintBtns();
+    document.getElementById('maintMsg').textContent = '✅ ' + name + ' ولات: ' + (newVal ? 'محبوسة 🔴' : 'خدامة 🟢');
+  }catch(e){ alert('خطأ: '+e.message+' - تأكد أن قواعد Firestore كتسمح للأدمين يبدل config/site'); }
+};
+
 function userItem(u){
   const isBlocked = !!u.blocked;
   return `<div class="item ${isBlocked?'blocked':''}">
@@ -180,6 +292,8 @@ function userItem(u){
     <div class="actions">
       <button class="${isBlocked?'btn-green':'btn-red'}" onclick="toggleBlock('${u.uid||u.id}','${isBlocked}')">${isBlocked?'✅ إلغاء الحظر':'🚫 حظر المستخدم'}</button>
       <button class="btn-blue" onclick="replyToUser('${esc(u.name||'')}', '${esc(u.email||'')}')">💬 الرد عليه</button>
+      <button class="btn-green" onclick="quickPoints('${u.uid||u.id}',100)">⭐ +100</button>
+      <button class="btn-red" onclick="quickPoints('${u.uid||u.id}',-100)">⭐ -100</button>
     </div>
     <div id="reply-user-${u.uid||u.id}" class="hidden">
       <textarea id="txt-user-${u.uid||u.id}" placeholder="اكتب ردك لهذا المستخدم..."></textarea>
@@ -247,6 +361,7 @@ onAuthStateChanged(auth, (user)=>{
   document.getElementById('loginBox').style.display = 'none';
   document.getElementById('adminContent').style.display = 'block';
   load();
+  loadMaint();
 });
 
 async function load(){

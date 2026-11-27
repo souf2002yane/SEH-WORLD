@@ -121,7 +121,6 @@
   <div class="seg"><button id="offlineBtn" class="active" onclick="setGameMode('offline')" data-i18n="offline">📱 OFFLINE</button><button id="onlineBtn" onclick="setGameMode('online')" data-i18n="online">🌐 ONLINE</button></div>
   <div class="progress-box"><b id="unlockText" data-i18n="unlock">🔒 2 New Games locked - Reach 1000 Points</b><div class="progress-bar"><div class="progress-fill" id="unlockFill"></div></div><small id="unlockSub">0 / 1000</small></div>
   <div class="daily-box"><b>🎁 <span data-i18n="daily">Daily Reward</span></b><p id="starsText" style="margin:6px 0">⭐ Stars: 0 / 30</p><button class="btn" id="dailyBtn" onclick="claimDaily()" style="margin-top:0" data-i18n="claim">Claim +5 ⭐ Today</button><small id="dailyMsg" style="display:block;margin-top:6px;color:#666"></small></div>
-  <!-- MUSIC BOX - NEW -->
   <div style="background:white;border-radius:16px;padding:14px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:14px">
     <h3 style="margin:0">🎵 Game Music</h3>
     <p style="color:#888;font-size:13px;margin:6px 0">Background music like real games - Needs Sound Pack</p>
@@ -132,7 +131,6 @@
 
 <h2 class="games-title" data-i18n="game_title">🎮 Choose Your Game</h2>
 <p class="games-sub" data-i18n="game_sub">Click on an image to play - 9 Games</p>
-<button type="button" class="main-cta" id="mainPlayBtn" onclick="openGame('challenge',document.querySelector('.game-card'))" data-i18n="start_playing">🎮 START PLAYING</button>
 
 <div class="games-grid" id="gamesMenu">
   <div class="game-card" data-mode="offline" onclick="openGame('challenge',this)">
@@ -145,7 +143,7 @@
   </div>
   <div class="game-card" data-mode="offline" onclick="openGame('rps',this)">
     <img src="https://cdn.sp.games/cdn-cgi/image/width=1200,height=675,fit=cover,quality=62,format=auto/rock-paper-scissor/images/game-large.webp" alt="Rock Paper Scissors" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <b data-i18n="rps_title">Rock Paper Scissors</b><span data-i18n="rps_desc">Win 5 = +10 Points</span>
+    <b data-i18n="rps_title">Rock Paper Scissors</b><span data-i18n="rps_desc">Win 5 = +5 Points</span>
   </div>
   <div class="game-card" data-mode="offline" onclick="openGame('dama',this)">
     <img src="https://luiscastellanos.org/wp-content/uploads/damas.jpg" alt="Checkers" loading="lazy" decoding="async" referrerpolicy="no-referrer">
@@ -162,14 +160,13 @@
   <div class="game-card locked" data-mode="offline" data-locked="1" id="card-word" onclick="tryOpenLocked('word',this)">
     <span class="new-badge" data-i18n="new">NEW</span><span class="lock-badge">🔒 1000 Points</span>
     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Guess Word" loading="lazy" referrerpolicy="no-referrer">
-    <b data-i18n="word_title">🔤 Guess The Word</b><span data-i18n="word_desc">5 Words = +10 Points</span>
+    <b data-i18n="word_title">🔤 Guess The Word</b><span data-i18n="word_desc">5 Words = +5 Points</span>
   </div>
   <div class="game-card locked" data-mode="offline" data-locked="1" id="card-simon" onclick="tryOpenLocked('simon',this)">
     <span class="new-badge" data-i18n="new">NEW</span><span class="lock-badge">🔒 1000 Points</span>
     <img src="https://cdn-icons-png.flaticon.com/512/3094/3094834.png" alt="Simon Memory" loading="lazy" referrerpolicy="no-referrer">
-    <b data-i18n="simon_title">🎵 Fast Memory</b><span data-i18n="simon_desc">5 Levels = +10 Points</span>
+    <b data-i18n="simon_title">🎵 Fast Memory</b><span data-i18n="simon_desc">5 Levels = +5 Points</span>
   </div>
-  <!-- SNAKE - NEW, PRACTICAL -->
   <div class="game-card" data-mode="offline" id="card-snake" onclick="tryOpenSnake(this)">
     <span class="new-badge">NEW</span><span class="lock-badge" id="snakeLockBadge">🔒 Extra Game</span>
     <img src="https://cdn-icons-png.flaticon.com/512/3523/3523063.png" alt="Snake Game" loading="lazy" referrerpolicy="no-referrer">
@@ -184,7 +181,7 @@
 <div id="view-xo" class="game-view"><div class="container"><h1>❌⭕ Tic Tac Toe</h1>
 <div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px;flex-wrap:wrap"><button class="mode-btn active" id="xoFriendBtn" onclick="setXoMode('friend')" data-i18n="vs_friend">👤 VS Friend</button><button class="mode-btn" id="xoCompBtn" onclick="setXoMode('computer')" data-i18n="vs_comp">🤖 VS Computer</button><button class="mode-btn" id="xoOnlineBtn" onclick="setXoMode('online')" data-i18n="vs_online">🌐 ONLINE</button></div>
 <div id="xoOnlineBox" style="display:none;background:#FFF8E1;border:2px solid #E9C46A;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center">
-  <b data-i18n="xo_online_title">🌐 Play Online with Friend - Winner takes 10 Points from Loser</b>
+  <b data-i18n="xo_online_title">🌐 Play Online with Friend - Winner takes +5 Points</b>
   <p id="xoOnlineStatus" style="font-size:13px;margin:6px 0">Choose Host or Guest</p>
   <div style="display:flex;gap:8px"><button class="btn" style="margin:0;background:#111" onclick="createOnlineRoom()" data-i18n="host">👑 I am Host - Create Link</button><button class="btn" style="margin:0;background:#00c896" onclick="joinOnlineRoom()" data-i18n="guest">👤 I am Guest - Join</button></div>
   <input id="xoRoomInput" placeholder="Paste room link / code here..." style="width:100%;padding:10px;margin-top:8px;border-radius:10px;border:1px solid #ccc;display:none">
@@ -194,7 +191,7 @@
 </div>
 <div class="status" id="xoStatus">Turn : X</div><div class="xo-board"><div class="xo-cell" onclick="playXO(0)" id="c0"></div><div class="xo-cell" onclick="playXO(1)" id="c1"></div><div class="xo-cell" onclick="playXO(2)" id="c2"></div><div class="xo-cell" onclick="playXO(3)" id="c3"></div><div class="xo-cell" onclick="playXO(4)" id="c4"></div><div class="xo-cell" onclick="playXO(5)" id="c5"></div><div class="xo-cell" onclick="playXO(6)" id="c6"></div><div class="xo-cell" onclick="playXO(7)" id="c7"></div><div class="xo-cell" onclick="playXO(8)" id="c8"></div></div><button class="btn" onclick="resetXO()" data-i18n="play_again">Play Again</button></div></div>
 
-<div id="view-rps" class="game-view"><div class="container"><h1>✊✋✌️ Rock Paper Scissors</h1><p style="text-align:center;color:#888"><span data-i18n="rps_win">Win 5 rounds = +10 Points 🏆</span> | <span data-i18n="rps_streak">Wins in row:</span> <b id="rpsStreak">0 / 5</b></p><div class="rps-choices"><button class="rps-btn" onclick="playRPS('Rock')">✊</button><button class="rps-btn" onclick="playRPS('Paper')">✋</button><button class="rps-btn" onclick="playRPS('Scissors')">✌️</button></div><div class="rps-result" id="rpsResult">Choose one to play:</div><div style="display:flex;justify-content:space-around;font-weight:600;margin-top:10px"><span>You: <b id="pScore">0</b></span><span>Computer: <b id="cScore">0</b></span></div><button class="btn" onclick="resetRPS()" data-i18n="play_again">Play Again</button></div></div>
+<div id="view-rps" class="game-view"><div class="container"><h1>✊✋✌️ Rock Paper Scissors</h1><p style="text-align:center;color:#888"><span data-i18n="rps_win">Win 5 rounds = +5 Points 🏆</span> | <span data-i18n="rps_streak">Wins in row:</span> <b id="rpsStreak">0 / 5</b></p><div class="rps-choices"><button class="rps-btn" onclick="playRPS('Rock')">✊</button><button class="rps-btn" onclick="playRPS('Paper')">✋</button><button class="rps-btn" onclick="playRPS('Scissors')">✌️</button></div><div class="rps-result" id="rpsResult">Choose one to play:</div><div style="display:flex;justify-content:space-around;font-weight:600;margin-top:10px"><span>You: <b id="pScore">0</b></span><span>Computer: <b id="cScore">0</b></span></div><button class="btn" onclick="resetRPS()" data-i18n="play_again">Play Again</button></div></div>
 
 <div id="view-dama" class="game-view"><div class="container"><h1>♟️ Checkers</h1><div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px"><button class="mode-btn active" id="damaFriendBtn" onclick="setDamaMode('friend')">👤 VS Friend</button><button class="mode-btn" id="damaCompBtn" onclick="setDamaMode('computer')">🤖 VS Computer</button></div><p style="text-align:center;color:#888;font-size:14px" id="damaSub">2 players on same phone - Red starts</p><div id="damaTurn">Turn: 🔴 Red</div><div id="damaBoard"></div><button class="btn" onclick="initDama()">New Game 🔄</button><p style="text-align:center;font-size:13px;color:#666;margin-top:10px">Click your piece, then click where you want to move<br>If you reach the end you become 👑 King</p></div></div>
 
@@ -202,17 +199,15 @@
 
 <div id="view-quiz" class="game-view"><div class="container"><h1>🧠❓ Quiz</h1><p style="text-align:center;color:#888">Score: <b id="quizScore">0</b> | Question: <b id="quizNum">1/5</b> | Group: <b id="quizGroup">-</b></p><div class="quiz-q" id="quizQ"></div><div id="quizOpts"></div><p id="quizMsg" style="text-align:center;font-weight:600;margin-top:10px"></p><button class="btn" onclick="initQuiz()" style="display:none" id="quizRestart">Play Again 🔄</button></div></div>
 
-<div id="view-word" class="game-view"><div class="container"><h1>🔤 <span data-i18n="wordTitle">Guess Word</span></h1><p style="text-align:center;color:#888"><span data-i18n="wordSub">Arrange letters - 5 words = +10 Points</span> | ✅ <b id="wordScore">0 / 5</b></p><p id="wordHint" style="text-align:center;font-weight:600;margin:12px 0"></p><div class="word-answer" id="wordAnswer"></div><div class="word-letters" id="wordLetters"></div><p id="wordMsg" style="text-align:center;font-weight:600"></p><div style="display:flex;gap:8px"><button class="btn" onclick="checkWord()">Check ✅</button><button class="btn" style="background:#ff5a6a" onclick="resetWordLetters()">Reset 🔄</button></div><button class="btn" onclick="initWord()" style="background:#111">Next Word →</button></div></div>
+<div id="view-word" class="game-view"><div class="container"><h1>🔤 <span data-i18n="wordTitle">Guess Word</span></h1><p style="text-align:center;color:#888"><span data-i18n="wordSub">Arrange letters - 5 words = +5 Points</span> | ✅ <b id="wordScore">0 / 5</b></p><p id="wordHint" style="text-align:center;font-weight:600;margin:12px 0"></p><div class="word-answer" id="wordAnswer"></div><div class="word-letters" id="wordLetters"></div><p id="wordMsg" style="text-align:center;font-weight:600"></p><div style="display:flex;gap:8px"><button class="btn" onclick="checkWord()">Check ✅</button><button class="btn" style="background:#ff5a6a" onclick="resetWordLetters()">Reset 🔄</button></div><button class="btn" onclick="initWord()" style="background:#111">Next Word →</button></div></div>
 
-<div id="view-simon" class="game-view"><div class="container"><h1>🎵 <span data-i18n="simonTitle">Fast Memory</span></h1><p style="text-align:center;color:#888"><span data-i18n="simonSub">Repeat the colors - 5 Levels = +10 Points</span> | Level: <b id="simonLevel">0 / 5</b></p><p id="simonMsg" style="text-align:center;font-weight:600;margin:10px 0">Press Start</p><div class="simon-grid"><button class="simon-btn" style="background:#ff5a6a" onclick="simonClick(0)">🔴</button><button class="simon-btn" style="background:#00c896" onclick="simonClick(1)">🟢</button><button class="simon-btn" style="background:#667eea" onclick="simonClick(2)">🔵</button><button class="simon-btn" style="background:#E9C46A" onclick="simonClick(3)">🟡</button></div><button class="btn" onclick="startSimon()">Start ▶️</button></div></div>
+<div id="view-simon" class="game-view"><div class="container"><h1>🎵 <span data-i18n="simonTitle">Fast Memory</span></h1><p style="text-align:center;color:#888"><span data-i18n="simonSub">Repeat the colors - 5 Levels = +5 Points</span> | Level: <b id="simonLevel">0 / 5</b></p><p id="simonMsg" style="text-align:center;font-weight:600;margin:10px 0">Press Start</p><div class="simon-grid"><button class="simon-btn" style="background:#ff5a6a" onclick="simonClick(0)">🔴</button><button class="simon-btn" style="background:#00c896" onclick="simonClick(1)">🟢</button><button class="simon-btn" style="background:#667eea" onclick="simonClick(2)">🔵</button><button class="simon-btn" style="background:#E9C46A" onclick="simonClick(3)">🟡</button></div><button class="btn" onclick="startSimon()">Start ▶️</button></div></div>
 
-<!-- SNAKE VIEW - PRACTICAL -->
 <div id="view-snake" class="game-view"><div class="container" style="text-align:center"><h1>🐍 Snake Game</h1><p style="color:#888;font-size:14px">Eat to grow - Don't hit wall or yourself</p><p style="margin:10px 0;font-weight:bold">Score: <b id="snakeScore" style="color:#00c896">0</b> | Best: <b id="snakeBest">0</b> | Points: <b id="snakePoints">0</b></p><canvas id="snakeCanvas" width="300" height="300" style="background:#000;border-radius:12px;max-width:100%;border:2px solid #00ff41"></canvas><br><br><div style="display:flex;gap:8px"><button class="btn" onclick="startSnake()" style="margin:0;background:#00c896">▶ Play Snake</button><button class="btn" onclick="stopSnake()" style="margin:0;background:#111">⏹ Stop</button></div><div style="margin-top:14px"><button class="snake-btn" onclick="sehSnakeDir(0,-1)">⬆️</button><br><button class="snake-btn" onclick="sehSnakeDir(-1,0)">⬅️</button><button class="snake-btn" onclick="sehSnakeDir(1,0)">➡️</button><br><button class="snake-btn" onclick="sehSnakeDir(0,1)">⬇️</button></div><p style="font-size:12px;color:#888;margin-top:10px">PC: Use Arrow Keys | Phone: Use Buttons</p><p id="snakeMsg" style="font-weight:600;margin-top:8px"></p></div></div>
 
 <div style="max-width:500px;margin:20px auto"><button class="btn-secondary" onclick="showMoreGames()" id="moreGamesBtn" style="width:100%; padding:13px; border:1px solid #382201; background:white; color:black; border-radius:8px; cursor:pointer;" data-i18n="more_games_btn"><b>Click here for more games →</b></button></div>
 <div id="moreGames" style="display:none;max-width:500px;margin:0 auto"><h1 style="margin-bottom:20px" data-i18n="more_games_title">🔥 More Games - Coming Soon</h1><div class="container" style="text-align:center"><p data-i18n="more_games_p1">🎲 A new game is coming soon...</p><p style="color:#888;margin-top:10px" data-i18n="more_games_p2">Stay with us, we add new games every week</p></div></div>
 
-<!-- ===== SEH POINTS SHOP + MY DIARY - ONLY IN GAME ===== -->
 <div style="max-width:500px;margin:20px auto;padding:0 10px">
   <div style="background:white;border-radius:22px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.12)">
     <h2 style="text-align:center;font-size:24px" data-i18n="shop_title">🛒 Points Shop</h2>
@@ -238,7 +233,6 @@
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">👑</div><b>VIP Badge - 500</b><br><small style="color:#888">Crown + 2x Points</small><br><button onclick="sehBuy('vip',500)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🎨</div><b>Color Theme - 250</b><br><small style="color:#888">Change Site Color</small><br><button onclick="sehBuy('color',250)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
-      <!-- DARK REMOVED - حيدنا Dark Mode -->
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🎮</div><b>Extra Game - 400</b><br><small style="color:#888">Snake Game</small><br><button onclick="sehBuy('game',400)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
       <div style="background:#FFF8E1;padding:14px;border-radius:16px;text-align:center;border:2px solid #E9C46A"><div style="font-size:32px">📝</div><b>My Diary - 600</b><br><small style="color:#888">Private Secret Diary + Lock</small><br><button onclick="sehBuy('diary',600)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
       <div style="background:#f8f5ff;padding:14px;border-radius:16px;text-align:center;border:2px solid #d6c9ff"><div style="font-size:32px">🔊</div><b>Sound Pack - 150</b><br><small style="color:#888">Game Music + Sounds</small><br><button onclick="sehBuy('sound',150)" class="shop-buy-btn" data-i18n="buy_btn">Buy</button></div>
@@ -271,6 +265,7 @@
 </div>
 
 <div class="lb-wrap"><h1 style="margin-bottom:5px" data-i18n="lb_title">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px" data-i18n="lb_sub">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2><p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p><p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div><div id="leaderList"></div></div>
+
 <script src="seh-lang.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -278,14 +273,94 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, orderBy, limit, getDocs, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyApOzh9J8QCiLcHdZOq3zMgWrmK1ToY9Cg", authDomain: "seh-world.firebaseapp.com", projectId: "seh-world", storageBucket: "seh-world.firebasestorage.app", messagingSenderId: "888057068574", appId: "1:888057068574:web:796fdde71679597931020f", measurementId: "G-KESK983LBH" };
 const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
-window.sehAuth = auth; window.sehDb = db; window.sehUser = null; window.sehPoints = parseInt(localStorage.getItem('seh_points')||'0'); window.sehOnSnap = onSnapshot; window.sehDoc = doc; window.sehSetDoc = setDoc; window.sehUpdateDoc = updateDoc;
+window.sehAuth = auth; window.sehDb = db; window.sehUser = null;
+// ===== نظام النقاط الآمن - GAME.html - +5 فقط، 700 فالنهار =====
+window.sehPoints = 0;
+let sehDailyPoints = 0;
+let sehDailyDate = new Date().toDateString();
+let sehLastAdd = 0;
+const MAX_PER_CLICK = 5, MAX_PER_DAY = 700, MAX_TOTAL = 50000;
+function sehCheckDay(){ const t=new Date().toDateString(); if(sehDailyDate!==t){ sehDailyDate=t; sehDailyPoints=0; } }
+window.sehOnSnap = onSnapshot; window.sehDoc = doc; window.sehSetDoc = setDoc; window.sehUpdateDoc = updateDoc;
 onAuthStateChanged(auth, async (user) => {
-  if (user) { window.sehUser = user; const ref = doc(db, "users", user.uid); const snap = await getDoc(ref); if (!snap.exists()) { await setDoc(ref, { name: user.displayName || "Player", email: user.email || "", points: window.sehPoints, createdAt: new Date() }); } else { let fb = snap.data().points||0; let local = parseInt(localStorage.getItem('seh_points')||'0'); if(fb > local){ window.sehPoints = fb; localStorage.setItem('seh_points', String(fb)); localStorage.setItem('shopPoints', String(fb)); } else if(local > fb){ try{ await updateDoc(ref,{points: local}); }catch(e){} } } } else { window.sehUser = null; /* FIX: ما كنممسحوش النقاط ملي كيخرج */ }
+  await checkMaintenanceGame(user);
+  if (user) {
+    window.sehUser = user;
+    const ref = doc(db, "users", user.uid);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) {
+      await setDoc(ref, { name: user.displayName || "Player", email: user.email || "", points: 0, dailyPoints: 0, dailyDate: new Date().toDateString(), createdAt: new Date() });
+      window.sehPoints = 0; sehDailyPoints = 0;
+    } else {
+      window.sehPoints = snap.data().points||0;
+      const today = new Date().toDateString();
+      if(snap.data().dailyDate !== today){ sehDailyPoints = 0; sehDailyDate = today; }
+      else { sehDailyPoints = snap.data().dailyPoints||0; sehDailyDate = today; }
+    }
+  } else { window.sehUser = null; }
   renderLeaderboardReal(); updateUnlockUI(); updateStarsUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); if(window.sehUpdateSnakeLock) sehUpdateSnakeLock();
 });
-window.addPoints = async function(n) { let p = parseInt(localStorage.getItem('seh_points')||'0') + n; if(p<0) p=0; localStorage.setItem('seh_points', String(p)); localStorage.setItem('shopPoints', String(p)); window.sehPoints = p; if (window.sehUser) { try { await updateDoc(doc(db, "users", window.sehUser.uid), { points: increment(n) }); } catch(e){ console.log(e); } } renderLeaderboardReal(); updateUnlockUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); };
-window.renderLeaderboardReal = async function() { const listEl = document.getElementById('leaderList'); if (!listEl) return; let myPoints = parseInt(localStorage.getItem('seh_points')||'0'); if (!window.sehUser) { let accName = ''; try{ accName = JSON.parse(localStorage.getItem('seh_account')||'{}').name || ''; }catch(e){} if(accName){ document.getElementById('myNameLB').textContent = accName; document.getElementById('myRankLB').textContent = accName + ' - ' + myPoints + ' Points'; document.getElementById('myLevelLB').textContent = 'LEVEL ' + (Math.floor(myPoints/100)+1); listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">Welcome ${accName} 👋<br>Play to earn points</div></div>`; return; } document.getElementById('myNameLB').textContent = "Guest"; document.getElementById('myRankLB').textContent = "Guest - 0 Points"; document.getElementById('myLevelLB').textContent = "LEVEL 1"; listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">Login to see real leaderboard<br><a href="INFO.html"> log in</a></div></div>`; return; } let myName = window.sehUser.displayName || window.sehUser.email || "Player"; try { const q = query(collection(db, "users"), orderBy("points", "desc"), limit(10)); const snap = await getDocs(q); let players = []; snap.forEach(d => players.push({ id: d.id, ...d.data() })); players.sort((a,b)=> (b.points||0) - (a.points||0)); let medals = ['🥇','🥈','🥉']; let html = ''; players.forEach((p, i)=>{ let medal = medals[i] || ('#' + (i+1)); let level = Math.floor((p.points||0)/100)+1; let letter = (p.name||"P").charAt(0).toUpperCase(); let isMe = p.id === window.sehUser.uid; html += `<div class="lb-row ${isMe ? 'me' : ''}"><div style="font-size:22px;font-weight:900;width:38px;text-align:center">${medal}</div><div class="lb-avatar">${letter}</div><div style="flex:1"><b style="display:block;font-size:15px">${p.name||"Player"} ${isMe ? ' (You) ⭐' : ''}</b><small style="color:#888;font-size:12px">⭐ LEVEL ${level}</small></div>
-<div style="font-weight:900;color:#B7791F;font-size:16px;text-align:right">${p.points||0}<small style="display:block;color:#888;font-size:11px;font-weight:400">points</small></div></div>`; }); listEl.innerHTML = html || "No players yet"; let myRank = players.findIndex(p=>p.id===window.sehUser.uid) + 1; if (myRank === 0) myRank = players.length + 1; let myLevel = Math.floor(myPoints/100)+1; document.getElementById('myNameLB').textContent = myName; document.getElementById('myRankLB').textContent = 'Your Rank: #' + myRank + ' • ⭐ ' + myPoints + ' Points'; document.getElementById('myLevelLB').textContent = '⭐ LEVEL ' + myLevel; } catch(e){ console.log("Leaderboard error", e); } };
+// الوحيدة اللي كتزيد النقاط
+window.addPoints = async function(n) {
+  sehCheckDay();
+  if(!window.sehUser) return false;
+  if(!n || n <= 0) return false;
+  if(n > MAX_PER_CLICK) n = MAX_PER_CLICK;
+  if(sehDailyPoints >= MAX_PER_DAY) return false;
+  if(Date.now() - sehLastAdd < 2000) return false;
+  if(sehDailyPoints + n > MAX_PER_DAY) n = MAX_PER_DAY - sehDailyPoints;
+  if(window.sehPoints + n > MAX_TOTAL) n = MAX_TOTAL - window.sehPoints;
+  if(n <= 0) return false;
+  sehLastAdd = Date.now();
+  try {
+    await updateDoc(doc(db, "users", window.sehUser.uid), { points: increment(n), dailyPoints: increment(n), dailyDate: sehDailyDate });
+    window.sehPoints += n; sehDailyPoints += n;
+    renderLeaderboardReal(); updateUnlockUI(); if(window.sehUpdateShopUI) sehUpdateShopUI();
+    return true;
+  } catch(e){ console.log('Points blocked', e.message); return false; }
+};
+
+// وضع الصيانة - صفحة الألعاب
+// إذا كانت الصفحة متوقفة، لا يدخل إليها إلا المدير
+async function checkMaintenanceGame(user){
+  try{
+    const s = await getDoc(doc(db, "config", "site"));
+    const isAdmin = user && user.email && user.email.toLowerCase() === "souf2002yane@gmail.com";
+    if(s.exists() && s.data().maintenanceGame && !isAdmin){
+      document.body.innerHTML = '<div style="text-align:center;padding:60px 20px;font-family:sans-serif"><h1>🚧 صفحة الألعاب تحت الصيانة</h1><p>نقوم حالياً بإجراء بعض التحسينات، يرجى العودة لاحقاً.</p><a href="index.html" style="background:#111;color:#fff;padding:12px 24px;border-radius:20px;text-decoration:none">🏠 الصفحة الرئيسية</a></div>';
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
+
+// النقصان فقط للشوب - ماشي addPoints(-x)
+window.spendPoints = async function(price){
+  if(!window.sehUser) return false;
+  if(window.sehPoints < price) return false;
+  try{ await updateDoc(doc(db, "users", window.sehUser.uid), { points: increment(-price) }); window.sehPoints -= price; updateUnlockUI(); if(window.sehUpdateShopUI) sehUpdateShopUI(); return true; }catch(e){ return false; }
+};
+window.renderLeaderboardReal = async function() {
+  const listEl = document.getElementById('leaderList'); if (!listEl) return;
+  let myPoints = window.sehPoints || 0;
+  if (!window.sehUser) {
+    let accName = ''; try{ accName = JSON.parse(localStorage.getItem('seh_account')||'{}').name || ''; }catch(e){}
+    if(accName){ document.getElementById('myNameLB').textContent = accName; document.getElementById('myRankLB').textContent = accName + ' - ' + myPoints + ' Points'; document.getElementById('myLevelLB').textContent = 'LEVEL ' + (Math.floor(myPoints/100)+1); listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">Welcome ${accName} 👋<br>Play to earn points</div></div>`; return; }
+    document.getElementById('myNameLB').textContent = "Guest"; document.getElementById('myRankLB').textContent = "Guest - 0 Points"; document.getElementById('myLevelLB').textContent = "LEVEL 1"; listEl.innerHTML = `<div class="lb-row"><div style="flex:1;text-align:center;padding:10px">Login to see real leaderboard<br><a href="INFO.html"> log in</a></div></div>`; return;
+  }
+  let myName = window.sehUser.displayName || window.sehUser.email || "Player";
+  try {
+    const q = query(collection(db, "users"), orderBy("points", "desc"), limit(10));
+    const snap = await getDocs(q); let players = []; snap.forEach(d => players.push({ id: d.id, ...d.data() }));
+    players.sort((a,b)=> (b.points||0) - (a.points||0));
+    let medals = ['🥇','🥈','🥉']; let html = '';
+    players.forEach((p, i)=>{ let medal = medals[i] || ('#' + (i+1)); let level = Math.floor((p.points||0)/100)+1; let letter = (p.name||"P").charAt(0).toUpperCase(); let isMe = p.id === window.sehUser.uid; html += `<div class="lb-row ${isMe ? 'me' : ''}"><div style="font-size:22px;font-weight:900;width:38px;text-align:center">${medal}</div><div class="lb-avatar">${letter}</div><div style="flex:1"><b style="display:block;font-size:15px">${p.name||"Player"} ${isMe ? ' (You) ⭐' : ''}</b><small style="color:#888;font-size:12px">⭐ LEVEL ${level}</small></div><div style="font-weight:900;color:#B7791F;font-size:16px;text-align:right">${p.points||0}<small style="display:block;color:#888;font-size:11px;font-weight:400">points</small></div></div>`; });
+    listEl.innerHTML = html || "No players yet";
+    let myRank = players.findIndex(p=>p.id===window.sehUser.uid) + 1; if (myRank === 0) myRank = players.length + 1;
+    let myLevel = Math.floor(myPoints/100)+1;
+    document.getElementById('myNameLB').textContent = myName; document.getElementById('myRankLB').textContent = 'Your Rank: #' + myRank + ' • ⭐ ' + myPoints + ' Points'; document.getElementById('myLevelLB').textContent = '⭐ LEVEL ' + myLevel;
+  } catch(e){ console.log("Leaderboard error", e); }
+};
 </script>
 
 <script>
@@ -293,14 +368,13 @@ document.getElementById('todayDate').innerText = "📅 " + new Date().toLocaleDa
 let gameMode='offline';
 function setGameMode(m){ gameMode=m; document.getElementById('offlineBtn').classList.toggle('active',m=='offline'); document.getElementById('onlineBtn').classList.toggle('active',m=='online'); document.querySelectorAll('.game-card').forEach(c=>{ let modes=(c.dataset.mode||'offline').split(' '); c.style.display = modes.includes(m) ? 'block' : 'none'; }); if(m=='online'){ openGame('xo',document.querySelector('[onclick*="xo"]')); setXoMode('online'); } }
 function setGameLang(l){ localStorage.setItem('seh_lang', l); localStorage.setItem('seh_game_lang', l); if(window.SEH_LANG){ SEH_LANG.current = l; SEH_LANG.apply(); } }
-function getPoints(){ return parseInt(localStorage.getItem('seh_points')||'0'); }
-function updateUnlockUI(){ let p=getPoints(); let fill=document.getElementById('unlockFill'); if(fill) fill.style.width=Math.min(100,p/10)+'%'; let sub=document.getElementById('unlockSub'); if(sub) sub.textContent=p+' / 1000'; let txt=document.getElementById('unlockText'); if(txt) txt.textContent = p>=1000 ? '✅ New Games Unlocked! 🎉' : `🔒 2 New Games locked - ${1000-p} Points left`; document.querySelectorAll('[data-locked="1"]').forEach(c=>{ if(p>=1000){ c.classList.remove('locked'); c.querySelector('.lock-badge').style.display='none'; } }); }
+function getPoints(){ return window.sehPoints || 0; }
+function updateUnlockUI(){ let p=getPoints(); let fill=document.getElementById('unlockFill'); if(fill) fill.style.width=Math.min(100,p/10)+'%'; let sub=document.getElementById('unlockSub'); if(sub) sub.textContent=p+' / 1000'; let txt=document.getElementById('unlockText'); if(txt) txt.textContent = p>=1000 ? '✅ New Games Unlocked! 🎉' : `🔒 2 New Games locked - ${1000-p} Points left`; document.querySelectorAll('[data-locked="1"]').forEach(c=>{ if(p>=1000){ c.classList.remove('locked'); const lb=c.querySelector('.lock-badge'); if(lb) lb.style.display='none'; } }); }
 function tryOpenLocked(name,el){ if(getPoints()<1000){ alert('🔒 You need 1000 Points to unlock this game!\nYou have '+getPoints()+' Points.\nPlay more to unlock!'); return; } openGame(name,el); }
 function getStars(){ return parseInt(localStorage.getItem('seh_stars')||'0'); }
 function updateStarsUI(){ let s=getStars(); let el=document.getElementById('starsText'); if(el) el.textContent=`⭐ Stars: ${s} / 30`; let btn=document.getElementById('dailyBtn'); let today=new Date().toDateString(); let last=localStorage.getItem('seh_daily_last'); if(btn){ if(last==today){ btn.textContent='✅ Already claimed today - Come back tomorrow'; btn.disabled=true; btn.style.opacity='.6'; } else { btn.textContent='Claim +5 ⭐ Today'; btn.disabled=false; btn.style.opacity='1'; } } }
-function claimDaily(){ let today=new Date().toDateString(); if(localStorage.getItem('seh_daily_last')==today){ alert('Already claimed today!'); return; } let s=getStars()+5; localStorage.setItem('seh_daily_last',today); if(s>=30){ s=s-30; localStorage.setItem('seh_stars',s); addPoints(10); alert('🎉 30 Stars! You got +10 Points!'); } else { localStorage.setItem('seh_stars',s); } updateStarsUI(); document.getElementById('dailyMsg').textContent='You got +5 ⭐! Come back tomorrow.'; }
-// ===== SNAKE + MUSIC - PRACTICAL =====
-let sehSnake=null, sehSnakeFood=null, sehSnakeDx=1, sehSnakeDy=0, sehSnakeTimer=null, sehSnakeScore=0;
+async function claimDaily(){ let today=new Date().toDateString(); if(localStorage.getItem('seh_daily_last')==today){ alert('Already claimed today!'); return; } let s=getStars()+5; localStorage.setItem('seh_daily_last',today); if(s>=30){ s=s-30; localStorage.setItem('seh_stars',s); await addPoints(5); alert('🎉 30 Stars! You got +5 Points!'); } else { localStorage.setItem('seh_stars',s); } updateStarsUI(); document.getElementById('dailyMsg').textContent='You got +5 ⭐! Come back tomorrow.'; }
+let sehSnake=null, sehSnakeFood=null, sehSnakeDx=1, sehSnakeDy=0, sehSnakeTimer=null, sehSnakeScore=0, sehSnakeRewarded=false;
 let sehMusicCtx=null, sehMusicTimer=null, sehMusicOn=false, sehMusicNotes=[523,659,784,659,523,659,784,1046], sehMusicIdx=0;
 function sehHasItem(id){ try{ return JSON.parse(localStorage.getItem('seh_inventory')||'[]').includes(id); }catch(e){ return false; } }
 function sehUpdateSnakeLock(){ let badge=document.getElementById('snakeLockBadge'); if(!badge) return; if(sehHasItem('game')){ badge.textContent='✅ Unlocked'; badge.style.background='#22c55e'; } else { badge.textContent='🔒 Extra Game'; } }
@@ -309,7 +383,7 @@ function sehSnakeDir(x,y){ if(x===-sehSnakeDx && y===-sehSnakeDy) return; sehSna
 function startSnake(){
   let c=document.getElementById('snakeCanvas'); if(!c) return;
   let ctx=c.getContext('2d');
-  sehSnake=[{x:15,y:15},{x:14,y:15},{x:13,y:15}]; sehSnakeDx=1; sehSnakeDy=0; sehSnakeScore=0;
+  sehSnake=[{x:15,y:15},{x:14,y:15},{x:13,y:15}]; sehSnakeDx=1; sehSnakeDy=0; sehSnakeScore=0; sehSnakeRewarded=false;
   document.getElementById('snakeScore').textContent='0'; document.getElementById('snakeMsg').textContent='';
   sehSnakeFood={x:Math.floor(Math.random()*28), y:Math.floor(Math.random()*28)};
   clearInterval(sehSnakeTimer);
@@ -327,7 +401,7 @@ function startSnake(){
     sehSnake.unshift(head);
     if(head.x===sehSnakeFood.x && head.y===sehSnakeFood.y){
       sehSnakeScore+=10; document.getElementById('snakeScore').textContent=sehSnakeScore;
-      if(window.addPoints) window.addPoints(2);
+      if(sehSnakeScore>=100 && !sehSnakeRewarded){ sehSnakeRewarded=true; if(window.addPoints) window.addPoints(5); document.getElementById('snakeMsg').textContent='🏆 100 Score! +5 Points!'; }
       document.getElementById('snakePoints').textContent=getPoints();
       sehPlayEatSound();
       sehSnakeFood={x:Math.floor(Math.random()*28), y:Math.floor(Math.random()*28)};
@@ -352,12 +426,12 @@ function setPartyPlayers(n, btn){ partyPlayerCount = n; document.querySelectorAl
 const challenges = ["Tell a joke 😂", "Smile without reason 😊", "Take a chance 🎲", "Running 🏃‍♂️"];
 let players = []; let totalPoints = 0; let secret = 0; let maxRange = 10;
 function startFirstGame(){ players = []; for(let i=1;i<=partyPlayerCount;i++){ let el = document.getElementById('p'+i); let v = el ? el.value.trim() : ''; players.push(v || `Player ${i}`); } const player = players[Math.floor(Math.random()*players.length)]; const challenge = challenges[Math.floor(Math.random()*challenges.length)]; chosenPlayer.textContent = player; chosenChallenge.textContent = challenge; firstCard.classList.add('show'); document.getElementById('setup').style.display='none'; }
-function didChallenge(done){ firstCard.style.display='none'; if(done){ const points = Math.floor(Math.random()*10)+1; const luck = Math.floor(Math.random()*5)+1; totalPoints = luck > 3 ? points + luck*2 : points + luck; maxRange = 10; secondDesc.innerHTML = `You got <b>${points} pts</b> + luck <b>${luck}</b> = <b>${totalPoints} pts</b> in first game.<br>Now guess 1-10 to get +2 pts`; secondTitle.textContent = "SECOND GAME - You did it!"; } else { totalPoints = 0; maxRange = 20; secondTitle.textContent = "SECOND GAME - Hard Mode"; secondDesc.textContent = `You lost first game. Guess 1-20 to save yourself!`; } secret = Math.floor(Math.random()*maxRange)+1; secondCard.classList.add('show'); guess.placeholder = `Guess 1-${maxRange}`; }
-function checkGuess(){ const g = parseInt(guess.value); if(!g){ secondResult.textContent = "Enter a number!"; return; } if(g === secret){ totalPoints += 2; secondResult.textContent = `🎉 You WIN! The number was ${secret}. +2 points!`; addPoints(totalPoints); } else { secondResult.textContent = `😢 You lose. The number was ${secret}.`; } totalBox.innerHTML = `🏆 TOTAL POINTS: ${totalPoints} <br><button class="btn" style="background:white;color:#764ba2;margin-top:12px" onclick="location.reload()">Play Again 🔄</button>`; totalBox.classList.add('show'); }
+function didChallenge(done){ firstCard.style.display='none'; if(done){ const points = Math.floor(Math.random()*10)+1; const luck = Math.floor(Math.random()*5)+1; totalPoints = luck > 3 ? points + luck*2 : points + luck; maxRange = 10; secondDesc.innerHTML = `You got <b>${points} pts</b> + luck <b>${luck}</b> = <b>${totalPoints} pts</b> in first game.<br>Now guess 1-10 to get +5 pts`; secondTitle.textContent = "SECOND GAME - You did it!"; } else { totalPoints = 0; maxRange = 20; secondTitle.textContent = "SECOND GAME - Hard Mode"; secondDesc.textContent = `You lost first game. Guess 1-20 to save yourself!`; } secret = Math.floor(Math.random()*maxRange)+1; secondCard.classList.add('show'); guess.placeholder = `Guess 1-${maxRange}`; }
+function checkGuess(){ const g = parseInt(guess.value); if(!g){ secondResult.textContent = "Enter a number!"; return; } if(g === secret){ secondResult.textContent = `🎉 You WIN! The number was ${secret}. +5 points!`; addPoints(5); } else { secondResult.textContent = `😢 You lose. The number was ${secret}.`; } totalBox.innerHTML = `🏆 TOTAL: ${totalPoints} <br><button class="btn" style="background:white;color:#764ba2;margin-top:12px" onclick="location.reload()">Play Again 🔄</button>`; totalBox.classList.add('show'); }
 let board = Array(9).fill(''), current='X', over=false; let xoMode = 'friend'; let xoOnlineRoom=null, xoOnlineRole=null, xoUnsub=null;
 function setXoMode(m){ xoMode = m; document.getElementById('xoFriendBtn').classList.toggle('active', m=='friend'); document.getElementById('xoCompBtn').classList.toggle('active', m=='computer'); document.getElementById('xoOnlineBtn').classList.toggle('active', m=='online'); document.getElementById('xoOnlineBox').style.display = m=='online' ? 'block' : 'none'; resetXO(); checkXoUrl(); }
 function playXO(i){ if(xoMode=='online'){ playXOOnline(i); return; } if(board[i] || over) return; if(xoMode=='computer' && current!='X') return; doXoMove(i); if(xoMode=='computer' && !over && current=='O'){ document.getElementById('xoStatus').textContent='Computer is thinking... 🤖'; setTimeout(()=>{ xoComputerMove(); }, 600); } }
-function doXoMove(i){ board[i]=current; document.getElementById('c'+i).textContent=current; document.getElementById('c'+i).classList.add(current.toLowerCase()); if([[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(w=>w.every(j=>board[j]==current))){ document.getElementById('xoStatus').textContent = xoMode=='computer' ? (current=='X' ? '🏆 You win! +20 Points' : '🤖 Computer wins!') : xoMode=='online' ? `🏆 ${current} wins Online!` : `🏆 ${current} wins!`; over=true; if(xoMode=='computer' && current=='X') addPoints(20); if(xoMode=='friend') addPoints(10); return; } if(!board.includes('')){document.getElementById('xoStatus').textContent='Draw 🤝'; over=true; return;} current=current=='X'?'O':'X'; document.getElementById('xoStatus').textContent='Turn: '+ (xoMode=='computer' ? (current=='X' ? 'Your turn (X)' : 'Computer (O)') : current); }
+function doXoMove(i){ board[i]=current; document.getElementById('c'+i).textContent=current; document.getElementById('c'+i).classList.add(current.toLowerCase()); if([[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(w=>w.every(j=>board[j]==current))){ document.getElementById('xoStatus').textContent = xoMode=='computer' ? (current=='X' ? '🏆 You win! +5 Points' : '🤖 Computer wins!') : xoMode=='online' ? `🏆 ${current} wins Online!` : `🏆 ${current} wins!`; over=true; if(xoMode=='computer' && current=='X') addPoints(5); if(xoMode=='friend') addPoints(5); return; } if(!board.includes('')){document.getElementById('xoStatus').textContent='Draw 🤝'; over=true; return;} current=current=='X'?'O':'X'; document.getElementById('xoStatus').textContent='Turn: '+ (xoMode=='computer' ? (current=='X' ? 'Your turn (X)' : 'Computer (O)') : current); }
 function xoComputerMove(){ if(over || current!='O') return; let lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; let pick=-1; for(let line of lines){ let vals=line.map(i=>board[i]); if(vals.filter(v=>v=='O').length==2 && vals.includes('')){ pick=line[vals.indexOf('')]; break; } } if(pick==-1) for(let line of lines){ let vals=line.map(i=>board[i]); if(vals.filter(v=>v=='X').length==2 && vals.includes('')){ pick=line[vals.indexOf('')]; break; } } if(pick==-1 && board[4]=='') pick=4; if(pick==-1){ let empty=board.map((v,i)=>v==''?i:-1).filter(i=>i!=-1); pick=empty[Math.floor(Math.random()*empty.length)]; } if(pick!=-1) doXoMove(pick); }
 function resetXO(){ board=Array(9).fill(''); current='X'; over=false; for(let i=0;i<9;i++){document.getElementById('c'+i).textContent='';document.getElementById('c'+i).className='xo-cell';} document.getElementById('xoStatus').textContent= xoMode=='computer' ? 'Your turn (X)' : 'Turn: X'; }
 function getRoomIdFromUrl(){ let p=new URLSearchParams(location.search); return p.get('room'); }
@@ -365,21 +439,21 @@ function checkXoUrl(){ let rid=getRoomIdFromUrl(); if(rid && xoMode=='online'){ 
 async function createOnlineRoom(){ let rid='SEH-'+Math.random().toString(36).slice(2,8).toUpperCase(); xoOnlineRole='X'; xoOnlineRoom=rid; try{ await window.sehSetDoc(window.sehDoc(window.sehDb,'xo_rooms',rid),{board:Array(9).fill(''),current:'X',over:false,winner:null,host:window.sehUser?window.sehUser.uid:'guest',guest:null,createdAt:new Date()}); let link=location.origin+location.pathname+'?room='+rid; document.getElementById('xoShareLink').value=link; document.getElementById('xoShareBox').style.display='block'; document.getElementById('xoOnlineStatus').textContent='✅ Room created! Send link to friend. You are X, waiting...'; listenRoom(rid); }catch(e){ alert('Need Firestore rules for xo_rooms. Check Firebase Console.'); } }
 function joinOnlineRoom(){ document.getElementById('xoRoomInput').style.display='block'; document.getElementById('xoJoinBtn').style.display='block'; document.getElementById('xoOnlineStatus').textContent='Paste link from friend, then Join'; }
 async function doJoinOnline(){ let val=document.getElementById('xoRoomInput').value.trim(); let rid=val.includes('room=') ? val.split('room=')[1].split('&')[0] : val; if(!rid){ alert('Paste room code!'); return; } xoOnlineRole='O'; xoOnlineRoom=rid; try{ await window.sehUpdateDoc(window.sehDoc(window.sehDb,'xo_rooms',rid),{guest:window.sehUser?window.sehUser.uid:'guest2'}); document.getElementById('xoOnlineStatus').textContent='✅ Joined! You are O. Wait for X...'; listenRoom(rid); }catch(e){ alert('Room not found! Check link.'); } }
-function listenRoom(rid){ if(xoUnsub) xoUnsub(); xoUnsub=window.sehOnSnap(window.sehDoc(window.sehDb,'xo_rooms',rid),(snap)=>{ if(!snap.exists()) return; let d=snap.data(); board=d.board; current=d.current; over=d.over; for(let i=0;i<9;i++){ let el=document.getElementById('c'+i); el.textContent=board[i]||''; el.className='xo-cell'+(board[i]? ' '+board[i].toLowerCase():''); } if(d.winner){ document.getElementById('xoStatus').textContent=`🏆 ${d.winner} wins!`; if(d.winner==xoOnlineRole && !d.pointsGiven){ addPoints(10); if(window.sehUser) alert('🏆 You win! +10 Points from opponent!'); window.sehUpdateDoc(window.sehDoc(window.sehDb,'xo_rooms',rid),{pointsGiven:true}); } else if(d.winner && d.winner!=xoOnlineRole && !d.pointsGiven){ addPoints(-10); } } else if(d.over){ document.getElementById('xoStatus').textContent='Draw 🤝'; } else { document.getElementById('xoStatus').textContent = current==xoOnlineRole ? 'Your turn ('+current+')' : 'Waiting for friend ('+current+')...'; } document.getElementById('xoOnlineInfo').textContent='Room: '+rid+' | You: '+xoOnlineRole; }); }
+function listenRoom(rid){ if(xoUnsub) xoUnsub(); xoUnsub=window.sehOnSnap(window.sehDoc(window.sehDb,'xo_rooms',rid),(snap)=>{ if(!snap.exists()) return; let d=snap.data(); board=d.board; current=d.current; over=d.over; for(let i=0;i<9;i++){ let el=document.getElementById('c'+i); el.textContent=board[i]||''; el.className='xo-cell'+(board[i]? ' '+board[i].toLowerCase():''); } if(d.winner){ document.getElementById('xoStatus').textContent=`🏆 ${d.winner} wins!`; if(d.winner==xoOnlineRole && !d.pointsGiven){ addPoints(5); if(window.sehUser) alert('🏆 You win! +5 Points!'); window.sehUpdateDoc(window.sehDoc(window.sehDb,'xo_rooms',rid),{pointsGiven:true}); } } else if(d.over){ document.getElementById('xoStatus').textContent='Draw 🤝'; } else { document.getElementById('xoStatus').textContent = current==xoOnlineRole ? 'Your turn ('+current+')' : 'Waiting for friend ('+current+')...'; } document.getElementById('xoOnlineInfo').textContent='Room: '+rid+' | You: '+xoOnlineRole; }); }
 async function playXOOnline(i){ if(!xoOnlineRoom){ alert('First create or join a room!'); return; } if(over || board[i]) return; if(current!=xoOnlineRole){ alert('Not your turn!'); return; } let nb=[...board]; nb[i]=current; let win=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(w=>w.every(j=>nb[j]==current)); let draw=!win && !nb.includes(''); try{ await window.sehUpdateDoc(window.sehDoc(window.sehDb,'xo_rooms',xoOnlineRoom),{board:nb,current:current=='X'?'O':'X',over:win||draw,winner:win?current:null}); }catch(e){ console.log(e); } }
 function copyXoLink(){ let el=document.getElementById('xoShareLink'); el.select(); document.execCommand('copy'); alert('Link copied! Send it to your friend 📋'); }
 let ps=0, cs=0, rpsWinStreak=0;
-function playRPS(my){ let opts=['Rock','Paper','Scissors']; let comp=opts[Math.floor(Math.random()*3)]; let txt=''; if(my==comp) txt=`Draw! ${my}`; else if((my=='Rock'&&comp=='Scissors')||(my=='Paper'&&comp=='Rock')||(my=='Scissors'&&comp=='Paper')){ rpsWinStreak++; if(rpsWinStreak>=5){ txt=`🎉 5 WINS! You got +10 Points!`; addPoints(10); rpsWinStreak=0; } else { txt=`You win! ${my} beats ${comp} 🎉 (${rpsWinStreak}/5)`; } ps++; } else{ txt=`You lose! ${comp} beats ${my} 😢`; cs++; rpsWinStreak=0; } document.getElementById('rpsResult').innerHTML=`You: ${my} | Computer: ${comp}<br>${txt}`; document.getElementById('pScore').textContent=ps; document.getElementById('cScore').textContent=cs; document.getElementById('rpsStreak').textContent=rpsWinStreak+' / 5'; }
+function playRPS(my){ let opts=['Rock','Paper','Scissors']; let comp=opts[Math.floor(Math.random()*3)]; let txt=''; if(my==comp) txt=`Draw! ${my}`; else if((my=='Rock'&&comp=='Scissors')||(my=='Paper'&&comp=='Rock')||(my=='Scissors'&&comp=='Paper')){ rpsWinStreak++; if(rpsWinStreak>=5){ txt=`🎉 5 WINS! You got +5 Points!`; addPoints(5); rpsWinStreak=0; } else { txt=`You win! ${my} beats ${comp} 🎉 (${rpsWinStreak}/5)`; } ps++; } else{ txt=`You lose! ${comp} beats ${my} 😢`; cs++; rpsWinStreak=0; } document.getElementById('rpsResult').innerHTML=`You: ${my} | Computer: ${comp}<br>${txt}`; document.getElementById('pScore').textContent=ps; document.getElementById('cScore').textContent=cs; document.getElementById('rpsStreak').textContent=rpsWinStreak+' / 5'; }
 function resetRPS(){ps=0;cs=0;rpsWinStreak=0;pScore.textContent=0;cScore.textContent=0;rpsResult.textContent='Choose one to play'; document.getElementById('rpsStreak').textContent='0 / 5';}
 let damaBoard=[], damaSelected=null, damaTurn='red'; let damaMode = 'friend';
 function setDamaMode(m){ damaMode = m; document.getElementById('damaFriendBtn').classList.toggle('active', m=='friend'); document.getElementById('damaCompBtn').classList.toggle('active', m=='computer'); document.getElementById('damaSub').textContent = m=='friend' ? '2 players on same phone - Red starts' : 'You are Red 🔴 - Computer is Black ⚫'; initDama(); }
 function initDama(){ damaBoard=[]; damaSelected=null; damaTurn='red'; for(let r=0;r<8;r++){ let row=[]; for(let c=0;c<8;c++){ let piece=null; if((r+c)%2==1){ if(r<3) piece={color:'black',king:false}; if(r>4) piece={color:'red',king:false}; } row.push(piece); } damaBoard.push(row); } drawDama(); }
 function drawDama(){ let el=document.getElementById('damaBoard'); if(!el) return; el.innerHTML=''; document.getElementById('damaTurn').innerHTML = damaTurn=='red' ? 'Turn: 🔴 Red' : 'Turn: ⚫ Black'; for(let r=0;r<8;r++) for(let c=0;c<8;c++){ let div=document.createElement('div'); div.className='dama-cell '+((r+c)%2==0?'dama-light':'dama-dark'); if(damaSelected && damaSelected.r==r && damaSelected.c==c) div.classList.add('dama-selected'); let p=damaBoard[r][c]; if(p){ let pd=document.createElement('div'); pd.className='dama-piece '+(p.color=='red'?'dama-red':'dama-black')+(p.king?' dama-king':''); pd.innerText=p.king?'👑':''; div.appendChild(pd); } div.onclick=()=>clickDama(r,c); el.appendChild(div); } }function clickDama(r,c){ if(damaMode=='computer' && damaTurn=='black') return; let p=damaBoard[r][c]; if(p && p.color==damaTurn){ damaSelected={r,c}; drawDama(); return; } if(damaSelected){ let sr=damaSelected.r, sc=damaSelected.c; let piece=damaBoard[sr][sc]; if(!piece) return; let dr=r-sr, dc=c-sc; if(Math.abs(dr)==1 && Math.abs(dc)==1 && !p){ if(!piece.king){ if(piece.color=='red' && dr!=-1) return; if(piece.color=='black' && dr!=1) return; } moveDama(sr,sc,r,c); return; } if(Math.abs(dr)==2 && Math.abs(dc)==2 && !p){ let mr=(sr+r)/2, mc=(sc+c)/2; let mid=damaBoard[mr][mc]; if(mid && mid.color!=damaTurn){ damaBoard[mr][mc]=null; moveDama(sr,sc,r,c); return; } } } }
-function moveDama(sr,sc,r,c){ let piece=damaBoard[sr][sc]; damaBoard[r][c]=piece; damaBoard[sr][sc]=null; if((piece.color=='red' && r==0)||(piece.color=='black' && r==7)) piece.king=true; damaSelected=null; damaTurn=damaTurn=='red'?'black':'red'; drawDama(); let reds=0, blacks=0; for(let r2=0;r2<8;r2++) for(let c2=0;c2<8;c2++){ if(damaBoard[r2][c2]?.color=='red') reds++; if(damaBoard[r2][c2]?.color=='black') blacks++; } if(reds==0) setTimeout(()=>alert('🏆 Black wins!'),100); if(blacks==0){ setTimeout(()=>alert('🏆 Red wins! +30 Points'),100); addPoints(30); } if(damaMode=='computer' && damaTurn=='black' && reds>0 && blacks>0){ setTimeout(()=>damaComputerMove(), 700); } }
+function moveDama(sr,sc,r,c){ let piece=damaBoard[sr][sc]; damaBoard[r][c]=piece; damaBoard[sr][sc]=null; if((piece.color=='red' && r==0)||(piece.color=='black' && r==7)) piece.king=true; damaSelected=null; damaTurn=damaTurn=='red'?'black':'red'; drawDama(); let reds=0, blacks=0; for(let r2=0;r2<8;r2++) for(let c2=0;c2<8;c2++){ if(damaBoard[r2][c2]?.color=='red') reds++; if(damaBoard[r2][c2]?.color=='black') blacks++; } if(reds==0) setTimeout(()=>alert('🏆 Black wins!'),100); if(blacks==0){ setTimeout(()=>alert('🏆 Red wins! +5 Points'),100); addPoints(5); } if(damaMode=='computer' && damaTurn=='black' && reds>0 && blacks>0){ setTimeout(()=>damaComputerMove(), 700); } }
 function damaComputerMove(){ if(damaTurn!='black') return; for(let r=0;r<8;r++) for(let c=0;c<8;c++){ let p=damaBoard[r][c]; if(p && p.color=='black'){ let dirs=[[2,2],[2,-2]]; if(p.king) dirs=[[2,2],[2,-2],[-2,2],[-2,-2]]; for(let [dr,dc] of dirs){ let nr=r+dr, nc=c+dc, mr=r+dr/2, mc=c+dc/2; if(nr>=0&&nr<8&&nc>=0&&nc<8 && !damaBoard[nr][nc] && damaBoard[mr][mc] && damaBoard[mr][mc].color=='red'){ damaBoard[mr][mc]=null; moveDama(r,c,nr,nc); return; } } } } let moves=[]; for(let r=0;r<8;r++) for(let c=0;c<8;c++){ let p=damaBoard[r][c]; if(p && p.color=='black'){ let dirs=[[1,1],[1,-1]]; if(p.king) dirs=[[1,1],[1,-1],[-1,1],[-1,-1]]; for(let [dr,dc] of dirs){ let nr=r+dr, nc=c+dc; if(nr>=0&&nr<8&&nc>=0&&nc<8 && !damaBoard[nr][nc]) moves.push([r,c,nr,nc]); } } } if(moves.length>0){ let m=moves[Math.floor(Math.random()*moves.length)]; moveDama(m[0],m[1],m[2],m[3]); } }
 let memCards=[], memFirst=null, memLock=false, memTries=0, memFound=0;
 function initMemory(){ let emojis=['🍎','🍌','⚽','🚗','🐱','🐶','🌟','❤️']; memCards=[...emojis,...emojis].sort(()=>Math.random()-0.5); memFirst=null; memLock=false; memTries=0; memFound=0; document.getElementById('memTries').textContent='0'; document.getElementById('memMsg').textContent=''; let board=document.getElementById('memBoard'); board.innerHTML=''; memCards.forEach((emo,i)=>{ let d=document.createElement('div'); d.className='mem-card'; d.textContent='?'; d.dataset.i=i; d.onclick=()=>flipMem(d,i,emo); board.appendChild(d); }); }
-function flipMem(div,i,emo){ if(memLock || div.classList.contains('open') || div.classList.contains('matched')) return; div.classList.add('open'); div.textContent=emo; if(!memFirst){ memFirst={div,emo}; return; } memTries++; document.getElementById('memTries').textContent=memTries; if(memFirst.emo==emo){ memFirst.div.classList.add('matched'); div.classList.add('matched'); memFound++; memFirst=null; if(memFound==8){ document.getElementById('memMsg').textContent=`🎉 Great! You finished in ${memTries} tries! +30 Points`; addPoints(30); } } else { memLock=true; let prev=memFirst; memFirst=null; setTimeout(()=>{ prev.div.classList.remove('open'); prev.div.textContent='?'; div.classList.remove('open'); div.textContent='?'; memLock=false; },700); } }
+function flipMem(div,i,emo){ if(memLock || div.classList.contains('open') || div.classList.contains('matched')) return; div.classList.add('open'); div.textContent=emo; if(!memFirst){ memFirst={div,emo}; return; } memTries++; document.getElementById('memTries').textContent=memTries; if(memFirst.emo==emo){ memFirst.div.classList.add('matched'); div.classList.add('matched'); memFound++; memFirst=null; if(memFound==8){ document.getElementById('memMsg').textContent=`🎉 Great! You finished in ${memTries} tries! +5 Points`; addPoints(5); } } else { memLock=true; let prev=memFirst; memFirst=null; setTimeout(()=>{ prev.div.classList.remove('open'); prev.div.textContent='?'; div.classList.remove('open'); div.textContent='?'; memLock=false; },700); } }
 const quizSets = [
   { name:"المغرب 🇲🇦", name_en:"Morocco 🇲🇦", list:[
     {q:"ما هي عاصمة المغرب؟", q_en:"What is the capital of Morocco?", opts:["الدار البيضاء","الرباط","فاس","مراكش"], opts_en:["Casablanca","Rabat","Fes","Marrakech"], a:1},
@@ -418,24 +492,23 @@ function getRandomQuiz(){
   return { name: lang=='ar' ? set.name : set.name_en, list: copy.sort(()=>Math.random()-0.5) };
 }let quizData = []; let quizGroupName = ""; let quizIdx=0, quizScore=0, quizAnswered=false;
 function initQuiz(){ let picked = getRandomQuiz(); quizData = picked.list; quizGroupName = picked.name; quizIdx=0; quizScore=0; showQuiz(); document.getElementById('quizRestart').style.display='none'; document.getElementById('quizMsg').textContent=''; document.getElementById('quizGroup').textContent = quizGroupName; }
-function showQuiz(){ quizAnswered=false; document.getElementById('quizScore').textContent=quizScore; document.getElementById('quizNum').textContent=(quizIdx+1)+'/'+quizData.length; let q=quizData[quizIdx]; document.getElementById('quizQ').textContent=q.q; let box=document.getElementById('quizOpts'); box.innerHTML=''; q.opts.forEach((opt,i)=>{ let b=document.createElement('button'); b.className='quiz-opt'; b.textContent=opt; b.onclick=()=>{ if(quizAnswered) return; quizAnswered=true; if(i==q.a){ b.classList.add('correct'); quizScore++; addPoints(10); document.getElementById('quizScore').textContent=quizScore; document.getElementById('quizMsg').textContent='✅ Correct! +10 Points'; } else { b.classList.add('wrong'); document.getElementById('quizMsg').textContent='❌ Wrong! Correct answer: '+q.opts[q.a]; } setTimeout(()=>{ quizIdx++; document.getElementById('quizMsg').textContent=''; if(quizIdx<quizData.length) showQuiz(); else { document.getElementById('quizQ').textContent=`🏆 Finished! You got ${quizScore} / ${quizData.length} - Group: ${quizGroupName}`; document.getElementById('quizOpts').innerHTML=''; document.getElementById('quizRestart').style.display='block'; } },1200); }; box.appendChild(b); }); }
+function showQuiz(){ quizAnswered=false; document.getElementById('quizScore').textContent=quizScore; document.getElementById('quizNum').textContent=(quizIdx+1)+'/'+quizData.length; let q=quizData[quizIdx]; document.getElementById('quizQ').textContent=q.q; let box=document.getElementById('quizOpts'); box.innerHTML=''; q.opts.forEach((opt,i)=>{ let b=document.createElement('button'); b.className='quiz-opt'; b.textContent=opt; b.onclick=()=>{ if(quizAnswered) return; quizAnswered=true; if(i==q.a){ b.classList.add('correct'); quizScore++; document.getElementById('quizScore').textContent=quizScore; document.getElementById('quizMsg').textContent='✅ Correct!'; if(quizScore>=5){ addPoints(5); document.getElementById('quizMsg').textContent='✅ Perfect! +5 Points'; } } else { b.classList.add('wrong'); document.getElementById('quizMsg').textContent='❌ Wrong! Correct answer: '+q.opts[q.a]; } setTimeout(()=>{ quizIdx++; document.getElementById('quizMsg').textContent=''; if(quizIdx<quizData.length) showQuiz(); else { document.getElementById('quizQ').textContent=`🏆 Finished! You got ${quizScore} / ${quizData.length} - Group: ${quizGroupName}`; document.getElementById('quizOpts').innerHTML=''; document.getElementById('quizRestart').style.display='block'; } },1200); }; box.appendChild(b); }); }
 const wordList=[{w:"BOOK",hint:"You read stories in it 📖"},{w:"CAT",hint:"Small animal 🐱"},{w:"BALL",hint:"You play football with it ⚽"},{w:"SUN",hint:"Shines in the day ☀️"},{w:"GAME",hint:"You play it 🎮"},{w:"FISH",hint:"Lives in water 🐟"},{w:"STAR",hint:"Shines in the sky ⭐"},{w:"LION",hint:"King of animals 🦁"},{w:"APPLE",hint:"Red fruit 🍎"},{w:"PHONE",hint:"You use it every day 📱"}];
 let wordCurrent=null, wordPicked=[], wordScore=0;
 function initWord(){ wordScore=0; document.getElementById('wordScore').textContent='0 / 5'; nextWord(); }
 function nextWord(){ wordCurrent=wordList[Math.floor(Math.random()*wordList.length)]; wordPicked=[]; document.getElementById('wordHint').textContent=wordCurrent.hint+' - '+wordCurrent.w.length+' letters'; let ans=document.getElementById('wordAnswer'); ans.innerHTML=''; for(let i=0;i<wordCurrent.w.length;i++){ let s=document.createElement('div'); s.className='word-slot'; ans.appendChild(s); } let letters=wordCurrent.w.split('').sort(()=>Math.random()-0.5); let box=document.getElementById('wordLetters'); box.innerHTML=''; letters.forEach((ch,idx)=>{ let b=document.createElement('div'); b.className='word-letter'; b.textContent=ch; b.onclick=()=>{ if(wordPicked.length>=wordCurrent.w.length) return; wordPicked.push(ch); b.style.opacity='.3'; b.style.pointerEvents='none'; renderWordAnswer(); }; box.appendChild(b); }); document.getElementById('wordMsg').textContent=''; }
 function renderWordAnswer(){ let slots=document.querySelectorAll('#wordAnswer .word-slot'); slots.forEach((s,i)=> s.textContent=wordPicked[i]||''); }
 function resetWordLetters(){ wordPicked=[]; renderWordAnswer(); let letters=document.querySelectorAll('#wordLetters .word-letter'); letters.forEach(b=>{ b.style.opacity='1'; b.style.pointerEvents='auto'; }); }
-function checkWord(){ let guess=wordPicked.join(''); if(guess.length!=wordCurrent.w.length){ document.getElementById('wordMsg').textContent='Complete the word first!'; return; } if(guess==wordCurrent.w){ wordScore++; document.getElementById('wordScore').textContent=wordScore+' / 5'; document.getElementById('wordMsg').textContent='✅ Correct! '+wordCurrent.w; if(wordScore>=5){ addPoints(10); document.getElementById('wordMsg').textContent='🏆 5 Words! +10 Points!'; wordScore=0; setTimeout(()=>{ document.getElementById('wordScore').textContent='0 / 5'; },1500); } setTimeout(nextWord,1200); } else { document.getElementById('wordMsg').textContent='❌ Wrong! Try again'; resetWordLetters(); } }
+function checkWord(){ let guess=wordPicked.join(''); if(guess.length!=wordCurrent.w.length){ document.getElementById('wordMsg').textContent='Complete the word first!'; return; } if(guess==wordCurrent.w){ wordScore++; document.getElementById('wordScore').textContent=wordScore+' / 5'; document.getElementById('wordMsg').textContent='✅ Correct! '+wordCurrent.w; if(wordScore>=5){ addPoints(5); document.getElementById('wordMsg').textContent='🏆 5 Words! +5 Points!'; wordScore=0; setTimeout(()=>{ document.getElementById('wordScore').textContent='0 / 5'; },1500); } setTimeout(nextWord,1200); } else { document.getElementById('wordMsg').textContent='❌ Wrong! Try again'; resetWordLetters(); } }
 let simonSeq=[], simonIdx=0, simonLevel=0, simonPlaying=false;
 function startSimon(){ simonSeq=[]; simonLevel=0; document.getElementById('simonLevel').textContent='0 / 5'; nextSimon(); }
 function nextSimon(){ simonLevel++; document.getElementById('simonLevel').textContent=simonLevel+' / 5'; simonSeq.push(Math.floor(Math.random()*4)); simonIdx=0; document.getElementById('simonMsg').textContent='Watch... 👀'; simonPlaying=false; let i=0; let timer=setInterval(()=>{ if(i>=simonSeq.length){ clearInterval(timer); document.getElementById('simonMsg').textContent='Your turn! Repeat'; simonPlaying=true; return; } flashSimon(simonSeq[i]); i++; },700); }
 function flashSimon(n){ let btns=document.querySelectorAll('.simon-btn'); btns[n].classList.add('lit'); setTimeout(()=>btns[n].classList.remove('lit'),400); }
-function simonClick(n){ if(!simonPlaying) return; flashSimon(n); if(n==simonSeq[simonIdx]){ simonIdx++; if(simonIdx==simonSeq.length){ simonPlaying=false; if(simonLevel>=5){ document.getElementById('simonMsg').textContent='🏆 5 Levels! +10 Points!'; addPoints(10); simonLevel=0; } else { document.getElementById('simonMsg').textContent='✅ Good! Next level...'; setTimeout(nextSimon,800); } } } else { document.getElementById('simonMsg').textContent='❌ Wrong! Press Start again'; simonPlaying=false; } }
-// ===== SHOP + DIARY LOGIC - DARK REMOVED =====
+function simonClick(n){ if(!simonPlaying) return; flashSimon(n); if(n==simonSeq[simonIdx]){ simonIdx++; if(simonIdx==simonSeq.length){ simonPlaying=false; if(simonLevel>=5){ document.getElementById('simonMsg').textContent='🏆 5 Levels! +5 Points!'; addPoints(5); simonLevel=0; } else { document.getElementById('simonMsg').textContent='✅ Good! Next level...'; setTimeout(nextSimon,800); } } } else { document.getElementById('simonMsg').textContent='❌ Wrong! Press Start again'; simonPlaying=false; } }
 let sehInv = JSON.parse(localStorage.getItem('seh_inventory')||'[]');
 let sehDiaries = JSON.parse(localStorage.getItem('seh_diary')||'[]');
 function sehUpdateShopUI(){
-  let p = parseInt(localStorage.getItem('seh_points')||'0');
+  let p = getPoints();
   let el = document.getElementById('shopPoints'); if(el) el.textContent = p;
   if(sehInv.length>0){ let inv=document.getElementById('shopInventory'); if(inv) inv.style.display='block'; let l=document.getElementById('shopInventoryList'); if(l) l.innerHTML = sehInv.map(i=>'✅ '+i).join(' • '); }
   if(sehInv.includes('vip')){ let b=document.getElementById('shopVipBadge'); if(b){ b.textContent='👑 VIP'; b.style.color='gold'; } }
@@ -443,18 +516,18 @@ function sehUpdateShopUI(){
   if(sehInv.includes('sound')){ let s=document.getElementById('shopSoundBox'); if(s) s.style.display='block'; }
   if(sehInv.includes('game')){ let g=document.getElementById('shopSecretGame'); if(g) g.style.display='block'; }
   if(sehInv.includes('diary')){ let d=document.getElementById('shopDiary'); if(d) d.style.display='block'; }
-  // DARK REMOVED - ما بقاش كاين Dark Mode
   let th = localStorage.getItem('seh_theme'); if(th && sehInv.includes('color')) sehApplyTheme(th);
   if(localStorage.getItem('seh_sound')==='on'){ let t=document.getElementById('shopSoundToggle'); if(t) t.checked=true; }
   sehUpdateSnakeLock();
 }
-function sehBuy(id, price){
+async function sehBuy(id, price){
   if(sehInv.includes(id)) return alert('You already bought this! Go to My Items');
-  let p = parseInt(localStorage.getItem('seh_points')||'0');
+  let p = getPoints();
   if(p < price) return alert('Not enough points! You need '+price+' and you have '+p+'\nPlay more to earn points!');
   if(!confirm('Are you sure you want to buy this for '+price+' points?')) return;
+  const ok = await window.spendPoints(price);
+  if(!ok) return alert('Error buying. Try again.');
   sehInv.push(id); localStorage.setItem('seh_inventory', JSON.stringify(sehInv));
-  if(window.addPoints) window.addPoints(-price); else { localStorage.setItem('seh_points', p-price); localStorage.setItem('shopPoints', p-price); }
   setTimeout(sehUpdateShopUI, 300);
   if(id==='diary') alert('🎉 Congrats! My Diary Unlocked!\nSet a PIN below and start writing!');
   if(id==='vip') alert('🎉 Congrats! You are VIP 👑');
@@ -467,7 +540,7 @@ function sehApplyTheme(c){ document.querySelectorAll('.shop-buy-btn').forEach(b=
 function sehToggleSound(){ let on=document.getElementById('shopSoundToggle').checked; localStorage.setItem('seh_sound', on?'on':'off'); }
 function sehUnlockDiary(){ let pin=document.getElementById('diaryPinInput').value; if(!pin) return alert('Enter your PIN first!'); let saved=localStorage.getItem('seh_diary_pin'); if(!saved){ localStorage.setItem('seh_diary_pin', pin); alert('✅ PIN Saved!'); } else if(pin!==saved) return alert('❌ Wrong PIN!'); document.getElementById('diaryLockBox').style.display='none'; document.getElementById('diaryWriteBox').style.display='block'; sehRenderDiary(); }
 function sehLockDiary(){ document.getElementById('diaryLockBox').style.display='block'; document.getElementById('diaryWriteBox').style.display='none'; document.getElementById('diaryPinInput').value=''; }
-function sehSaveDiary(){ let title=document.getElementById('diaryTitle').value.trim(); let text=document.getElementById('diaryText').value.trim(); let mood=document.getElementById('diaryMood').value; if(!text) return alert('Write something first!'); sehDiaries.unshift({id:Date.now(), title:title||'No Title', text:text, mood:mood, date:new Date().toLocaleString()}); localStorage.setItem('seh_diary', JSON.stringify(sehDiaries)); document.getElementById('diaryTitle').value=''; document.getElementById('diaryText').value=''; if(window.addPoints) window.addPoints(5); alert('💾 Saved! +5 points ❤️'); sehRenderDiary(); sehUpdateShopUI(); }
+async function sehSaveDiary(){ let title=document.getElementById('diaryTitle').value.trim(); let text=document.getElementById('diaryText').value.trim(); let mood=document.getElementById('diaryMood').value; if(!text) return alert('Write something first!'); sehDiaries.unshift({id:Date.now(), title:title||'No Title', text:text, mood:mood, date:new Date().toLocaleString()}); localStorage.setItem('seh_diary', JSON.stringify(sehDiaries)); document.getElementById('diaryTitle').value=''; document.getElementById('diaryText').value=''; await window.addPoints(5); alert('💾 Saved! +5 points ❤️'); sehRenderDiary(); sehUpdateShopUI(); }
 function sehDeleteDiary(id){ if(!confirm('Delete this entry?')) return; sehDiaries=sehDiaries.filter(d=>d.id!==id); localStorage.setItem('seh_diary', JSON.stringify(sehDiaries)); sehRenderDiary(); }
 function sehRenderDiary(){ let q=(document.getElementById('diarySearch')?.value||'').toLowerCase(); let f=sehDiaries.filter(d=>(d.title+d.text).toLowerCase().includes(q)); let box=document.getElementById('diaryList'); if(!box) return; if(f.length===0){ box.innerHTML='<p style="text-align:center;color:#999">No entries yet. Write your first one! ✍️</p>'; return; } box.innerHTML=f.map(d=>`<div style="background:#fdf2f8;padding:12px;border-radius:12px;margin-bottom:8px;border-left:4px solid #ec4899"><b>${d.mood} ${d.title}</b> <span style="font-size:11px;color:#999">${d.date}</span><p style="margin:5px 0;white-space:pre-wrap">${d.text}</p><button onclick="sehDeleteDiary(${d.id})" style="background:#fee2e2;border:none;padding:4px 10px;border-radius:10px;cursor:pointer">🗑️ Delete</button></div>`).join(''); }
 window.sehUpdateShopUI = sehUpdateShopUI;
@@ -477,5 +550,6 @@ updateUnlockUI(); updateStarsUI(); setTimeout(sehUpdateShopUI,800);
 <script src="javascript"></script>
 <script src="seh-extra.js" defer></script>
 <div class="seh-legal-footer" style="text-align:center; padding:25px 15px 100px 15px; background:#111; color:#fff; font-size:14px;"><div style="margin-bottom:10px;"><a href="index.html" style="color:#E9C46A;" data-i18n="home_link">Home</a> · <a href="PRIVACY.html" style="color:#E9C46A;" data-i18n="privacy">Privacy Policy</a> · <a href="CGU.html" style="color:#E9C46A;" data-i18n="cgu">Terms of Use</a> · <a href="CONTACT.html" style="color:#E9C46A;" data-i18n="contact">Contact Us</a> · <a href="ABOUT.html" style="color:#E9C46A;" data-i18n="about_us">About Us</a></div>
-<p>© 2026 Soufyane El Haddaoui – SEH World · Made in Morocco 🇲🇦</p></div></body>
+<p>© 2026 Soufyane El Haddaoui – SEH World · Made in Morocco 🇲🇦</p></div>
+</body>
 </html>
