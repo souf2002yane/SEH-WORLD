@@ -200,9 +200,12 @@
     <div id="shopDiary" style="display:none;background:#fff;padding:16px;border-radius:16px;margin-top:14px;border:2px solid #ec4899"><h3 style="text-align:center" data-i18n="diary_title">📝 My Diary - Private</h3><p style="text-align:center;font-size:12px;color:#888" data-i18n="diary_sub">Only you can see this. Saved on your phone.</p><div id="diaryLockBox" style="text-align:center"><input id="diaryPinInput" type="password" placeholder="Set PIN or Enter PIN" style="width:70%;padding:10px;border-radius:10px;border:1px solid #ddd"><button onclick="sehUnlockDiary()" style="padding:10px 16px;background:#ec4899;color:#fff;border:none;border-radius:10px;font-weight:bold;cursor:pointer" data-i18n="diary_unlock">🔓 Unlock</button><p style="font-size:11px;color:#999;margin-top:6px" data-i18n="diary_pin_hint">First time? Write a PIN and Unlock, it will be saved.</p></div><div id="diaryWriteBox" style="display:none"><div style="display:flex;gap:8px;margin-bottom:8px"><select id="diaryMood" style="padding:8px;border-radius:10px;border:1px solid #ddd"><option value="😊">😊 Happy</option><option value="😢">😢 Sad</option><option value="😡">😡 Angry</option><option value="😍">😍 Love</option><option value="🤔">🤔 Thinking</option><option value="🔥">🔥 Excited</option></select><input id="diaryTitle" placeholder="Title..." style="flex:1;padding:8px;border-radius:10px;border:1px solid #ddd"></div><textarea id="diaryText" placeholder="Write what happened today... Your secrets are safe here ❤️" style="width:100%;height:90px;padding:10px;border-radius:12px;border:1px solid #ddd"></textarea><button onclick="sehSaveDiary()" style="width:100%;padding:12px;background:#ec4899;color:#fff;border:none;border-radius:12px;font-weight:bold;margin-top:8px;cursor:pointer" data-i18n="diary_save">💾 Save in My Diary (+5 Points)</button><input id="diarySearch" oninput="sehRenderDiary()" placeholder="🔍 Search in my diary..." style="width:100%;padding:8px;border-radius:10px;border:1px solid #ddd;margin-top:12px"><div id="diaryList" style="margin-top:10px"></div><button onclick="sehLockDiary()" style="width:100%;padding:8px;background:#eee;border:none;border-radius:10px;margin-top:8px;cursor:pointer" data-i18n="diary_lock">🔒 Lock Diary</button></div></div>
   </div>
 </div>
-<div class="lb-wrap"><h1 style="margin-bottom:5px" data-i18n="lb_title">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px" data-i18n="lb_sub">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2><p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p><p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div><button id="lbToggleBtn" class="lb-toggle-btn" onclick="toggleLeaderboardView()" data-i18n="lb_show_all">👀 Show All</button><div id="leaderList"></div></div>
+<div class="lb-wrap"><h1 style="margin-bottom:5px" data-i18n="lb_title">🏆 Leaderboard </h1><p style="text-align:center;color:#888;font-size:14px;margin-bottom:18px" data-i18n="lb_sub">Top Players in SEH</p><div class="lb-my-card"><div style="font-size:32px">👑</div><h2 id="myNameLB" style="margin:5px 0">Guest</h2>
+<p id="myRankLB" style="color:#E9C46A;font-weight:800;margin:0">Guest - 0 Points</p>
+<p id="myLevelLB" style="color:white;font-size:13px;margin-top:5px">LEVEL 1</p></div>
+<button id="lbToggleBtn" class="lb-toggle-btn" onclick="toggleLeaderboardView()" data-i18n="lb_show_all">👀 Show All</button><div id="leaderList"></div></div>
 <script src="seh-lang.js"></script>
-<script type="module">
+<script type="module"> 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, orderBy, limit, getDocs, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -279,6 +282,7 @@ window.toggleLeaderboardView = function(){
     if(window.SEH_LANG) SEH_LANG.apply();
   }
   renderLeaderboardReal();
+};
 };
 window.renderLeaderboardReal = async function() {
   const listEl = document.getElementById('leaderList'); if (!listEl) return;

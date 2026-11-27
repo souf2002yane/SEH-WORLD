@@ -226,11 +226,9 @@ const SEH_LANG = {
     music_playing: { en: '🎵 Music is playing...', ar: '🎵 الموسيقى تعمل الآن...' },
     music_need_pack: { en: '🔒 Buy Sound Pack - 150 Points first to unlock Music', ar: '🔒 اشترِ حزمة الأصوات - 150 نقطة أولًا لفتح الموسيقى' },
     unlock: { en: '🔒 2 New Games locked - Reach 1000 Points', ar: '🔒 لعبتان جديدتان مقفلتان - اجمع 1000 نقطة' },
-    lb_show_all: "👀 Show All",
-    lb_show_10: "🔙 Show 10 Only",
-    // بالعربي:
-    lb_show_all: "👀 عرض الكل",
-    lb_show_10: "🔙 عرض 10 فقط",
+    lb_show_all:  { en: '👀 Show All', ar: '👀 عرض الكل' },
+    lb_show_10: { en: '🔙 Show 10 Only', ar: '🔙 عرض 10 فقط' },
+   
   },
   apply() {
     document.documentElement.lang = this.current === 'ar' ? 'ar' : 'en';
